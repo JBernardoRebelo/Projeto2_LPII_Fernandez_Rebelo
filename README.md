@@ -17,7 +17,13 @@
 
 ## Diagrama UML
 
+![](DiabloUml.png)
+
 ## Referências
+
+#### *[.NET API](https://docs.microsoft.com/en-us/dotnet/api/?view=netcore-2.2)*
+
+- *[Vector2 Struct](https://docs.microsoft.com/en-us/dotnet/api/system.numerics.vector2?view=netframework-4.8)*
 
 ## **Notas de dev:**
 
