@@ -2,11 +2,17 @@
 
 namespace BootlegDiablo
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // Call gameloop
+
+            // Debug
+            Render rnd = new Render();
+            rnd.DisplayLogo();
+            // **
+
         }
     }
 }
