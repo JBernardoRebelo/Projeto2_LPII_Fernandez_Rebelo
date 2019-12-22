@@ -89,6 +89,16 @@ namespace BootlegDiablo
         }
 
         /// <summary>
+        /// Hide area in turn of the player
+        /// </summary>
+        /// <param name="player"> Accepts a player and
+        /// uses position to hide whats around </param>
+        public void FogOfWar(Player player)
+        {
+
+        }
+
+        /// <summary>
         /// Ask for name
         /// </summary>
         /// <returns> Returns a name to be assigned to the player </returns>
