@@ -1,5 +1,4 @@
-﻿using System;
-using Game
+﻿using GameEngine;
 
 namespace BootlegDiablo
 {
@@ -7,13 +6,10 @@ namespace BootlegDiablo
     {
         private static void Main(string[] args)
         {
+            GameLoop _gameLoop = new GameLoop();
+
             // Call gameloop
-
-            // Debug
-            Render rnd = new Render();
-            rnd.DisplayLogo();
-            // **
-
+            _gameLoop.Start();
         }
     }
 }
