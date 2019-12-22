@@ -14,34 +14,41 @@ namespace BootlegDiablo
         /// </summary>
         public void StartMenu(out Role role)
         {
-            string option;
-
-            DisplayLogo();
+            string option = null;
 
             // Será que daria para escolher com as setas e com o enter?
             // O cursor seria o pentagrama, mas entretanto vou fazer com texto
 
-            // Show menu options
-            WriteLine();
-            WriteLine("⛧ SINGLE PLAYER ⛧");
-            WriteLine("⛧ SHOW CREDITS ⛧");
-            WriteLine("⛧ EXIT ⛧");
-
-            option = ReadLine().ToLower();
-
-            while (option == "e" || option == "credits")
+            while (option != "s" || option != null)
             {
-                switch (option)
+                DisplayLogo();
+
+                // Show menu options
+                WriteLine();
+                WriteLine("⛧ SINGLE PLAYER ⛧");
+                WriteLine("⛧ SHOW CREDITS ⛧");
+                WriteLine("⛧ EXIT ⛧");
+
+                Write("-> ");
+                option = ReadLine().ToLower();
+
+                if (option == "credits")
                 {
-                    case "credits":
-                        Credits();
-                        break;
-                    case "e":
-                        Environment.Exit(0);
-                        break;
+                    Credits();
+                    Clear();
+                }
+                else if(option == "exit")
+                {
+                    WriteLine("Goodbye");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    break;
                 }
             }
 
+            WriteLine("\nPick a class...\n");
             role = RolePick();
         }
 
@@ -125,6 +132,10 @@ namespace BootlegDiablo
         /// </summary>
         private void Credits()
         {
+            Clear();
+            DisplayLogo();
+
+            WriteLine();
             WriteLine("Game Design by:\n - Blizzard North\n");
             WriteLine("Code by:\n - Joao Rebelo\n - Miguel Fernandez\n");
             WriteLine("External Engine Library by:\n - Nuno Fachada\n");
@@ -132,7 +143,7 @@ namespace BootlegDiablo
         }
 
         /// <summary>
-        /// Displays Game Logo
+        ///  Displays Game Logo
         /// </summary>
         private void DisplayLogo()
         {
