@@ -16,6 +16,12 @@ namespace BootlegDiablo
 
         //public Vector2 pos { get; set; } // Usar vector2 do stor
 
+        /// <summary>
+        /// Player constructor, assigns properties,
+        /// updates stats based on role
+        /// </summary>
+        /// <param name="role"> Accepts a role to assign </param>
+        /// <param name="name"> Accepts a name to assign </param>
         public Player(Role role, string name)
         {
             Role = role;
@@ -30,18 +36,32 @@ namespace BootlegDiablo
             RoleApply(Role);
         }
 
-        // Increments level and player stats based on input
-        public void LvlUp(int dmg, int Hp)
+        /// <summary>
+        /// Increments level and player stats based on input
+        /// </summary>
+        /// <param name="life"> Accepts points to increment that will
+        /// be multiplied by three</param>
+        /// <param name="strength"> Strength to add </param>
+        /// <param name="dexterity"> Dexterity to add </param>
+        public void LvlUp(int life, int strength, int dexterity)
+        {
+            life *= 3;
+
+            Life += life;
+            Strength += strength;
+            Dexterity += dexterity;
+        }
+
+        // Attack based on pressed
+        public void Attack()
         {
 
         }
 
-        // Attack based on a char pressed
-        public void Attack(char skill)
-        {
-
-        }
-
+        /// <summary>
+        /// Updates starter stats based on input
+        /// </summary>
+        /// <param name="role"> Accepts a role </param>
         public void RoleApply(Role role)
         {
             if (role == Role.Warrior)

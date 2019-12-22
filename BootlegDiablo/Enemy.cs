@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BootlegDiablo
+﻿namespace BootlegDiablo
 {
     public abstract class Enemy
     {
