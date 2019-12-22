@@ -5,9 +5,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GameEngine\GameEngine.csproj" />
-  </ItemGroup>
-
-
 </Project>

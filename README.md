@@ -13,6 +13,13 @@
 
 ### Quem fez o quê
 
+## Controlos
+- 'WASD' para mover e rodar o personagem;
+- 'Space' ou '1' para atacar;
+- 'C' para mostrar detalhes do personagem;
+- 'Esc' para aceder ao menu de pausa;
+- (Por agora) Escrever a opção pretendida dentro de menus;  
+
 ## Descrição e arquitetura da Solução
 
 ## Diagrama UML
@@ -39,6 +46,17 @@
   - 1 dungeon explorável;
 - Ser jogável e ter algum tipo de pontuação.
   - XP que se ganha ao matar inimigo;
-  - Ter algum tipo de ecrã inicial ou opção no menu onde sejam explicadas as regras e indicados os controlos do jogo.
+  - Ter algum tipo de ecrã inicial ou opção no menu onde sejam explicadas 
+  as regras e indicados os controlos do jogo;
   - Menu de escolha de classes com 2 classes, paladin e assassin;
   - Regras e controlos;
+
+### **Mecânicas omitidas de desenvolvimento que poderiam ser implementados**
+
+- Sistema de inventário e Lojas/Transações de Gold
+  - De momento só existe 1 item possível e é a _Short Sword_ usada para atacar;
+  - Ver detalhes de personagem mostra também a arma e os seus detalhes
+- Classe _Sorcerer_;
+- Várias _stats_ de classe;
+- Interações e existência de NPC's;
+- Controlo e ataque de jogador com rato (utilizar o teclado pareceu mais prático de implementar);
