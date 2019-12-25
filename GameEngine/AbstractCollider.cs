@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameEngine
 {
-    public abstract class AbstractCollider
+    public abstract class AbstractCollider : Component
     {
     }
 }

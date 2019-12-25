@@ -70,7 +70,7 @@ namespace GameEngine
             }
 
             // Is this component a position component or a renderable component?
-            if (component is Position)
+            if (component is Transform)
                 containsPosition = true;
             else if (component is RenderableComponent)
                 containsRenderableComponent = true;

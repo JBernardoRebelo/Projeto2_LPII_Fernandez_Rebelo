@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class Transform
+    class Transform : Component
     {
         public Vector3 Pos { get; set; }
 

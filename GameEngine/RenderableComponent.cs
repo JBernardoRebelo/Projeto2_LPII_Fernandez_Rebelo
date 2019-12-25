@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace GameEngine
 {
-    class RenderableComponent
+    class RenderableComponent : Component
     {
         public IEnumerable<KeyValuePair<Vector2, ConsolePixel>> Pixels 
         { get; internal set; }
