@@ -1,21 +1,22 @@
 ﻿using GameEngine;
 using System;
+using System.Numerics;
 
 namespace BootlegDiablo
 {
-    public class Player
+    public class Player : GameObject
     {
+        private KeyObserver _keyObserver;
+
         public int Life { get; set; }
         public int Damage { get; set; } // = Strength + weapon damage
         public int Dexterity { get; set; }
         public int Strength { get; set; }
         public int Lvl { get; set; }
         public int Exp { get; set; }
-        public string Name { get; private set; }
         public Role Role { get; set; }
         public Weapon Weapon { get; set; }
-        public Vector2 pos { get; set; }
-        public Transform transform { get; set; }
+        public Transform Transform { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
@@ -29,6 +30,7 @@ namespace BootlegDiablo
             Name = name;
             Lvl = 1;
             Exp = 0;
+            Transform = new Transform(0, 0, 0);
 
             // Add weapon to player
             Weapon = new ShortSword();
@@ -57,6 +59,43 @@ namespace BootlegDiablo
         public void Attack()
         {
 
+        }
+
+        // Update player in the current frame
+        public new void Update()
+        {
+            // Get player position
+            float x = Transform.Pos.X;
+            float y = Transform.Pos.Y;
+
+            // Check what keys were pressed and update position accordingly
+            foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
+            {
+                switch (key)
+                {
+                    case ConsoleKey.W:
+                        y -= 1;
+                        break;
+                    case ConsoleKey.S:
+                        y += 1;
+                        break;
+                    case ConsoleKey.D:
+                        x += 1;
+                        break;
+                    case ConsoleKey.A:
+                        x -= 1;
+                        break;
+                }
+            }
+
+            // Make sure player doesn't get outside of game area
+            x = Math.Clamp(x, 0, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 0, ParentScene.ydim - 3);
+
+            // Attack check and Update
+
+            // Update player position
+            Transform.Pos = new Vector3(x, y, Transform.Pos.Z);
         }
 
         /// <summary>

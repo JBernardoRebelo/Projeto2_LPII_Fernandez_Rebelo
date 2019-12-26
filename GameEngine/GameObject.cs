@@ -14,12 +14,12 @@ namespace GameEngine
         /// <summary>
         /// The scene were the game object is
         /// </summary>
-        public Scene ParentScene { get; internal set; }
+        public Scene ParentScene { get; protected set; }
 
         /// <summary>
         /// The name of the game object
         /// </summary>
-        public string Name { get; internal set; }
+        public string Name { get; protected set; }
 
         //Is this game object renderable?
         public bool IsRenderable =>

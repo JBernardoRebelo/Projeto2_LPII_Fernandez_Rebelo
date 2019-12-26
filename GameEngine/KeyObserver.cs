@@ -6,6 +6,17 @@ namespace GameEngine
 {
     public class KeyObserver : Component
     {
+        // Return the currently observed keys
+        public IEnumerable<ConsoleKey> GetCurrentKeys()
+        {
+            IEnumerable<ConsoleKey> currentKeys;
+            lock (queueLock)
+            {
+                currentKeys = observedKeys.ToArray();
+                observedKeys.Clear();
+            }
+            return currentKeys;
 
+        }
     }
 }
