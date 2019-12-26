@@ -18,5 +18,7 @@ namespace GameEngine
         /// Method to be called at the end of each frame
         /// </summary>
         void Update();
+
+        void Finish();
     }
 }
