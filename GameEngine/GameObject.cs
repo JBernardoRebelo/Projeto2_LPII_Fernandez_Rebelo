@@ -102,24 +102,45 @@ namespace GameEngine
                 component => type.IsInstanceOfType(component));
         }
 
-        public IEnumerator<Component> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
+        // Initialize all components in this game object
         public void Start()
         {
-            throw new NotImplementedException();
+            foreach (Component component in components)
+            {
+                component.Start();
+            }
         }
 
+        // Update all components in this game object
         public void Update()
         {
-            throw new NotImplementedException();
+            foreach (Component component in components)
+            {
+                component.Update();
+            }
         }
 
+        // Tear down all components in this game object
+        public void Finish()
+        {
+            foreach (Component component in components)
+            {
+                component.Finish();
+            }
+        }
+        // The methods below are required for implementing the IEnumerable<T>
+        // interface
+
+        // Go through all components in this game object
+        public IEnumerator<Component> GetEnumerator()
+        {
+            return components.GetEnumerator();
+        }
+
+        // Required for IEnumerable<T> implementation
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }
