@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using System;
 
 namespace BootlegDiablo
 {
@@ -13,8 +14,8 @@ namespace BootlegDiablo
         public string Name { get; private set; }
         public Role Role { get; set; }
         public Weapon Weapon { get; set; }
-
-        //public Vector2 pos { get; set; } // Usar vector2 do stor
+        public Vector2 pos { get; set; }
+        public Transform transform { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
