@@ -6,8 +6,6 @@ namespace BootlegDiablo
 {
     public class Player : GameObject
     {
-        private KeyObserver _keyObserver;
-
         public int Life { get; set; }
         public int Damage { get; set; } // = Strength + weapon damage
         public int Dexterity { get; set; }
