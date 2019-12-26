@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace GameEngine
 {
     public class Scene
     {
-        /*
         // Scene dimensions
         public readonly int xdim;
         public readonly int ydim;
 
         // Input handler for this scene
-        //public readonly InputHandler inputHandler;
+        public readonly InputHandler inputHandler;
 
         // Collision handler for this scene
-        //public readonly CollisionHandler collisionHandler;
+        public readonly CollisionHandler collisionHandler;
 
         // Game objects in this scene
         private Dictionary<string, GameObject> gameObjects;
@@ -24,10 +24,10 @@ namespace GameEngine
         private bool terminate;
 
         // Renderer for this scene
-        //private ConsoleRenderer renderer;
+        private ConsoleRenderer renderer;
 
         // Create a new scene
-        /*public Scene(int xdim, int ydim, InputHandler inputHandler,
+        public Scene(int xdim, int ydim, InputHandler inputHandler,
             ConsoleRenderer renderer, CollisionHandler collisionHandler)
         {
             this.xdim = xdim;
@@ -131,7 +131,5 @@ namespace GameEngine
             // Teardown renderer
             renderer?.Finish();
         }
-        
-        */
     }
 }

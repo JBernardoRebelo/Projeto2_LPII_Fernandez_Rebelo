@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace GameEngine
 {
-    class ConsoleRenderer
+    public class ConsoleRenderer
     {
         // Was the cursor visible before game rendering started?
         // For now we assume it was
