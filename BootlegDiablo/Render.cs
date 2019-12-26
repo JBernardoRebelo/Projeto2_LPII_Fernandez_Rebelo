@@ -79,10 +79,9 @@ namespace BootlegDiablo
             WriteLine();
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
-            WriteLine(dungeon.Rooms.Length);
+            WriteLine("Number of rooms in dungeon: " + dungeon.Rooms.Length);
 
             WriteLine($"Your position: {player.Transform.Pos}");
-            WriteLine($"Dimensions of the room you are in: {player.Room.Dim}");
         }
 
         /// <summary>

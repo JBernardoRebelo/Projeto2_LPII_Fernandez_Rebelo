@@ -16,7 +16,7 @@ namespace BootlegDiablo
         private int _y = 50;
 
         // Frame duration in miliseconds
-        private int frameLength = 100;
+        private int _frameLength = 100;
 
         // The (only) game scene
         private Scene _scene;
@@ -27,11 +27,16 @@ namespace BootlegDiablo
         public Game()
         {
             // Instantiate scene
-            _scene = new Scene(_x, _y);
+            ConsoleKey[] quitKeys = new ConsoleKey[] { ConsoleKey.Escape };
+
+            _scene = new Scene(_x, _y,
+                new InputHandler(quitKeys),
+                new ConsoleRenderer(_x, _y, new ConsolePixel('.')),
+                new CollisionHandler(_x, _y));
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random();
+            _rnd = new Random(1);
         }
 
         /// <summary>
@@ -44,7 +49,8 @@ namespace BootlegDiablo
             string name;
 
             // Instantiate dungeon with number of rooms
-            Dungeon _dungeon = new Dungeon(_rnd.Next(1, 10));
+            Dungeon _dungeon;
+            _dungeon = new Dungeon(_rnd.Next(1, 10));
             _scene.AddGameObject(_dungeon);
 
             // Render Start menu with options
@@ -56,7 +62,9 @@ namespace BootlegDiablo
             _scene.AddGameObject(_player);
 
             // Start debug game loop
-            DebugGameLoop();
+            //DebugGameLoop();
+
+            _scene.GameLoop(_frameLength);
         }
 
         // GameLoop used for debug

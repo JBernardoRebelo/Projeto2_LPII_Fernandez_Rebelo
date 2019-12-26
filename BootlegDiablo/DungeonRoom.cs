@@ -13,7 +13,7 @@ namespace BootlegDiablo
         public DungeonDoor[] Doors { get; private set; }
 
         // Accepts a random seed to generate enemies and dimensions
-        public DungeonRoom()
+        public DungeonRoom(int seed)
         {
             // Debug
             Dim = new Vector2(5, 7);

@@ -39,18 +39,6 @@ namespace GameEngine
             gameObjects = new Dictionary<string, GameObject>();
         }
 
-        /// <summary>
-        /// Basic scene constructor to test implementation of game engine
-        /// </summary>
-        /// <param name="xdim">scene x dimension</param>
-        /// <param name="ydim">scene x dimension</param>
-        public Scene(int xdim, int ydim)
-        {
-            this.xdim = xdim;
-            this.ydim = ydim;
-            terminate = false;
-        }
-
         // Add a game object to this scene
         public void AddGameObject(GameObject gameObject)
         {
