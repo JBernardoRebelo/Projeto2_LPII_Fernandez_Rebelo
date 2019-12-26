@@ -73,6 +73,12 @@ namespace BootlegDiablo
             WriteLine($"Damage: {player.Weapon.MinDamage}" +
                 $" - {player.Weapon.MaxDamage}");
             WriteLine($"Durability: {player.Weapon.Durability}");
+            
+            // Debug
+            WriteLine();
+            WriteLine($"Rooms in dungeon: {player.Dungeon.Rooms.Length}");
+            WriteLine($"Your position: {player.Transform.Pos}");
+            WriteLine($"Dimensions of the dungeon you are in: {player.Room.Dim}");
         }
 
         /// <summary>

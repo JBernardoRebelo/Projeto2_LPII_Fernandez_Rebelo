@@ -10,11 +10,14 @@ namespace GameEngine
         public IEnumerable<ConsoleKey> GetCurrentKeys()
         {
             IEnumerable<ConsoleKey> currentKeys;
-            lock (queueLock)
-            {
-                currentKeys = observedKeys.ToArray();
-                observedKeys.Clear();
-            }
+            //lock (queueLock)
+            //{
+            //    currentKeys = observedKeys.ToArray();
+            //    observedKeys.Clear();
+            //}
+
+            currentKeys = new List<ConsoleKey>();
+
             return currentKeys;
 
         }

@@ -44,9 +44,8 @@ namespace GameEngine
         // The components in this game object
         private readonly ICollection<Component> components;
 
-        public GameObject(string name)
+        public GameObject()
         {
-            Name = name;
             components = new List<Component>();
             containsRenderableComponent = false;
             containsPosition = false;
