@@ -1,5 +1,7 @@
 ﻿using System;
 using GameEngine;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace BootlegDiablo
 {
@@ -64,7 +66,34 @@ namespace BootlegDiablo
             // Start debug game loop
             //DebugGameLoop();
 
+            CreateWalls(_scene);
+
             _scene.GameLoop(_frameLength);
+        }
+
+        private void CreateWalls(Scene scene)
+        {
+            Dictionary<Vector2, ConsolePixel> wallPixels;
+
+            GameObject wall = new DungeonWall();
+            // Foreach wall does this
+
+            ConsolePixel wallPixel =
+                new ConsolePixel('-', ConsoleColor.Yellow, ConsoleColor.Gray);
+            wallPixels = new Dictionary<Vector2, ConsolePixel>();
+
+            for (int x = 0; x < _x; x++)
+                wallPixels[new Vector2(x, 0)] = wallPixel;
+            for (int x = 0; x < _x; x++)
+                wallPixels[new Vector2(x, _y - 1)] = wallPixel;
+            for (int y = 0; y < _y; y++)
+                wallPixels[new Vector2(0, y)] = wallPixel;
+            for (int y = 0; y < _y; y++)
+                wallPixels[new Vector2(_x - 1, y)] = wallPixel;
+            wall.AddComponent(new ConsoleSprite(wallPixels));
+            wall.AddComponent(new Transform(0, 0, 1));
+
+            scene.AddGameObject(wall);
         }
 
         // GameLoop used for debug

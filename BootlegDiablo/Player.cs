@@ -127,8 +127,15 @@ namespace BootlegDiablo
                  * Mana: + 2 
                  */
             }
-
             Lvl++;
+        }
+
+        public override string ToString()
+        {
+            // Arrows based on dir
+            
+            // < > ^ v
+            return base.ToString();
         }
     }
 }
