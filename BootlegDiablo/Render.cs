@@ -154,7 +154,7 @@ namespace BootlegDiablo
             WriteLine();
             WriteLine("Game Design by:\n - Blizzard North\n");
             WriteLine("Code by:\n - Joao Rebelo\n - Miguel Fernandez\n");
-            WriteLine("External Engine Library by:\n - Nuno Fachada\n");
+            WriteLine("Based on Engine Library by:\n - Nuno Fachada\n");
             ReadLine();
         }
 
