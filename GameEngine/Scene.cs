@@ -6,6 +6,7 @@ namespace GameEngine
 {
     public class Scene
     {
+        /*
         // Scene dimensions
         public readonly int xdim;
         public readonly int ydim;
@@ -36,7 +37,7 @@ namespace GameEngine
             this.collisionHandler = collisionHandler;
             terminate = false;
             gameObjects = new Dictionary<string, GameObject>();
-        }*/
+        }
 
         /// <summary>
         /// Basic scene constructor to test implementation of game engine
@@ -130,5 +131,7 @@ namespace GameEngine
             // Teardown renderer
             renderer?.Finish();
         }
+        
+        */
     }
 }
