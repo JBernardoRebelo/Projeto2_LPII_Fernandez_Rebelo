@@ -8,7 +8,7 @@ namespace BootlegDiablo
     {
         private static void Main(string[] args)
         {
-            GameLoop _gameLoop = new GameLoop();
+            Game _gameLoop = new Game();
 
             // Call gameloop
             _gameLoop.Start();

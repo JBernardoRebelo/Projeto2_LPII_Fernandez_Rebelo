@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using GameEngine;
 
 namespace BootlegDiablo
 {
-    public class Dungeon
+    public class Dungeon : GameObject
     {
         // Collection of rooms in dungeon
         public DungeonRoom[] Rooms { get; private set; }
@@ -11,6 +11,7 @@ namespace BootlegDiablo
         public Dungeon(int nRooms)
         {
             Rooms = new DungeonRoom[nRooms];
+            Name = "Dungeon";
         }
     }
 }

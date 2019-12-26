@@ -17,8 +17,6 @@ namespace BootlegDiablo
         public Role Role { get; set; }
         public Weapon Weapon { get; set; }
         public Transform Transform { get; set; }
-        public Dungeon Dungeon { get; set; }
-        public DungeonRoom Room { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
@@ -32,10 +30,8 @@ namespace BootlegDiablo
             Name = name;
             Lvl = 1;
             Exp = 0;
-            Dungeon = dungeon;
             Transform = new Transform(0, 0, 0);
 
-            Room = Dungeon.Rooms[0];
             // Add weapon to player
             Weapon = new ShortSword();
 
@@ -93,8 +89,8 @@ namespace BootlegDiablo
             }
 
             // Make sure player doesn't get outside of dungeon area
-            x = Math.Clamp(x, 0, Room.Dim.X - 3);
-            y = Math.Clamp(y, 0, Room.Dim.Y - 3);
+            x = Math.Clamp(x, 0, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 0, ParentScene.ydim - 3);
 
             // Attack check and Update
 

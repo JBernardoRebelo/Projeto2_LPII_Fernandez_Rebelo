@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GameEngine;
 using System.Text;
 using static System.Console;
 
@@ -56,7 +57,7 @@ namespace BootlegDiablo
         /// Show character stats on 'C' press
         /// </summary>
         /// <param name="player"> Accepts a player </param>
-        public void CharInformationScreen(Player player)
+        public void CharInformationScreen(Player player, Scene scene)
         {
             WriteLine($"{player.Name} | {player.Role}");
             WriteLine();
@@ -76,9 +77,12 @@ namespace BootlegDiablo
             
             // Debug
             WriteLine();
-            WriteLine($"Rooms in dungeon: {player.Dungeon.Rooms.Length}");
+            GameObject go = scene.FindGameObjectByName("Dungeon");
+            Dungeon dungeon = go as Dungeon;
+            WriteLine(dungeon.Rooms.Length);
+
             WriteLine($"Your position: {player.Transform.Pos}");
-            WriteLine($"Dimensions of the dungeon you are in: {player.Room.Dim}");
+            WriteLine($"Dimensions of the room you are in: {player.Room.Dim}");
         }
 
         /// <summary>

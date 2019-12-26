@@ -1,13 +1,38 @@
 ﻿using System;
+using GameEngine;
 
 namespace BootlegDiablo
 {
-    public class GameLoop
+    public class Game
     {
         private Player _player;
-        private Render _render = new Render();
-        private Dungeon _dungeon;
+
+        // Render and Random
+        private Render _render;
         private Random _rnd;
+
+        // World dimensions
+        private int _x = 100;
+        private int _y = 50;
+
+        // Frame duration in miliseconds
+        private int frameLength = 100;
+
+        // The (only) game scene
+        private Scene _scene;
+
+        /// <summary>
+        /// Game Constructor, start instance variables
+        /// </summary>
+        public Game()
+        {
+            // Instantiate scene
+            _scene = new Scene(_x, _y);
+
+            // Instantiate render and random
+            _render = new Render();
+            _rnd = new Random();
+        }
 
         /// <summary>
         /// Starts game by showing menu and instantiating player
@@ -18,11 +43,9 @@ namespace BootlegDiablo
             Role role;
             string name;
 
-            // Instantiate random
-            _rnd = new Random();
-
             // Instantiate dungeon with number of rooms
-            _dungeon = new Dungeon(_rnd.Next(1, 10));
+            Dungeon _dungeon = new Dungeon(_rnd.Next(1, 10));
+            _scene.AddGameObject(_dungeon);
 
             // Render Start menu with options
             _render.StartMenu(out role);
@@ -30,6 +53,7 @@ namespace BootlegDiablo
 
             // Instantiate player
             _player = new Player(role, name, _dungeon);
+            _scene.AddGameObject(_player);
 
             // Start debug game loop
             DebugGameLoop();
@@ -41,10 +65,10 @@ namespace BootlegDiablo
             Console.Clear();
 
             // Debug
-            _render.CharInformationScreen(_player);
+            _render.CharInformationScreen(_player, _scene);
             //**
 
-            while(true)
+            while (true)
             {
                 // Input checker
 
