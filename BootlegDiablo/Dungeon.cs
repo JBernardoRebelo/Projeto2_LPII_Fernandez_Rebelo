@@ -5,12 +5,12 @@ namespace BootlegDiablo
     public class Dungeon
     {
         // Collection of rooms in dungeon
-        public ICollection<DungeonRoom> rooms { get; set; }
+        public DungeonRoom[] Rooms { get; private set; }
 
         // Accepts a seed to instantiate rooms
         public Dungeon(int nRooms)
         {
-
+            Rooms = new DungeonRoom[nRooms];
         }
     }
 }
