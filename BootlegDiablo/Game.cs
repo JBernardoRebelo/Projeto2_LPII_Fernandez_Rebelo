@@ -58,7 +58,7 @@ namespace BootlegDiablo
             name = _render.AssignName();
 
             // Instantiate player
-            _player = new Player(role, name, _dungeon);
+            _player = new Player(role, name);
             _scene.AddGameObject(_player);
 
             // Start debug game loop

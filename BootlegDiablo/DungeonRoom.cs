@@ -27,5 +27,7 @@ namespace BootlegDiablo
 
             Name = "Room";
         }
+
+        // Must have a renderable
     }
 }

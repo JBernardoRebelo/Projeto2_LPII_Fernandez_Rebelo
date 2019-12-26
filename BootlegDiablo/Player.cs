@@ -24,7 +24,7 @@ namespace BootlegDiablo
         /// </summary>
         /// <param name="role"> Accepts a role to assign </param>
         /// <param name="name"> Accepts a name to assign </param>
-        public Player(Role role, string name, Dungeon dungeon)
+        public Player(Role role, string name)
         {
             Role = role;
             Name = name;
@@ -38,6 +38,8 @@ namespace BootlegDiablo
             // Apply initial stats
             RoleApply(Role);
         }
+
+        // Must have a renderable
 
         /// <summary>
         /// Increments level and player stats based on input
@@ -59,43 +61,6 @@ namespace BootlegDiablo
         public void Attack()
         {
 
-        }
-
-        // Update player in the current frame
-        public new void Update()
-        {
-            // Get player position
-            float x = Transform.Pos.X;
-            float y = Transform.Pos.Y;
-
-            // Check what keys were pressed and update position accordingly
-            foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
-            {
-                switch (key)
-                {
-                    case ConsoleKey.W:
-                        y -= 1;
-                        break;
-                    case ConsoleKey.S:
-                        y += 1;
-                        break;
-                    case ConsoleKey.D:
-                        x += 1;
-                        break;
-                    case ConsoleKey.A:
-                        x -= 1;
-                        break;
-                }
-            }
-
-            // Make sure player doesn't get outside of dungeon area
-            x = Math.Clamp(x, 0, ParentScene.xdim - 3);
-            y = Math.Clamp(y, 0, ParentScene.ydim - 3);
-
-            // Attack check and Update
-
-            // Update player position
-            Transform.Pos = new Vector3(x, y, Transform.Pos.Z);
         }
 
         /// <summary>
