@@ -13,7 +13,7 @@ namespace BootlegDiablo
         /// <param name="y"> y coordinate </param>
         public DungeonDoor(int x, int y)
         {
-            Transform = new Transform(x, y, 0);
+            Transform = new Transform(x, y, 2);
             Name = "Door";
         }
     }
