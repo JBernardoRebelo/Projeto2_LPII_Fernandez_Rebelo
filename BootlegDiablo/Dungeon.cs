@@ -1,4 +1,5 @@
-﻿using GameEngine;
+﻿using System;
+using GameEngine;
 
 namespace BootlegDiablo
 {
@@ -8,15 +9,13 @@ namespace BootlegDiablo
         public DungeonRoom[] Rooms { get; private set; }
 
         // Accepts a seed to instantiate rooms
-        public Dungeon(int seed)
+        public Dungeon(int nRooms, Random rnd)
         {
-            int nRooms = seed;
-
             Rooms = new DungeonRoom[nRooms];
 
             for (int i = 0; i < nRooms; i++)
             {
-                Rooms[i] = new DungeonRoom(seed);
+                Rooms[i] = new DungeonRoom(rnd);
             }
 
             Name = "Dungeon";

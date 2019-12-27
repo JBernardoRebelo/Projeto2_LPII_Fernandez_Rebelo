@@ -17,7 +17,7 @@
 - 'WASD' para mover e rodar o personagem;
 - 'Space' ou '1' para atacar;
 - 'C' para mostrar detalhes do personagem;
-- 'Esc' para aceder ao menu de pausa;
+- 'P' para aceder ao menu de pausa;
 - (Por agora) Escrever a opção pretendida dentro de menus;  
 
 ## Descrição e arquitetura da Solução

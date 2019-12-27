@@ -44,6 +44,9 @@ namespace GameEngine
         // The components in this game object
         private readonly ICollection<Component> components;
 
+        /// <summary>
+        /// GameObject constructor, accepts nothing
+        /// </summary>
         public GameObject()
         {
             components = new List<Component>();
@@ -51,6 +54,20 @@ namespace GameEngine
             containsPosition = false;
             containsCollider = false;
         }
+
+        /// <summary>
+        /// GameObject constructor overload
+        /// </summary>
+        /// <param name="name"> Accepts a name </param>
+        public GameObject(string name)
+        {
+            components = new List<Component>();
+            containsRenderableComponent = false;
+            containsPosition = false;
+            containsCollider = false;
+            Name = name;
+        }
+
 
         // Add a component to this game object
         public void AddComponent(Component component)

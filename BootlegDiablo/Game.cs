@@ -15,11 +15,11 @@ namespace BootlegDiablo
         private Random _rnd;
 
         // World dimensions
-        private int _x = 100;
-        private int _y = 50;
+        private int _x = 160;
+        private int _y = 40;
 
         // Frame duration in miliseconds
-        private int _frameLength = 100;
+        private int _frameLength = 2000;
 
         // The (only) game scene
         private Scene _scene;
@@ -34,7 +34,7 @@ namespace BootlegDiablo
 
             _scene = new Scene(_x, _y,
                 new InputHandler(quitKeys),
-                new ConsoleRenderer(_x, _y, new ConsolePixel('.')),
+                new ConsoleRenderer(_x, _y, new ConsolePixel(' ')),
                 new CollisionHandler(_x, _y));
 
             // Instantiate render and random
@@ -53,7 +53,7 @@ namespace BootlegDiablo
 
             // Instantiate dungeon with number of rooms
             Dungeon _dungeon;
-            _dungeon = new Dungeon(_rnd.Next(1, 10));
+            _dungeon = new Dungeon(_rnd.Next(1, 10), _rnd);
             _scene.AddGameObject(_dungeon);
 
             // Render Start menu with options
@@ -69,29 +69,42 @@ namespace BootlegDiablo
             _scene.GameLoop(_frameLength);
         }
 
+        /// <summary>
+        /// Add walls to the scene
+        /// </summary>
+        /// <param name="scene"> Accepts a Scene </param>
         private void CreateWalls(Scene scene)
         {
+            GameObject go = scene.FindGameObjectByName("Dungeon");
+            Dungeon dungeon = go as Dungeon;
+
+            int index = 1;
+
             Dictionary<Vector2, ConsolePixel> wallPixels;
-
-            GameObject wall = new DungeonWall(5,7);
             // Foreach wall does this
+            foreach (DungeonRoom room in dungeon.Rooms)
+            {
+                GameObject wallS = new GameObject("Walls" + index);
 
-            ConsolePixel wallPixel =
-                new ConsolePixel('-', ConsoleColor.Yellow, ConsoleColor.Gray);
-            wallPixels = new Dictionary<Vector2, ConsolePixel>();
+                ConsolePixel wallPixel =
+                    new ConsolePixel('i', ConsoleColor.Yellow, ConsoleColor.DarkRed);
+                wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
-            for (int x = 0; x < _x; x++)
-                wallPixels[new Vector2(x, 0)] = wallPixel;
-            for (int x = 0; x < _x; x++)
-                wallPixels[new Vector2(x, _y - 1)] = wallPixel;
-            for (int y = 0; y < _y; y++)
-                wallPixels[new Vector2(0, y)] = wallPixel;
-            for (int y = 0; y < _y; y++)
-                wallPixels[new Vector2(_x - 1, y)] = wallPixel;
-            wall.AddComponent(new ConsoleSprite(wallPixels));
-            wall.AddComponent(new Transform(0, 0, 1));
+                for (int x = 0; x < _x; x++)
+                    wallPixels[new Vector2(x, 0)] = wallPixel;
+                for (int x = 0; x < _x; x++)
+                    wallPixels[new Vector2(x, _y - 1)] = wallPixel;
+                for (int y = 0; y < _y; y++)
+                    wallPixels[new Vector2(0, y)] = wallPixel;
+                for (int y = 0; y < _y; y++)
+                    wallPixels[new Vector2(_x - 1, y)] = wallPixel;
+                wallS.AddComponent(new ConsoleSprite(wallPixels));
+                wallS.AddComponent(new Transform(0, 0, 1));
 
-            scene.AddGameObject(wall);
+                scene.AddGameObject(wallS);
+
+                index++;
+            }
         }
     }
 }
