@@ -8,6 +8,8 @@ namespace BootlegDiablo
     {
         private KeyObserver _keyObserver;
         private Transform _transform;
+        private Player _player;
+        private Render _rndr;
 
         // Update player in the current frame
         public new void Update()
@@ -32,6 +34,9 @@ namespace BootlegDiablo
                         break;
                     case ConsoleKey.A:
                         x -= 1;
+                        break;
+                    case ConsoleKey.C:
+                        _rndr.CharInformationScreen(_player);
                         break;
                 }
             }

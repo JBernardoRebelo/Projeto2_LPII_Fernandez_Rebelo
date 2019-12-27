@@ -64,9 +64,6 @@ namespace BootlegDiablo
             _player = new Player(role, name);
             _scene.AddGameObject(_player);
 
-            // Start debug game loop
-            //DebugGameLoop();
-
             CreateWalls(_scene);
 
             _scene.GameLoop(_frameLength);
@@ -95,26 +92,6 @@ namespace BootlegDiablo
             wall.AddComponent(new Transform(0, 0, 1));
 
             scene.AddGameObject(wall);
-        }
-
-        // GameLoop used for debug
-        public void DebugGameLoop()
-        {
-            Console.Clear();
-
-            // Debug
-            _render.CharInformationScreen(_player, _scene);
-            //**
-
-
-            while (true)
-            {
-                // Input checker
-
-                // Do stuff
-
-                // Render Frame
-            }
         }
     }
 }
