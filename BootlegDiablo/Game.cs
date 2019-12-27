@@ -87,21 +87,6 @@ namespace BootlegDiablo
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
             {
-                for (int i = 0; i < room.Doors.Length; i++)
-                {
-                    GameObject door = new GameObject("Door" + i + index);
-
-                    ConsolePixel doorPixel = new ConsolePixel
-                        ('D', ConsoleColor.White, ConsoleColor.Green);
-
-                    doorPixels = new Dictionary<Vector2, ConsolePixel>();
-
-                    door.AddComponent(new ConsoleSprite(doorPixels));
-                    door.AddComponent(new Transform(0, 0, 1));
-
-                    scene.AddGameObject(door);
-                }
-
                 GameObject wallS = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
@@ -128,6 +113,21 @@ namespace BootlegDiablo
                 wallS.AddComponent(new Transform(0, 0, 1));
 
                 scene.AddGameObject(wallS);
+
+                for (int i = 0; i < room.Doors.Length; i++)
+                {
+                    GameObject door = new GameObject("Door" + i + index);
+
+                    ConsolePixel doorPixel = new ConsolePixel
+                        ('D', ConsoleColor.Blue, ConsoleColor.Green);
+
+                    doorPixels = new Dictionary<Vector2, ConsolePixel>();
+
+                    door.AddComponent(new ConsoleSprite(doorPixels));
+                    door.AddComponent(new Transform(0, 0, 1));
+
+                    scene.AddGameObject(door);
+                }
 
                 index++;
             }
