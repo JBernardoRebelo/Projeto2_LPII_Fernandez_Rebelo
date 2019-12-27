@@ -54,7 +54,7 @@ namespace GameEngine
             // Resize window if we're in Windows (not supported on Linux/Mac)
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                cursorVisibleBefore = Console.CursorVisible;
+                //cursorVisibleBefore = Console.CursorVisible;
                 Console.SetWindowSize(xdim, ydim);
             }
         }

@@ -8,7 +8,7 @@ namespace BootlegDiablo
     public class Game
     {
         // Should be gameObject
-        private Player _player;
+        private GameObject _player;
 
         // Render and Random
         private Render _render;
@@ -19,7 +19,7 @@ namespace BootlegDiablo
         private int _y = 40;
 
         // Frame duration in miliseconds
-        private int _frameLength = 2000;
+        private int _frameLength = 100;
 
         // The (only) game scene
         private Scene _scene;
@@ -55,6 +55,14 @@ namespace BootlegDiablo
         /// </summary>
         public void Start()
         {
+            // Create quitter object
+            GameObject quitter = new GameObject("Quitter");
+            KeyObserver quitSceneKeyListener = new KeyObserver(new ConsoleKey[]
+                { ConsoleKey.Escape });
+            quitter.AddComponent(quitSceneKeyListener);
+            quitter.AddComponent(new Quitter());
+            _scene.AddGameObject(quitter);
+
             // Instance variables for player
             Role role;
             string name;
@@ -64,7 +72,23 @@ namespace BootlegDiablo
             name = _render.AssignName();
 
             // Instantiate player
+            char[,] playerSprite = { { '*' } };
             _player = new Player(role, name);
+            KeyObserver playerKeys = new KeyObserver(new ConsoleKey[]
+            {
+                ConsoleKey.W,
+                ConsoleKey.A,
+                ConsoleKey.S,
+                ConsoleKey.D,
+                ConsoleKey.C,
+                ConsoleKey.P,
+            });
+            _player.AddComponent(playerKeys);
+            _player.AddComponent(new PlayerController());
+            _player.AddComponent(new Transform(10f, 10f, 0f));
+            _player.AddComponent(new ConsoleSprite(
+                playerSprite, ConsoleColor.Green, ConsoleColor.Black));
+
             _scene.AddGameObject(_player);
 
             _scene.GameLoop(_frameLength);
@@ -90,7 +114,7 @@ namespace BootlegDiablo
                 GameObject wallS = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
-                    new ConsolePixel('i', ConsoleColor.Yellow, ConsoleColor.DarkRed);
+                    new ConsolePixel('i', ConsoleColor.White, ConsoleColor.Red);
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
                 for (int x = 0; x < room.Dim.X; x++)
@@ -110,7 +134,7 @@ namespace BootlegDiablo
                     wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
                 }
                 wallS.AddComponent(new ConsoleSprite(wallPixels));
-                wallS.AddComponent(new Transform(0, 0, 1));
+                wallS.AddComponent(new Transform(0f, 0f, 1f));
 
                 scene.AddGameObject(wallS);
 
