@@ -16,6 +16,7 @@ namespace BootlegDiablo
             for (int i = 0; i < nRooms; i++)
             {
                 Rooms[i] = new DungeonRoom(rnd);
+                Rooms[i].AddComponent(new Transform(rnd.Next(1, 50), rnd.Next(1, 50), 0));
             }
 
             Name = "Dungeon";

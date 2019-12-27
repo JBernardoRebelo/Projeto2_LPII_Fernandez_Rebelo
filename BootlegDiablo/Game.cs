@@ -37,9 +37,17 @@ namespace BootlegDiablo
                 new ConsoleRenderer(_x, _y, new ConsolePixel(' ')),
                 new CollisionHandler(_x, _y));
 
+
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random(1);
+            _rnd = new Random();
+
+            // Instantiate dungeon with number of rooms
+            Dungeon _dungeon;
+            _dungeon = new Dungeon(_rnd.Next(1, 10), _rnd);
+            _scene.AddGameObject(_dungeon);
+
+            CreateWalls(_scene);
         }
 
         /// <summary>
@@ -51,11 +59,6 @@ namespace BootlegDiablo
             Role role;
             string name;
 
-            // Instantiate dungeon with number of rooms
-            Dungeon _dungeon;
-            _dungeon = new Dungeon(_rnd.Next(1, 10), _rnd);
-            _scene.AddGameObject(_dungeon);
-
             // Render Start menu with options
             _render.StartMenu(out role);
             name = _render.AssignName();
@@ -64,7 +67,7 @@ namespace BootlegDiablo
             _player = new Player(role, name);
             _scene.AddGameObject(_player);
 
-            CreateWalls(_scene);
+            //CreateWalls(_scene);
 
             _scene.GameLoop(_frameLength);
         }
@@ -84,20 +87,31 @@ namespace BootlegDiablo
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
             {
+                //room.AddComponent(new Transform
+                //    (10000, _rnd.Next(1, 10), 0));
+
                 GameObject wallS = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
                     new ConsolePixel('i', ConsoleColor.Yellow, ConsoleColor.DarkRed);
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
-                for (int x = 0; x < _x; x++)
+                for (int x = 0; x < room.Dim.X; x++)
+                {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                for (int x = 0; x < _x; x++)
-                    wallPixels[new Vector2(x, _y - 1)] = wallPixel;
-                for (int y = 0; y < _y; y++)
+                }
+                for (int x = 0; x < room.Dim.X; x++)
+                {
+                    wallPixels[new Vector2(x, room.Dim.Y - 1)] = wallPixel;
+                }
+                for (int y = 0; y < room.Dim.Y; y++)
+                {
                     wallPixels[new Vector2(0, y)] = wallPixel;
-                for (int y = 0; y < _y; y++)
-                    wallPixels[new Vector2(_x - 1, y)] = wallPixel;
+                }
+                for (int y = 0; y < room.Dim.Y; y++)
+                {
+                    wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
+                }
                 wallS.AddComponent(new ConsoleSprite(wallPixels));
                 wallS.AddComponent(new Transform(0, 0, 1));
 
