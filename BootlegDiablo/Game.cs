@@ -7,6 +7,7 @@ namespace BootlegDiablo
 {
     public class Game
     {
+        // Should be gameObject
         private Player _player;
 
         // Render and Random
@@ -117,6 +118,7 @@ namespace BootlegDiablo
             // Debug
             _render.CharInformationScreen(_player, _scene);
             //**
+
 
             while (true)
             {

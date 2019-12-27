@@ -40,7 +40,7 @@ namespace BootlegDiablo
             x = Math.Clamp(x, 0, ParentScene.xdim - 3);
             y = Math.Clamp(y, 0, ParentScene.ydim - 3);
 
-            // Attack check and Update
+            // Attack check
 
             // Update player position
             _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
