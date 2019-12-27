@@ -14,8 +14,8 @@ namespace BootlegDiablo
         private Random _rnd;
 
         // World dimensions
-        private int _x = 100;
-        private int _y = 50;
+        private int _x = 160;
+        private int _y = 40;
 
         // Frame duration in miliseconds
         private int _frameLength = 2000;
@@ -33,7 +33,7 @@ namespace BootlegDiablo
 
             _scene = new Scene(_x, _y,
                 new InputHandler(quitKeys),
-                new ConsoleRenderer(_x, _y, new ConsolePixel('.')),
+                new ConsoleRenderer(_x, _y, new ConsolePixel(' ')),
                 new CollisionHandler(_x, _y));
 
             // Instantiate render and random
@@ -71,12 +71,15 @@ namespace BootlegDiablo
             _scene.GameLoop(_frameLength);
         }
 
+        /// <summary>
+        /// Add walls to the scene
+        /// </summary>
+        /// <param name="scene"> Accepts a Scene </param>
         private void CreateWalls(Scene scene)
         {
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
 
-            int xWall, yWall;
             int index = 1;
 
             Dictionary<Vector2, ConsolePixel> wallPixels;
@@ -86,7 +89,7 @@ namespace BootlegDiablo
                 GameObject wallS = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
-                    new ConsolePixel('-', ConsoleColor.Yellow, ConsoleColor.DarkRed);
+                    new ConsolePixel('i', ConsoleColor.Yellow, ConsoleColor.DarkRed);
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
                 for (int x = 0; x < _x; x++)
