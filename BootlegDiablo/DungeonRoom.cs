@@ -1,7 +1,6 @@
 ﻿using System;
 using GameEngine;
 using System.Numerics;
-using System.Collections.Generic;
 
 namespace BootlegDiablo
 {
@@ -9,26 +8,64 @@ namespace BootlegDiablo
     {
         // Vector2 for room dimension
         public Vector2 Dim { get; set; }
-        public DungeonDoor[] Doors { get; private set; }
 
         // Collection of enemies
         public Enemy[] Enemies { get; private set; }
+
         // Doors in Room
+        public DungeonDoor[] Doors { get; private set; }
 
         // Accepts a random seed to generate enemies and dimensions
-        public DungeonRoom(int seed)
+        public DungeonRoom(Random rnd)
         {
-            // Debug
-            Dim = new Vector2(5, 7);
-            Enemies = new Enemy[2];
-            DungeonDoor door1 = new DungeonDoor(5 / 2, 0);
-            DungeonDoor door2 = new DungeonDoor(0, 7 / 2);
-            // **
+            Dim = new Vector2(rnd.Next(2, 10), rnd.Next(2, 10));
+            Enemies = new Enemy[rnd.Next(0, 5)];
+            Doors = new DungeonDoor[rnd.Next(2, 4)];
 
-            // Add door to dungeonRoom
-            Doors = new DungeonDoor[2] { door1, door2 };
+            InstantiateEnemies();
+            InstantiateDoors();
 
             Name = "Room";
+        }
+
+        /// <summary>
+        /// Instantiates doors in room
+        /// </summary>
+        private void InstantiateDoors()
+        {
+            DungeonDoor temp = null;
+
+            // Instantiate doors
+            for (int i = 0; i < Doors.Length; i++)
+            {
+                if (temp != null)
+                {
+                    if (temp.Transform.Pos.X > 0) // Door on the left
+                    {
+                        Doors[i] = new DungeonDoor
+                            (0, Convert.ToInt32(Dim.Y) / 2);
+                    }
+                    if (temp.Transform.Pos.Y > 0) // Door on top
+                    {
+                        Doors[i] = new DungeonDoor
+                            (Convert.ToInt32(Dim.X) / 2, 0);
+                    }
+                }
+
+                temp = Doors[i];
+            }
+        }
+
+        /// <summary>
+        /// Instantiate enemies in array
+        /// </summary>
+        private void InstantiateEnemies()
+        {
+            // Instantiate enemies
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                Enemies[i] = new EnemySkeleton();
+            }
         }
     }
 }
