@@ -84,7 +84,6 @@ namespace GameEngine
                 foreach (GameObject gameObject in gameObjects.Values)
                 {
                     gameObject.Update();
-                    Console.WriteLine(gameObject.Name);
                 }
 
                 // Update collision information

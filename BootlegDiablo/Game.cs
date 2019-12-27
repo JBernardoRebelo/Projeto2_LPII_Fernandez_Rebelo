@@ -40,7 +40,7 @@ namespace BootlegDiablo
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random();
+            _rnd = new Random(1);
 
             // Instantiate dungeon with number of rooms
             Dungeon _dungeon;
@@ -72,7 +72,7 @@ namespace BootlegDiablo
             name = _render.AssignName();
 
             // Instantiate player
-            char[,] playerSprite = { { '*' } };
+            char[,] playerSprite = { { 'O' } };
             _player = new Player(role, name);
             KeyObserver playerKeys = new KeyObserver(new ConsoleKey[]
             {
@@ -85,9 +85,9 @@ namespace BootlegDiablo
             });
             _player.AddComponent(playerKeys);
             _player.AddComponent(new PlayerController());
-            _player.AddComponent(new Transform(10f, 10f, 0f));
+            _player.AddComponent(new Transform(10f, 10f, 2f));
             _player.AddComponent(new ConsoleSprite(
-                playerSprite, ConsoleColor.Green, ConsoleColor.Black));
+                playerSprite, ConsoleColor.Green, ConsoleColor.Yellow));
 
             _scene.AddGameObject(_player);
 
@@ -108,13 +108,14 @@ namespace BootlegDiablo
             Dictionary<Vector2, ConsolePixel> wallPixels;
             Dictionary<Vector2, ConsolePixel> doorPixels;
 
+            GameObject aux = null;
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
             {
-                GameObject wallS = new GameObject("Walls" + index);
+                GameObject walls = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
-                    new ConsolePixel('i', ConsoleColor.White, ConsoleColor.Red);
+                    new ConsolePixel(' ', ConsoleColor.White, ConsoleColor.Red);
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
                 for (int x = 0; x < room.Dim.X; x++)
@@ -133,10 +134,26 @@ namespace BootlegDiablo
                 {
                     wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
                 }
-                wallS.AddComponent(new ConsoleSprite(wallPixels));
-                wallS.AddComponent(new Transform(0f, 0f, 1f));
 
-                scene.AddGameObject(wallS);
+                if (aux == null)
+                {
+                    walls.AddComponent(new ConsoleSprite(wallPixels));
+                    walls.AddComponent(
+                        new Transform(0, 0, 1f));
+                    aux = walls;
+                }
+                else
+                {
+                    walls.AddComponent(new ConsoleSprite(wallPixels));
+                    walls.AddComponent(
+                        new Transform(_rnd.Next(Convert.ToInt32
+                        (aux.GetComponent<Transform>().Pos.X), _x - 20),
+                        _rnd.Next(0, _y - 20), 1f));
+
+                    aux = walls;
+                }
+
+                scene.AddGameObject(walls);
 
                 for (int i = 0; i < room.Doors.Length; i++)
                 {
@@ -148,7 +165,7 @@ namespace BootlegDiablo
                     doorPixels = new Dictionary<Vector2, ConsolePixel>();
 
                     door.AddComponent(new ConsoleSprite(doorPixels));
-                    door.AddComponent(new Transform(0, 0, 1));
+                    door.AddComponent(new Transform(0, 0, 2));
 
                     scene.AddGameObject(door);
                 }
