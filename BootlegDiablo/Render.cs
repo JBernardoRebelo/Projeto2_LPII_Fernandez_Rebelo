@@ -8,8 +8,6 @@ namespace BootlegDiablo
 {
     public class Render
     {
-        UTF8Encoding utf8 = new UTF8Encoding();
-
         /// <summary>
         /// Displays Start menu with options
         /// </summary>
@@ -57,6 +55,26 @@ namespace BootlegDiablo
         /// Show character stats on 'C' press
         /// </summary>
         /// <param name="player"> Accepts a player </param>
+        public void CharInformationScreen(Player player)
+        {
+            WriteLine($"{player.Name} | {player.Role}");
+            WriteLine();
+            WriteLine($"Level: {player.Lvl} Exp: {player.Exp}");
+
+            //How much experience the character needs to achieve the next level
+
+            WriteLine();
+            WriteLine($"Strength: {player.Strength}");
+            WriteLine($"Dexterity: {player.Dexterity}");
+            WriteLine($"Life: {player.Life}");
+            WriteLine();
+            WriteLine($"{player.Weapon.Name.ToUpper()}");
+            WriteLine($"Damage: {player.Weapon.MinDamage}" +
+                $" - {player.Weapon.MaxDamage}");
+            WriteLine($"Durability: {player.Weapon.Durability}");
+        }
+
+        // DEBUG METHOD
         public void CharInformationScreen(Player player, Scene scene)
         {
             WriteLine($"{player.Name} | {player.Role}");
@@ -74,7 +92,7 @@ namespace BootlegDiablo
             WriteLine($"Damage: {player.Weapon.MinDamage}" +
                 $" - {player.Weapon.MaxDamage}");
             WriteLine($"Durability: {player.Weapon.Durability}");
-            
+
             // Debug
             WriteLine();
             GameObject go = scene.FindGameObjectByName("Dungeon");
@@ -83,6 +101,7 @@ namespace BootlegDiablo
 
             WriteLine($"Your position: {player.Transform.Pos}");
         }
+        // END DEBUG METHOD
 
         /// <summary>
         /// Displays pause menu on 'Esc'
@@ -167,7 +186,17 @@ namespace BootlegDiablo
         private void DisplayLogo()
         {
             ForegroundColor = ConsoleColor.Red;
-            WriteLine(File.ReadAllText("LogoDiablo.txt"));
+            Console.Write(
+                " ______	 _________ _______  ______   _	      _______\n"+
+                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n"+
+                "| (  \\  )   ) (   | (   ) || (   ) )| (      | (   ) |\n"+
+                "| |   ) |   | |   | (___) || (__/ / | |      | |   | |\n"+
+                "| |   | |   | |   |  ___  ||  __ (  | |      | |   | |\n"+
+                "| |   ) |   | |   | (   ) || (  \\ \\ | |      | |   | |\n"+
+                "| (__/  )___) (___| )   ( || )___) )| (____/\\| (___) |\n"+
+                "(______/ \\_______/|/     \\||/ \\___/ (_______/(_______) " +
+                "TM\n");
+
             ForegroundColor = ConsoleColor.Gray;
         }
     }
