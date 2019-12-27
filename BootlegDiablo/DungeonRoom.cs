@@ -1,7 +1,6 @@
 ﻿using System;
 using GameEngine;
 using System.Numerics;
-using System.Collections.Generic;
 
 namespace BootlegDiablo
 {
@@ -27,39 +26,6 @@ namespace BootlegDiablo
             InstantiateDoors();
 
             Name = "Room";
-        }
-
-        // código morto
-        public new void Update()
-        {
-            Dictionary<Vector2, ConsolePixel> wallPixels;
-
-            GameObject wallS = new GameObject("Walls");
-
-            ConsolePixel wallPixel =
-                new ConsolePixel('i', ConsoleColor.Yellow, ConsoleColor.DarkRed);
-            wallPixels = new Dictionary<Vector2, ConsolePixel>();
-
-            for (int x = 0; x < Dim.X; x++)
-            {
-                wallPixels[new Vector2(x, 0)] = wallPixel;
-            }
-            for (int x = 0; x < Dim.X; x++)
-            {
-                wallPixels[new Vector2(x, Dim.Y - 1)] = wallPixel;
-            }
-            for (int y = 0; y < Dim.Y; y++)
-            {
-                wallPixels[new Vector2(0, y)] = wallPixel;
-            }
-            for (int y = 0; y < Dim.Y; y++)
-            {
-                wallPixels[new Vector2(Dim.X - 1, y)] = wallPixel;
-            }
-            wallS.AddComponent(new ConsoleSprite(wallPixels));
-            wallS.AddComponent(new Transform(0, 0, 1));
-
-            ParentScene.AddGameObject(wallS);
         }
 
         /// <summary>

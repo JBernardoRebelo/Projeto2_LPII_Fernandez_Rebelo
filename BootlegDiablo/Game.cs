@@ -67,8 +67,6 @@ namespace BootlegDiablo
             _player = new Player(role, name);
             _scene.AddGameObject(_player);
 
-            //CreateWalls(_scene);
-
             _scene.GameLoop(_frameLength);
         }
 
@@ -84,11 +82,25 @@ namespace BootlegDiablo
             int index = 1;
 
             Dictionary<Vector2, ConsolePixel> wallPixels;
+            Dictionary<Vector2, ConsolePixel> doorPixels;
+
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
             {
-                //room.AddComponent(new Transform
-                //    (10000, _rnd.Next(1, 10), 0));
+                for (int i = 0; i < room.Doors.Length; i++)
+                {
+                    GameObject door = new GameObject("Door" + i + index);
+
+                    ConsolePixel doorPixel = new ConsolePixel
+                        ('D', ConsoleColor.White, ConsoleColor.Green);
+
+                    doorPixels = new Dictionary<Vector2, ConsolePixel>();
+
+                    door.AddComponent(new ConsoleSprite(doorPixels));
+                    door.AddComponent(new Transform(0, 0, 1));
+
+                    scene.AddGameObject(door);
+                }
 
                 GameObject wallS = new GameObject("Walls" + index);
 

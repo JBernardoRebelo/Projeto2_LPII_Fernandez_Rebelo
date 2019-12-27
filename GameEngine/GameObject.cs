@@ -129,7 +129,7 @@ namespace GameEngine
         }
 
         // Update all components in this game object
-        public void Update()
+        public virtual void Update()
         {
             foreach (Component component in components)
             {
