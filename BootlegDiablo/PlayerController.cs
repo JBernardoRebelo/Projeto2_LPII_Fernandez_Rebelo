@@ -8,11 +8,18 @@ namespace BootlegDiablo
     {
         private KeyObserver _keyObserver;
         private Transform _transform;
-        private Player _player;
         private Render _rndr;
 
+        // Initialize player
+        public override void Start()
+        {
+            _keyObserver = ParentGameObject.GetComponent<KeyObserver>();
+            _transform = ParentGameObject.GetComponent<Transform>();
+            _rndr = new Render();
+        }
+
         // Update player in the current frame
-        public new void Update()
+        public override void Update()
         {
             // Get player position
             float x = _transform.Pos.X;
@@ -36,7 +43,7 @@ namespace BootlegDiablo
                         x -= 1;
                         break;
                     case ConsoleKey.C:
-                        _rndr.CharInformationScreen(_player);
+                        _rndr.CharInformationScreen(ParentGameObject as Player);
                         break;
                 }
             }

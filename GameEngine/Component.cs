@@ -5,7 +5,7 @@
     /// </summary>
     public abstract class Component : BaseGameObject
     {
-        public GameObject ParentGameObject { get; internal set; }
+        public GameObject ParentGameObject { get; set; }
 
         public Scene ParentScene => ParentGameObject.ParentScene;
     }
