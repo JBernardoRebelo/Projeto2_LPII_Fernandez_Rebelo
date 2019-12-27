@@ -3,8 +3,14 @@ using System.Numerics;
 
 namespace GameEngine
 {
+    /// <summary>
+    /// Abstract class to be used by colliders
+    /// </summary>
     public abstract class AbstractCollider : Component
     {
-        public IEnumerable<Vector2> Occupied { get; set; }
+        /// <summary>
+        /// IEnumerable o occupied positions
+        /// </summary>
+        public abstract IEnumerable<Vector2> Occupied { get; }
     }
 }

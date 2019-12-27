@@ -5,11 +5,17 @@ using System.Threading;
 
 namespace GameEngine
 {
-    // This class handle keyboard input, other objects can register themselves
-    // as observers to listen to specific keys
+    /// <summary>
+    /// Class to handle keyboard input, where 
+    /// other objects can register themselves
+    /// as observers and listen to specific keys stored in a .
+    /// </summary>
     public class InputHandler : IObservable<ConsoleKey>
     {
-        // Observers for specific keys
+        /// <summary>
+        /// Dictionary of ConsoleKeys and collection of Observers for 
+        /// specific keys.
+        /// </summary>
         private Dictionary<ConsoleKey, ICollection<IObserver<ConsoleKey>>>
             observers;
 

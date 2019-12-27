@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
     /// <summary>
     /// Interface that all gameObjects must implement
@@ -19,6 +15,9 @@ namespace GameEngine
         /// </summary>
         void Update();
 
+        /// <summary>
+        /// Method to be called when game loop is terminated
+        /// </summary>
         void Finish();
     }
 }

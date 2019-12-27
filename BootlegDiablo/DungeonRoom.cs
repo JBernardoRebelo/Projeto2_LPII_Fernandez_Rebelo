@@ -6,7 +6,9 @@ namespace BootlegDiablo
 {
     public class DungeonRoom : GameObject
     {
-        // Vector2 for room dimension
+        /// <summary>
+        /// Vector2 for room dimension
+        /// </summary>
         public Vector2 Dim { get; set; }
 
         // Collection of enemies
