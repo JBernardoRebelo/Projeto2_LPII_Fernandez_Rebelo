@@ -107,7 +107,9 @@ namespace BootlegDiablo
             int index = 1;
 
             Dictionary<Vector2, ConsolePixel> wallPixels;
-            Dictionary<Vector2, ConsolePixel> doorPixels;
+
+            char[,] doors = { { 'D' } };
+            char[,] enemy = { { 'E' } };
 
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
@@ -167,12 +169,7 @@ namespace BootlegDiablo
                     room.Doors[i].Name += i;
                     room.Doors[i].Name += index;
 
-                    ConsolePixel doorPixel = new ConsolePixel
-                        ('D', ConsoleColor.Blue, ConsoleColor.Green);
-
-                    doorPixels = new Dictionary<Vector2, ConsolePixel>();
-
-                    room.Doors[i].AddComponent(new ConsoleSprite(doorPixels));
+                    room.Doors[i].AddComponent(new ConsoleSprite(doors));
 
                     //room.Doors[i].AddComponent(
                     //    new Transform(room.Doors[i].Transform.Pos.X,
@@ -187,6 +184,29 @@ namespace BootlegDiablo
                     //Console.WriteLine(room.Doors[i].Transform.Pos.Z);
 
                     scene.AddGameObject(room.Doors[i]);
+                }
+
+                for (int i = 0; i < room.Enemies.Length; i++)
+                {
+                    room.Enemies[i].Name += i;
+                    room.Enemies[i].Name += index;
+
+                    room.Enemies[i].AddComponent(new ConsoleSprite(enemy));
+
+                    //room.Doors[i].AddComponent(
+                    //    new Transform(room.Doors[i].Transform.Pos.X,
+                    //    room.Doors[i].Transform.Pos.Y,
+                    //    room.Doors[i].Transform.Pos.Z));
+
+                    // Debugs
+                    room.Enemies[i].AddComponent(
+                        new Transform(room.Dim.X/2, room.Dim.Y/2, 2f));
+
+                    //Console.Write(room.Doors[i].Transform.Pos.X);
+                    //Console.Write(room.Doors[i].Transform.Pos.Y);
+                    //Console.WriteLine(room.Doors[i].Transform.Pos.Z);
+
+                    scene.AddGameObject(room.Enemies[i]);
                 }
 
                 index++;
