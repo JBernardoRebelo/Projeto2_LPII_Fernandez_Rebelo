@@ -16,7 +16,7 @@ namespace BootlegDiablo
 
         // World dimensions
         private const int _x = 160;
-        private const int _y = 40;
+        private const int _y = 41;
 
         // Frame duration in miliseconds
         private int _frameLength = 60;
@@ -40,14 +40,14 @@ namespace BootlegDiablo
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random(1);
+            _rnd = new Random();
 
             // Instantiate dungeon with number of rooms
             Dungeon _dungeon;
             _dungeon = new Dungeon(_rnd.Next(1, 10), _rnd);
             _scene.AddGameObject(_dungeon);
 
-            CreateWalls(_scene);
+            CreateDungeons(_scene);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace BootlegDiablo
         /// Add walls to the scene
         /// </summary>
         /// <param name="scene"> Accepts a Scene </param>
-        private void CreateWalls(Scene scene)
+        private void CreateDungeons(Scene scene)
         {
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
@@ -150,9 +150,8 @@ namespace BootlegDiablo
                     // Look for door of prev room, join this room door with it
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(
-                        new Transform(
-                        _rnd.Next(Convert.ToInt32(
-                            aux.GetComponent<Transform>().Pos.X / 4),
+                        new Transform(_rnd.Next(Convert.ToInt32(
+                            aux.GetComponent<Transform>().Pos.X / 2),
                             _x - 30),
                         _rnd.Next(Convert.ToInt32(
                             aux.GetComponent<Transform>().Pos.Y / 2),
@@ -169,15 +168,16 @@ namespace BootlegDiablo
                     room.Doors[i].Name += i;
                     room.Doors[i].Name += index;
 
-                    room.Doors[i].AddComponent(new ConsoleSprite(doors));
+                    room.Doors[i].AddComponent(new ConsoleSprite(
+                        doors, ConsoleColor.Cyan, ConsoleColor.White));
 
-                    //room.Doors[i].AddComponent(
-                    //    new Transform(room.Doors[i].Transform.Pos.X,
-                    //    room.Doors[i].Transform.Pos.Y,
-                    //    room.Doors[i].Transform.Pos.Z));
+                    room.Doors[i].AddComponent(
+                        new Transform(room.Doors[i].Transform.Pos.X,
+                        room.Doors[i].Transform.Pos.Y,
+                        room.Doors[i].Transform.Pos.Z));
 
                     // Debugs
-                    room.Doors[i].AddComponent(new Transform(9, 10, 2));
+                    //room.Doors[i].AddComponent(new Transform(9, 10, 2));
 
                     //Console.Write(room.Doors[i].Transform.Pos.X);
                     //Console.Write(room.Doors[i].Transform.Pos.Y);
@@ -191,7 +191,8 @@ namespace BootlegDiablo
                     room.Enemies[i].Name += i;
                     room.Enemies[i].Name += index;
 
-                    room.Enemies[i].AddComponent(new ConsoleSprite(enemy));
+                    room.Enemies[i].AddComponent(new ConsoleSprite(
+                        enemy, ConsoleColor.White, ConsoleColor.Red));
 
                     //room.Doors[i].AddComponent(
                     //    new Transform(room.Doors[i].Transform.Pos.X,
@@ -205,6 +206,8 @@ namespace BootlegDiablo
                     //Console.Write(room.Doors[i].Transform.Pos.X);
                     //Console.Write(room.Doors[i].Transform.Pos.Y);
                     //Console.WriteLine(room.Doors[i].Transform.Pos.Z);
+
+                    room.Enemies[i].AddComponent(new EnemyController(_rnd));
 
                     scene.AddGameObject(room.Enemies[i]);
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using GameEngine;
 
 namespace BootlegDiablo
@@ -32,27 +33,33 @@ namespace BootlegDiablo
                     y -= 1;
                     break;
 
-                // Player goes down
+                // Enemy goes down
                 case 1:
                     y += 1;
                     break;
 
-                // Player goes right
+                // Enemy goes right
                 case 2:
                     x += 1;
                     break;
 
-                // Player goes left
+                // Enemy goes left
                 case 3:
                     x -= 1;
                     break;
 
-                // Use player attack method
+                // Use Enemy attack method
                 case 4:
-                    // Implement player attack
+                    // Implement enemy attack
                     //parent.Attack();
                     break;
             }
+
+            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
+
+            // Update player position
+            _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
         }
     }
 }
