@@ -7,8 +7,7 @@ namespace GameEngine
     public class Scene
     {
         // Scene dimensions
-        public readonly int xdim;
-        public readonly int ydim;
+        public readonly int xdim, ydim;
 
         // Input handler for this scene
         public readonly InputHandler inputHandler;
