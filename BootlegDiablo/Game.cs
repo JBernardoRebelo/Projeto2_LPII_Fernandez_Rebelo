@@ -15,8 +15,8 @@ namespace BootlegDiablo
         private Random _rnd;
 
         // World dimensions
-        private int _x = 160;
-        private int _y = 40;
+        private const int _x = 160;
+        private const int _y = 40;
 
         // Frame duration in miliseconds
         private int _frameLength = 60;
@@ -72,7 +72,7 @@ namespace BootlegDiablo
             name = _render.AssignName();
 
             // Instantiate player
-            char[,] playerSprite = { { 'O' } };
+            char[,] playerSprite = { { 'O', '|' } };
             _player = new Player(role, name);
             KeyObserver playerKeys = new KeyObserver(new ConsoleKey[]
             {
@@ -82,6 +82,7 @@ namespace BootlegDiablo
                 ConsoleKey.D,
                 ConsoleKey.C,
                 ConsoleKey.P,
+                ConsoleKey.Spacebar
             });
             _player.AddComponent(playerKeys);
             _player.AddComponent(new PlayerController());
@@ -102,13 +103,12 @@ namespace BootlegDiablo
         {
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
-
+            GameObject aux = null;
             int index = 1;
 
             Dictionary<Vector2, ConsolePixel> wallPixels;
             Dictionary<Vector2, ConsolePixel> doorPixels;
 
-            GameObject aux = null;
             // Foreach wall does this
             foreach (DungeonRoom room in dungeon.Rooms)
             {
@@ -135,39 +135,58 @@ namespace BootlegDiablo
                     wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
                 }
 
+                // First room walls
                 if (aux == null)
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(
-                        new Transform(0, 0, 1f));
+                        new Transform(0, 9, 1f));
                     aux = walls;
                 }
                 else
                 {
+                    // Look for door of prev room, join this room door with it
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(
-                        new Transform(_rnd.Next(Convert.ToInt32
-                        (aux.GetComponent<Transform>().Pos.X), _x - 20),
-                        _rnd.Next(0, _y - 20), 1f));
+                        new Transform(
+                        _rnd.Next(Convert.ToInt32(
+                            aux.GetComponent<Transform>().Pos.X / 4),
+                            _x - 30),
+                        _rnd.Next(Convert.ToInt32(
+                            aux.GetComponent<Transform>().Pos.Y / 2),
+                            _y - 30), 1f));
 
                     aux = walls;
                 }
 
                 scene.AddGameObject(walls);
 
+                // Display doors in room
                 for (int i = 0; i < room.Doors.Length; i++)
                 {
-                    GameObject door = new GameObject("Door" + i + index);
+                    room.Doors[i].Name += i;
+                    room.Doors[i].Name += index;
 
                     ConsolePixel doorPixel = new ConsolePixel
                         ('D', ConsoleColor.Blue, ConsoleColor.Green);
 
                     doorPixels = new Dictionary<Vector2, ConsolePixel>();
 
-                    door.AddComponent(new ConsoleSprite(doorPixels));
-                    door.AddComponent(new Transform(0, 0, 2));
+                    room.Doors[i].AddComponent(new ConsoleSprite(doorPixels));
 
-                    scene.AddGameObject(door);
+                    //room.Doors[i].AddComponent(
+                    //    new Transform(room.Doors[i].Transform.Pos.X,
+                    //    room.Doors[i].Transform.Pos.Y,
+                    //    room.Doors[i].Transform.Pos.Z));
+
+                    // Debugs
+                    room.Doors[i].AddComponent(new Transform(9, 10, 2));
+
+                    //Console.Write(room.Doors[i].Transform.Pos.X);
+                    //Console.Write(room.Doors[i].Transform.Pos.Y);
+                    //Console.WriteLine(room.Doors[i].Transform.Pos.Z);
+
+                    scene.AddGameObject(room.Doors[i]);
                 }
 
                 index++;

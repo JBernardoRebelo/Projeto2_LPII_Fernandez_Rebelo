@@ -6,6 +6,7 @@ namespace BootlegDiablo
     {
         public int HP { get; set; }
         public int Damage { get; set; }
+        public Transform Transform { get; set; }
 
         // Accepts a seed to generate hp and damage
         public Enemy()
