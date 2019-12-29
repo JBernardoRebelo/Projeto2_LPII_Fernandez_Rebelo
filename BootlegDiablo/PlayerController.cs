@@ -45,7 +45,7 @@ namespace BootlegDiablo
             // Get player position
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
-
+            
             // Check what keys were pressed and update position accordingly
             foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
             {

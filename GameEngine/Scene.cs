@@ -84,6 +84,7 @@ namespace GameEngine
                 foreach (GameObject gameObject in gameObjects.Values)
                 {
                     gameObject.Update();
+                    //Console.WriteLine(gameObject.Name);
                 }
 
                 // Update collision information
@@ -96,9 +97,7 @@ namespace GameEngine
                 timeToWait = (int)(start / 10000 + msFramesPerSecond
                     - DateTime.Now.Ticks / 10000);
 
-                // If this time is negative, we cheat by making it zero
-                // Note this should be handled with a more robust game loop
-                // and not like this
+                // Handle robustly
                 timeToWait = timeToWait > 0 ? timeToWait : 0;
 
                 // Wait until next frame
