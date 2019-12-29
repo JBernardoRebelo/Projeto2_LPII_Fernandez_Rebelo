@@ -55,7 +55,8 @@ namespace GameEngine
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 //cursorVisibleBefore = Console.CursorVisible;
-                Console.SetWindowSize(xdim, ydim);
+                Console.SetWindowSize(
+                    Console.LargestWindowWidth, Console.LargestWindowHeight);
             }
         }
 
