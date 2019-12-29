@@ -4,6 +4,11 @@ namespace BootlegDiablo
 {
     public class Player : GameObject
     {
+        // Variables
+        private Dungeon _dungeon;
+        private Enemy _enemy;
+
+        // Properties
         public int Life { get; set; }
         public int Damage { get; set; } // = Strength + weapon damage
         public int Dexterity { get; set; }
@@ -31,8 +36,12 @@ namespace BootlegDiablo
             // Add weapon to player
             Weapon = new ShortSword();
 
+            _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
+
             // Apply initial stats
             RoleApply(Role);
+
+            Damage = Strength + Weapon.MaxDamage;
         }
 
         // Must have a renderable
@@ -56,7 +65,25 @@ namespace BootlegDiablo
         // Attack based on pressed
         public void Attack()
         {
+            // Check rooms in dungeon
+            foreach (DungeonRoom dr in _dungeon.Rooms)
+            {
+                // For each enemy in the room try attack
+                for (int i = 0; i < dr.Enemies.Length; i++)
+                {
+                    _enemy = dr.Enemies[i];
 
+                    // Check adjacent position of enemy
+                    if (_enemy.Transform.Pos.X == Transform.Pos.X - 1
+                        || _enemy.Transform.Pos.X == Transform.Pos.X + 1
+                        || _enemy.Transform.Pos.Y == Transform.Pos.Y + 1
+                        || _enemy.Transform.Pos.Y == Transform.Pos.Y - 1)
+                    {
+                        // Damage to recieve
+                        _enemy.HP -= Damage;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -129,7 +156,7 @@ namespace BootlegDiablo
         public override string ToString()
         {
             // Arrows based on dir
-            
+
             // < > ^ v
             return base.ToString();
         }

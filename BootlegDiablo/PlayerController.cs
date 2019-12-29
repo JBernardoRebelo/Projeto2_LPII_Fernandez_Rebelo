@@ -45,6 +45,7 @@ namespace BootlegDiablo
             // Get player position
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
+            Player player = ParentGameObject as Player;
             
             // Check what keys were pressed and update position accordingly
             foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
@@ -73,12 +74,13 @@ namespace BootlegDiablo
 
                     // Show player's stats and equipment
                     case ConsoleKey.C:
-                        _rndr.CharInformationScreen(ParentGameObject as Player);
+                        _rndr.CharInformationScreen(player);
                         break;
 
                     // Use player attack method
                     case ConsoleKey.Spacebar:
                         // Implement player attack
+                        player.Attack();
                         break;
                 }
             }
