@@ -19,7 +19,7 @@ namespace BootlegDiablo
         private int _y = 40;
 
         // Frame duration in miliseconds
-        private int _frameLength = 100;
+        private int _frameLength = 60;
 
         // The (only) game scene
         private Scene _scene;
