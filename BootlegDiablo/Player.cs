@@ -36,15 +36,17 @@ namespace BootlegDiablo
             // Add weapon to player
             Weapon = new ShortSword();
 
-            _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
-
             // Apply initial stats
             RoleApply(Role);
 
             Damage = Strength + Weapon.MaxDamage;
         }
 
-        // Must have a renderable
+        public override void Start()
+        {
+            base.Start();
+            _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
+        }
 
         /// <summary>
         /// Increments level and player stats based on input

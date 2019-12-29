@@ -6,6 +6,8 @@ namespace BootlegDiablo
 {
     public class Render
     {
+        //private char _penta = '\26E7';
+        
         /// <summary>
         /// Displays Start menu with options
         /// </summary>
@@ -22,7 +24,7 @@ namespace BootlegDiablo
 
                 // Show menu options
                 WriteLine();
-                WriteLine("⛧ SINGLE PLAYER ⛧");
+                WriteLine($"⛧ SINGLE PLAYER ⛧");
                 WriteLine("⛧ SHOW CREDITS ⛧");
                 WriteLine("⛧ EXIT ⛧");
 
@@ -34,7 +36,7 @@ namespace BootlegDiablo
                     Credits();
                     Clear();
                 }
-                else if(option == "exit")
+                else if (option == "exit")
                 {
                     WriteLine("Goodbye");
                     Environment.Exit(0);
@@ -62,14 +64,14 @@ namespace BootlegDiablo
             //How much experience the character needs to achieve the next level
 
             WriteLine();
-            WriteLine($"Strength: {player.Strength}");
-            WriteLine($"Dexterity: {player.Dexterity}");
-            WriteLine($"Life: {player.Life}");
-            WriteLine();
+            Write($"Strength: {player.Strength}  |  ");
             WriteLine($"{player.Weapon.Name.ToUpper()}");
+            Write($"Dexterity: {player.Dexterity} |      ");
             WriteLine($"Damage: {player.Weapon.MinDamage}" +
                 $" - {player.Weapon.MaxDamage}");
+            Write($"Life: {player.Life}      |      ");
             WriteLine($"Durability: {player.Weapon.Durability}");
+
         }
 
         /// <summary>
@@ -156,13 +158,13 @@ namespace BootlegDiablo
         {
             ForegroundColor = ConsoleColor.Red;
             Console.Write(
-                " ______	 _________ _______  ______   _	      _______\n"+
-                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n"+
-                "| (  \\  )   ) (   | (   ) || (   ) )| (      | (   ) |\n"+
-                "| |   ) |   | |   | (___) || (__/ / | |      | |   | |\n"+
-                "| |   | |   | |   |  ___  ||  __ (  | |      | |   | |\n"+
-                "| |   ) |   | |   | (   ) || (  \\ \\ | |      | |   | |\n"+
-                "| (__/  )___) (___| )   ( || )___) )| (____/\\| (___) |\n"+
+                " ______	 _________ _______  ______   _	      _______\n" +
+                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n" +
+                "| (  \\  )   ) (   | (   ) || (   ) )| (      | (   ) |\n" +
+                "| |   ) |   | |   | (___) || (__/ / | |      | |   | |\n" +
+                "| |   | |   | |   |  ___  ||  __ (  | |      | |   | |\n" +
+                "| |   ) |   | |   | (   ) || (  \\ \\ | |      | |   | |\n" +
+                "| (__/  )___) (___| )   ( || )___) )| (____/\\| (___) |\n" +
                 "(______/ \\_______/|/     \\||/ \\___/ (_______/(_______) " +
                 "TM\n");
 
