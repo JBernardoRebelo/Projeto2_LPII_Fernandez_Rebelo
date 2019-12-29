@@ -120,7 +120,7 @@ namespace GameEngine
         }
 
         // Initialize all components in this game object
-        public void Start()
+        public virtual void Start()
         {
             foreach (Component component in components)
             {
