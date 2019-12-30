@@ -6,7 +6,6 @@ namespace BootlegDiablo
     {
         public int HP { get; set; }
         public int Damage { get; set; }
-        public Transform Transform { get; set; }
         public virtual void Attack()
         {
             //// For each enemy in the room try attack
@@ -24,6 +23,22 @@ namespace BootlegDiablo
             //        _enemy.HP -= Damage;
             //    }
             //}
+        }
+
+        /// <summary>
+        /// Enemy update
+        /// </summary>
+        public override void Update()
+        {
+            base.Update();
+
+            // Enemy death
+            if(HP <= 0)
+            {
+                Finish();
+
+                //System.Console.WriteLine("ENEMY DIED");
+            }
         }
     }
 }

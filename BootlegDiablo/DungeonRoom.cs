@@ -21,7 +21,7 @@ namespace BootlegDiablo
         public DungeonRoom(Random rnd)
         {
             Dim = new Vector2(rnd.Next(10, 40), rnd.Next(2, 40));
-            Enemies = new Enemy[rnd.Next(0, 5)];
+            Enemies = new Enemy[rnd.Next(1, 5)];
             Doors = new DungeonDoor[rnd.Next(2, 4)];
 
             InstantiateEnemies(rnd);
@@ -35,27 +35,10 @@ namespace BootlegDiablo
         /// </summary>
         private void InstantiateDoors()
         {
-            DungeonDoor temp = new DungeonDoor
-                (Convert.ToInt32(Dim.X), Convert.ToInt32(Dim.Y));
-
             // Instantiate doors
             for (int i = 0; i < Doors.Length; i++)
             {
-                if (temp != null)
-                {
-                    if (temp.Transform.Pos.X > 0) // Door on the left
-                    {
-                        Doors[i] = new DungeonDoor
-                            (0, Convert.ToInt32(Dim.Y) / 2);
-                    }
-                    if (temp.Transform.Pos.Y > 0) // Door on top
-                    {
-                        Doors[i] = new DungeonDoor
-                            (Convert.ToInt32(Dim.X) / 2, 0);
-                    }
-                }
-
-                temp = Doors[i];
+                Doors[i] = new DungeonDoor();
             }
         }
 
