@@ -1,7 +1,12 @@
-﻿namespace BootlegDiablo
+﻿using System;
+namespace BootlegDiablo
 {
     public class EnemySkeleton : Enemy
     {
-        // Must have a renderable
+        public EnemySkeleton(Random rndm)
+        {
+            HP = rndm.Next(10, 30);
+            Damage = rndm.Next(5, 10);
+        }
     }
 }

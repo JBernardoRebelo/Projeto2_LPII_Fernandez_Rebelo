@@ -86,8 +86,8 @@ namespace BootlegDiablo
             }
 
             // Make sure player doesn't get outside of dungeon area
-            x = Math.Clamp(x, 0, ParentScene.xdim - 3);
-            y = Math.Clamp(y, 0, ParentScene.ydim - 3);
+            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
 
             // Update player position
             _transform.Pos = new Vector3(x, y, _transform.Pos.Z);

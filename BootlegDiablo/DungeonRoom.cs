@@ -24,7 +24,7 @@ namespace BootlegDiablo
             Enemies = new Enemy[rnd.Next(0, 5)];
             Doors = new DungeonDoor[rnd.Next(2, 4)];
 
-            InstantiateEnemies();
+            InstantiateEnemies(rnd);
             InstantiateDoors();
 
             Name = "Room";
@@ -62,12 +62,12 @@ namespace BootlegDiablo
         /// <summary>
         /// Instantiate enemies in array
         /// </summary>
-        private void InstantiateEnemies()
+        private void InstantiateEnemies(Random random)
         {
             // Instantiate enemies
             for (int i = 0; i < Enemies.Length; i++)
             {
-                Enemies[i] = new EnemySkeleton();
+                Enemies[i] = new EnemySkeleton(random);
             }
         }
     }
