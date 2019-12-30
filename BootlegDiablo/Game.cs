@@ -88,7 +88,8 @@ namespace BootlegDiablo
             _player.AddComponent(new PlayerController());
             _player.AddComponent(new Transform(10f, 10f, 2f));
             _player.AddComponent(new ConsoleSprite(
-                playerSprite, ConsoleColor.White, ConsoleColor.Blue));
+                playerSprite, ConsoleColor.Green, ConsoleColor.Yellow));
+            _player.AddComponent(new SpriteCollider());
 
             _scene.AddGameObject(_player);
 
