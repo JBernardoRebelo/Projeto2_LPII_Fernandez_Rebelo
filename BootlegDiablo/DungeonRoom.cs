@@ -21,7 +21,7 @@ namespace BootlegDiablo
         public DungeonRoom(Random rnd)
         {
             Dim = new Vector2(rnd.Next(10, 40), rnd.Next(2, 40));
-            Enemies = new Enemy[rnd.Next(0, 5)];
+            Enemies = new Enemy[rnd.Next(1, 5)];
             Doors = new DungeonDoor[rnd.Next(2, 4)];
 
             InstantiateEnemies(rnd);
