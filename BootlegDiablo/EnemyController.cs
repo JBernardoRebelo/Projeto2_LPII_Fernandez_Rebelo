@@ -30,22 +30,22 @@ namespace BootlegDiablo
             switch (state)
             {
                 case 0:
-                    y -= 1;
+                    y -= 0.5f;
                     break;
 
                 // Enemy goes down
                 case 1:
-                    y += 1;
+                    y += 0.5f;
                     break;
 
                 // Enemy goes right
                 case 2:
-                    x += 1;
+                    x += 0.5f;
                     break;
 
                 // Enemy goes left
                 case 3:
-                    x -= 1;
+                    x -= 0.5f;
                     break;
 
                 // Use Enemy attack method

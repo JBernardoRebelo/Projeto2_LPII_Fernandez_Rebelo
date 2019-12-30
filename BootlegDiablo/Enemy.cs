@@ -36,6 +36,8 @@ namespace BootlegDiablo
             if(HP <= 0)
             {
                 Finish();
+
+                //System.Console.WriteLine("ENEMY DIED");
             }
         }
     }
