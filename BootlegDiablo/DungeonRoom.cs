@@ -35,27 +35,10 @@ namespace BootlegDiablo
         /// </summary>
         private void InstantiateDoors()
         {
-            DungeonDoor temp = new DungeonDoor
-                (Convert.ToInt32(Dim.X), Convert.ToInt32(Dim.Y));
-
             // Instantiate doors
             for (int i = 0; i < Doors.Length; i++)
             {
-                if (temp != null)
-                {
-                    if (temp.Transform.Pos.X > 0) // Door on the left
-                    {
-                        Doors[i] = new DungeonDoor
-                            (0, Convert.ToInt32(Dim.Y) / 2);
-                    }
-                    if (temp.Transform.Pos.Y > 0) // Door on top
-                    {
-                        Doors[i] = new DungeonDoor
-                            (Convert.ToInt32(Dim.X) / 2, 0);
-                    }
-                }
-
-                temp = Doors[i];
+                Doors[i] = new DungeonDoor();
             }
         }
 

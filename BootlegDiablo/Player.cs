@@ -154,13 +154,5 @@ namespace BootlegDiablo
             }
             Lvl++;
         }
-
-        public override string ToString()
-        {
-            // Arrows based on dir
-
-            // < > ^ v
-            return base.ToString();
-        }
     }
 }
