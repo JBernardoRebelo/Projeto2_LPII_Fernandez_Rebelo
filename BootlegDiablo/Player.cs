@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using System.Numerics;
 
 namespace BootlegDiablo
 {
@@ -7,6 +8,14 @@ namespace BootlegDiablo
         // Variables
         private Dungeon _dungeon;
         private Enemy _enemy;
+        public Transform _transform;
+
+        // Player position for attack
+        private Vector2 _playerLeft;
+        private Vector2 _playerRight;
+        private Vector2 _playerDown;
+        private Vector2 _playerUp;
+        private Vector2 _playerPos;
 
         // Properties
         public int Life { get; set; }
@@ -17,7 +26,6 @@ namespace BootlegDiablo
         public int Exp { get; set; }
         public Role Role { get; set; }
         public Weapon Weapon { get; set; }
-        public Transform Transform { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
@@ -31,7 +39,6 @@ namespace BootlegDiablo
             Name = name;
             Lvl = 1;
             Exp = 0;
-            Transform = new Transform(0, 0, 0);
 
             // Add weapon to player
             Weapon = new ShortSword();
@@ -45,6 +52,7 @@ namespace BootlegDiablo
         public override void Start()
         {
             base.Start();
+            _transform = GetComponent<Transform>();
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
         }
 
@@ -67,6 +75,25 @@ namespace BootlegDiablo
         // Attack based on pressed
         public void Attack()
         {
+            // Enemy transform
+            Transform enemyTransform;
+            Vector2 enemyPos;
+
+            // Player directions
+            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
+                (int)_transform.Pos.Y);
+
+            _playerRight = new Vector2((int)_transform.Pos.X + 1,
+                (int)_transform.Pos.Y);
+
+            _playerDown = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y + 1);
+
+            _playerUp = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y - 1);
+
+            _playerPos = new Vector2((int)_transform.Pos.X, (int)_transform.Pos.Y);
+
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
             {
@@ -75,14 +102,20 @@ namespace BootlegDiablo
                 {
                     _enemy = dr.Enemies[i];
 
+                    // Get enemy transform and position
+                    enemyTransform = _enemy.GetComponent<Transform>();
+                    enemyPos = new Vector2((int)enemyTransform.Pos.X,
+                        (int)enemyTransform.Pos.Y);
+
                     // Check adjacent position of enemy
-                    if (_enemy.Transform.Pos.X == Transform.Pos.X - 1
-                        || _enemy.Transform.Pos.X == Transform.Pos.X + 1
-                        || _enemy.Transform.Pos.Y == Transform.Pos.Y + 1
-                        || _enemy.Transform.Pos.Y == Transform.Pos.Y - 1)
+                    if (enemyPos == _playerLeft || enemyPos == _playerRight
+                        || enemyPos == _playerDown || enemyPos == _playerUp
+                        || enemyPos == _playerPos)
                     {
                         // Damage to recieve
                         _enemy.HP -= Damage;
+                        _enemy.Finish();
+                        System.Console.WriteLine("I HIT SOMETHING");
                     }
                 }
             }
