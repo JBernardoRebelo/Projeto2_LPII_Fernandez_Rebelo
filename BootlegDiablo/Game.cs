@@ -72,7 +72,7 @@ namespace BootlegDiablo
             name = _render.AssignName();
 
             // Instantiate player
-            char[,] playerSprite = { { 'O'} };
+            char[,] playerSprite = { { 'O' } };
             _player = new Player(role, name);
             KeyObserver playerKeys = new KeyObserver(new ConsoleKey[]
             {
@@ -176,13 +176,15 @@ namespace BootlegDiablo
                     if (i % 2 == 0)
                     {
                         // Add transform corresponding to the room it's in - X
-                        room.Doors[i].AddComponent(new Transform(wallTrans.Pos.X,
-                            wallTrans.Pos.Y + 2, 2));
+                        room.Doors[i].AddComponent(
+                            new Transform(wallTrans.Pos.X,
+                            wallTrans.Pos.Y + (room.Dim.Y / 2), 2));
                     }
                     else
                     {
                         // Add transform corresponding to the room it's in - Y
-                        room.Doors[i].AddComponent(new Transform(wallTrans.Pos.X + 2,
+                        room.Doors[i].AddComponent(
+                            new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
                             wallTrans.Pos.Y, 2));
                     }
 
@@ -199,8 +201,8 @@ namespace BootlegDiablo
 
                     // Debugs
                     room.Enemies[i].AddComponent(
-                        new Transform(wallTrans.Pos.X + 2,
-                        wallTrans.Pos.Y + 2, 2f));
+                        new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
+                        wallTrans.Pos.Y + (room.Dim.Y / 2), 2f));
 
                     //Console.Write(room.Doors[i].Transform.Pos.X);
                     //Console.Write(room.Doors[i].Transform.Pos.Y);
