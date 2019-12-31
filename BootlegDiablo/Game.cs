@@ -44,7 +44,7 @@ namespace BootlegDiablo
 
             // Instantiate dungeon with number of rooms
             Dungeon _dungeon;
-            _dungeon = new Dungeon(_rnd.Next(1, 10), _rnd);
+            _dungeon = new Dungeon(_rnd.Next(2, 10), _rnd);
             _scene.AddGameObject(_dungeon);
 
             CreateDungeons(_scene);
@@ -156,20 +156,25 @@ namespace BootlegDiablo
                 {
                     auxTrans = aux.GetComponent<Transform>();
 
-                    // X of room is taken from the previus walls
-                    // and room dimensions
-                    float xdim = Math.Clamp(
-                        auxTrans.Pos.X + auxRoom.Dim.X - 1, 0, _x - 2);
+                    // Make sure the room doesn't get out of bounds
+                    if (auxTrans.Pos.X + auxRoom.Dim.X + room.Dim.X <= _x
+                        && auxTrans.Pos.Y + auxRoom.Dim.Y + room.Dim.Y <= _y)
+                    {
+                        // X of room is taken from the previus walls
+                        // and room dimensions
+                        float xdim = Math.Clamp(
+                            auxTrans.Pos.X + auxRoom.Dim.X - 1, 0, _x - 2);
 
-                    // Y of room is taken from the previus walls and doors
-                    // In relation with the center of the current room
-                    float ydim = Math.Clamp(
-                        auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
-                        - (room.Dim.Y / 2), 0, _y - 2);
+                        // Y of room is taken from the previus walls and doors
+                        // In relation with the center of the current room
+                        float ydim = Math.Clamp(
+                            auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
+                            - (room.Dim.Y / 2), 0, _y - 2);
 
-                    // Add the sprite and transform to assign position
-                    walls.AddComponent(new ConsoleSprite(wallPixels));
-                    walls.AddComponent(new Transform(xdim, ydim, 1f));
+                        // Add the sprite and transform to assign position
+                        walls.AddComponent(new ConsoleSprite(wallPixels));
+                        walls.AddComponent(new Transform(xdim, ydim, 1f));
+                    }
 
                     aux = walls;
                     auxRoom = room;
