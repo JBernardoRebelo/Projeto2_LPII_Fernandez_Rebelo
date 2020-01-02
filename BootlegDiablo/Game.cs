@@ -86,7 +86,7 @@ namespace BootlegDiablo
             });
             _player.AddComponent(playerKeys);
             _player.AddComponent(new PlayerController());
-            _player.AddComponent(new Transform(5f, 4f, 2f));
+            _player.AddComponent(new Transform(5f, _y / 4 + 1, 2f));
             _player.AddComponent(new ConsoleSprite(
                 playerSprite, ConsoleColor.White, ConsoleColor.Blue));
             //_player.AddComponent(new SpriteCollider());
@@ -148,7 +148,7 @@ namespace BootlegDiablo
                 if (aux == null && auxRoom == null)
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
-                    walls.AddComponent(new Transform(1, _y / 2, 1f));
+                    walls.AddComponent(new Transform(1, _y / 4, 1f));
                     aux = walls;
                     auxRoom = room;
                 }
@@ -156,22 +156,18 @@ namespace BootlegDiablo
                 {
                     auxTrans = aux.GetComponent<Transform>();
 
-                    //auxTrans.Pos.Y + auxRoom.Dim.Y + room.Dim.Y <= _y
+                    // X of room is taken from the previus walls
+                    // and room dimensions
+                    float xdim = auxTrans.Pos.X + auxRoom.Dim.X - 1;
+
+                    // Y of room is taken from the previus walls and doors
+                    // In relation with the center of the current room
+                    float ydim = auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
+                        - (room.Dim.Y / 2) - 1;
 
                     // Make sure the room doesn't get out of bounds
-                    if (auxTrans.Pos.X + auxRoom.Dim.X + room.Dim.X <= _x)
+                    if (xdim <= _x)
                     {
-                        // X of room is taken from the previus walls
-                        // and room dimensions
-                        float xdim = Math.Clamp(
-                            auxTrans.Pos.X + auxRoom.Dim.X - 1, 0, _x - 2);
-
-                        // Y of room is taken from the previus walls and doors
-                        // In relation with the center of the current room
-                        float ydim = Math.Clamp(
-                            auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
-                            - (room.Dim.Y / 2), 0, _y - 2);
-
                         // Add the sprite and transform to assign position
                         walls.AddComponent(new ConsoleSprite(wallPixels));
                         walls.AddComponent(new Transform(xdim, ydim, 1f));
@@ -179,7 +175,8 @@ namespace BootlegDiablo
                     else
                     {
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(0, 0, 1f));
+                        walls.AddComponent(new Transform(auxTrans.Pos.X,
+                            ydim, 1f));
                     }
 
                     aux = walls;

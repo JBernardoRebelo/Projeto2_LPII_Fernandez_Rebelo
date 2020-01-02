@@ -9,7 +9,7 @@ namespace BootlegDiablo
         /// <summary>
         /// Vector2 for room dimension
         /// </summary>
-        public Vector2 Dim { get; set; }
+        public Vector2 Dim { get; private set; }
 
         // Collection of enemies
         public Enemy[] Enemies { get; private set; }
@@ -20,7 +20,7 @@ namespace BootlegDiablo
         // Accepts a random seed to generate enemies and dimensions
         public DungeonRoom(Random rnd)
         {
-            Dim = new Vector2(rnd.Next(10, 40), rnd.Next(3, 17));
+            Dim = new Vector2(rnd.Next(10, 40), rnd.Next(4, 17));
             Enemies = new Enemy[rnd.Next(1, 5)];
             Doors = new DungeonDoor[rnd.Next(2, 4)];
 
