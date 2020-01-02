@@ -148,7 +148,7 @@ namespace BootlegDiablo
                 if (aux == null && auxRoom == null)
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
-                    walls.AddComponent(new Transform(1, _y / 4, 1f));
+                    walls.AddComponent(new Transform(1, _y/6, 1f));
                     aux = walls;
                     auxRoom = room;
                 }
@@ -166,7 +166,7 @@ namespace BootlegDiablo
                     // Y of room is taken from the previus walls and doors
                     // In relation with the center of the current room
                     float ydim = auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
-                        - (room.Dim.Y / 2) - 1;
+                        - (room.Dim.Y / 2);
 
                     // Make sure the room doesn't get out of bounds
                     if (auxTrans.Pos.X + auxRoom.Dim.X + room.Dim.X <= _x)
@@ -178,8 +178,8 @@ namespace BootlegDiablo
                     else
                     {
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(auxTrans.Pos.X,
-                            auxTrans.Pos.Y + auxRoom.Dim.Y, 1f));
+                        walls.AddComponent(new Transform(1,
+                           _y / 2, 1f));
                     }
 
                     aux = walls;
@@ -207,13 +207,13 @@ namespace BootlegDiablo
                         room.Doors[i].AddComponent(
                             new Transform(wallTrans.Pos.X,
                             wallTrans.Pos.Y + (room.Dim.Y / 2), 2));
-                    } 
+                    }
                     else
                     {
                         // Add transform corresponding to the room it's in - Y
                         room.Doors[i].AddComponent(
                             new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
-                            wallTrans.Pos.Y, 2));
+                            wallTrans.Pos.Y + room.Dim.Y - 1, 2));
                     }
 
                     scene.AddGameObject(room.Doors[i]);
