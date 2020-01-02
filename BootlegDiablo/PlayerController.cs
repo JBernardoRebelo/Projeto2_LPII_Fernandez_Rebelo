@@ -82,11 +82,6 @@ namespace BootlegDiablo
                         // Implement player attack
                         player.Attack();
                         break;
-
-                    // Implement pause, for now only exit
-                    case ConsoleKey.Escape:
-                        Environment.Exit(0);
-                        break;
                 }
             }
 

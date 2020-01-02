@@ -15,7 +15,7 @@ namespace BootlegDiablo
         private Random _rnd;
 
         // World dimensions
-        private const int _x = 160;
+        private const int _x = 161;
         private const int _y = 41;
 
         // Frame duration in miliseconds
@@ -166,7 +166,7 @@ namespace BootlegDiablo
                         - (room.Dim.Y / 2) - 1;
 
                     // Make sure the room doesn't get out of bounds
-                    if (xdim <= _x)
+                    if (xdim <= _x && ydim <= _y)
                     {
                         // Add the sprite and transform to assign position
                         walls.AddComponent(new ConsoleSprite(wallPixels));
@@ -175,8 +175,8 @@ namespace BootlegDiablo
                     else
                     {
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(auxTrans.Pos.X,
-                            ydim, 1f));
+                        walls.AddComponent(new Transform(auxTrans.Pos.X - _x,
+                            auxTrans.Pos.Y - _y, 1f));
                     }
 
                     aux = walls;
@@ -204,7 +204,7 @@ namespace BootlegDiablo
                         room.Doors[i].AddComponent(
                             new Transform(wallTrans.Pos.X,
                             wallTrans.Pos.Y + (room.Dim.Y / 2), 2));
-                    }
+                    } 
                     else
                     {
                         // Add transform corresponding to the room it's in - Y
