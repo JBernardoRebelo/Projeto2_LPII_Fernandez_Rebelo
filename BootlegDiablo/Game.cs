@@ -166,7 +166,7 @@ namespace BootlegDiablo
                         - (room.Dim.Y / 2) - 1;
 
                     // Make sure the room doesn't get out of bounds
-                    if (xdim <= _x && ydim <= _y)
+                    if (xdim < _x)
                     {
                         // Add the sprite and transform to assign position
                         walls.AddComponent(new ConsoleSprite(wallPixels));
@@ -175,8 +175,8 @@ namespace BootlegDiablo
                     else
                     {
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(auxTrans.Pos.X - _x,
-                            auxTrans.Pos.Y - _y, 1f));
+                        walls.AddComponent(new Transform(xdim - auxTrans.Pos.X,
+                            auxTrans.Pos.Y + auxRoom.Dim.Y, 1f));
                     }
 
                     aux = walls;
