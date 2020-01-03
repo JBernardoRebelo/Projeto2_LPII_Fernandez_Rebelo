@@ -1,20 +1,57 @@
-﻿using System.Numerics;
-using System.Collections.Generic;
+﻿using System;
+using GameEngine;
+using System.Numerics;
 
 namespace BootlegDiablo
 {
-    public class DungeonRoom
+    public class DungeonRoom : GameObject
     {
-        // Vector2 for room dimension
-        public Vector2 Dim { get; set; }
+        /// <summary>
+        /// Vector2 for room dimension
+        /// </summary>
+        public Vector2 Dim { get; private set; }
 
         // Collection of enemies
-        public ICollection<Enemy> Enemies { get; set; }
+        public Enemy[] Enemies { get; private set; }
+
+        // Doors in Room
+        public DungeonDoor[] Doors { get; private set; }
 
         // Accepts a random seed to generate enemies and dimensions
-        public DungeonRoom(int seed)
+        public DungeonRoom(Random rnd)
         {
+            Dim = new Vector2(rnd.Next(10, 40), rnd.Next(4, 17));
+            Enemies = new Enemy[rnd.Next(1, 5)];
+            Doors = new DungeonDoor[rnd.Next(2, 4)];
 
+            InstantiateEnemies(rnd);
+            InstantiateDoors();
+
+            Name = "Room";
+        }
+
+        /// <summary>
+        /// Instantiates doors in room
+        /// </summary>
+        private void InstantiateDoors()
+        {
+            // Instantiate doors
+            for (int i = 0; i < Doors.Length; i++)
+            {
+                Doors[i] = new DungeonDoor();
+            }
+        }
+
+        /// <summary>
+        /// Instantiate enemies in array
+        /// </summary>
+        private void InstantiateEnemies(Random random)
+        {
+            // Instantiate enemies
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                Enemies[i] = new EnemySkeleton(random);
+            }
         }
     }
 }

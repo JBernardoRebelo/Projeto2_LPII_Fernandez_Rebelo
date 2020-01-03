@@ -1,47 +1,54 @@
 ﻿using System;
-using System.IO;
 using System.Text;
+using GameEngine;
 using static System.Console;
 
 namespace BootlegDiablo
 {
     public class Render
     {
-        UTF8Encoding utf8 = new UTF8Encoding();
-
+        //private char _penta = '\26E7';
+        
         /// <summary>
         /// Displays Start menu with options
         /// </summary>
         public void StartMenu(out Role role)
         {
-            string option;
-
-            DisplayLogo();
+            string option = null;
 
             // Será que daria para escolher com as setas e com o enter?
             // O cursor seria o pentagrama, mas entretanto vou fazer com texto
 
-            // Show menu options
-            WriteLine();
-            WriteLine("⛧ SINGLE PLAYER ⛧");
-            WriteLine("⛧ SHOW CREDITS ⛧");
-            WriteLine("⛧ EXIT ⛧");
-
-            option = ReadLine().ToLower();
-
-            while (option == "e" || option == "credits")
+            while (option != "s" || option != null)
             {
-                switch (option)
+                DisplayLogo();
+
+                // Show menu options
+                WriteLine();
+                WriteLine($"⛧ SINGLE PLAYER ⛧");
+                WriteLine("⛧ SHOW CREDITS ⛧");
+                WriteLine("⛧ EXIT ⛧");
+
+                Write("-> ");
+                option = ReadLine().ToLower();
+
+                if (option == "credits")
                 {
-                    case "credits":
-                        Credits();
-                        break;
-                    case "e":
-                        Environment.Exit(0);
-                        break;
+                    Credits();
+                    Clear();
+                }
+                else if (option == "exit")
+                {
+                    WriteLine("Goodbye");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    break;
                 }
             }
 
+            WriteLine("\nPick a class...\n");
             role = RolePick();
         }
 
@@ -58,14 +65,14 @@ namespace BootlegDiablo
             //How much experience the character needs to achieve the next level
 
             WriteLine();
-            WriteLine($"Strength: {player.Strength}");
-            WriteLine($"Dexterity: {player.Dexterity}");
-            WriteLine($"Life: {player.Life}");
-            WriteLine();
+            Write($"Strength: {player.Strength}  |  ");
             WriteLine($"{player.Weapon.Name.ToUpper()}");
+            Write($"Dexterity: {player.Dexterity} |      ");
             WriteLine($"Damage: {player.Weapon.MinDamage}" +
                 $" - {player.Weapon.MaxDamage}");
+            Write($"Life: {player.Life}      |      ");
             WriteLine($"Durability: {player.Weapon.Durability}");
+
         }
 
         /// <summary>
@@ -79,6 +86,16 @@ namespace BootlegDiablo
             WriteLine();
             WriteLine("⛧ RESUME GAME ⛧");
             WriteLine("⛧ EXIT ⛧");
+        }
+
+        /// <summary>
+        /// Hide area in turn of the player
+        /// </summary>
+        /// <param name="player"> Accepts a player and
+        /// uses position to hide whats around </param>
+        public void FogOfWar(Player player)
+        {
+
         }
 
         /// <summary>
@@ -125,19 +142,33 @@ namespace BootlegDiablo
         /// </summary>
         private void Credits()
         {
+            Clear();
+            DisplayLogo();
+
+            WriteLine();
             WriteLine("Game Design by:\n - Blizzard North\n");
             WriteLine("Code by:\n - Joao Rebelo\n - Miguel Fernandez\n");
-            WriteLine("External Engine Library by:\n - Nuno Fachada\n");
+            WriteLine("Based on Engine Library by:\n - Nuno Fachada\n");
             ReadLine();
         }
 
         /// <summary>
-        /// Displays Game Logo
+        ///  Displays Game Logo
         /// </summary>
         private void DisplayLogo()
         {
             ForegroundColor = ConsoleColor.Red;
-            WriteLine(File.ReadAllText("LogoDiablo.txt"));
+            Console.Write(
+                " ______	 _________ _______  ______   _	      _______\n" +
+                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n" +
+                "| (  \\  )   ) (   | (   ) || (   ) )| (      | (   ) |\n" +
+                "| |   ) |   | |   | (___) || (__/ / | |      | |   | |\n" +
+                "| |   | |   | |   |  ___  ||  __ (  | |      | |   | |\n" +
+                "| |   ) |   | |   | (   ) || (  \\ \\ | |      | |   | |\n" +
+                "| (__/  )___) (___| )   ( || )___) )| (____/\\| (___) |\n" +
+                "(______/ \\_______/|/     \\||/ \\___/ (_______/(_______) " +
+                "TM\n");
+
             ForegroundColor = ConsoleColor.Gray;
         }
     }

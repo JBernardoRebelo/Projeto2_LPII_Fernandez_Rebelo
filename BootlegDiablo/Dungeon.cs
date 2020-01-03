@@ -1,16 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using GameEngine;
 
 namespace BootlegDiablo
 {
-    public class Dungeon
+    public class Dungeon : GameObject
     {
         // Collection of rooms in dungeon
-        public ICollection<DungeonRoom> rooms { get; set; }
+        public DungeonRoom[] Rooms { get; private set; }
 
         // Accepts a seed to instantiate rooms
-        public Dungeon(int nRooms)
+        public Dungeon(int nRooms, Random rnd)
         {
+            Rooms = new DungeonRoom[nRooms];
 
+            for (int i = 0; i < nRooms; i++)
+            {
+                Rooms[i] = new DungeonRoom(rnd);
+                Rooms[i].AddComponent(new Transform(rnd.Next(3, 15),
+                    rnd.Next(3, 50), 0));
+            }
+
+            Name = "Dungeon";
         }
     }
 }

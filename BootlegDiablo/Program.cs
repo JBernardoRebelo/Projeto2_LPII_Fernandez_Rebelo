@@ -1,12 +1,12 @@
-﻿using GameEngine;
-
-namespace BootlegDiablo
+﻿namespace BootlegDiablo
 {
     public class Program
     {
         private static void Main(string[] args)
         {
-            GameLoop _gameLoop = new GameLoop();
+            System.Console.OutputEncoding = System.Text.Encoding.Unicode;
+
+            Game _gameLoop = new Game();
 
             // Call gameloop
             _gameLoop.Start();
