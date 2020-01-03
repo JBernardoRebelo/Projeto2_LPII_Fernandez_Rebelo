@@ -46,7 +46,7 @@ namespace BootlegDiablo
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
             Player player = ParentGameObject as Player;
-            
+
             // Check what keys were pressed and update position accordingly
             foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
             {
@@ -81,6 +81,11 @@ namespace BootlegDiablo
                     case ConsoleKey.Spacebar:
                         // Implement player attack
                         player.Attack();
+                        break;
+
+                    // Implement pause, for now only exit
+                    case ConsoleKey.Escape:
+                        Environment.Exit(0);
                         break;
                 }
             }
