@@ -19,7 +19,7 @@ namespace BootlegDiablo
         private const int _y = 41;
 
         // Frame duration in miliseconds
-        private int _frameLength = 60;
+        private int _frameLength = 100;
 
         // The (only) game scene
         private Scene _scene;
@@ -89,7 +89,7 @@ namespace BootlegDiablo
             _player.AddComponent(new Transform(10f, 10f, 2f));
             _player.AddComponent(new ConsoleSprite(
                 playerSprite, ConsoleColor.White, ConsoleColor.Blue));
-            _player.AddComponent(new SpriteCollider());
+            //_player.AddComponent(new SpriteCollider());
 
             _scene.AddGameObject(_player);
 
