@@ -9,7 +9,7 @@ namespace GameEngine
     /// <summary>
     /// Generic class to instantiate gameObjects
     /// </summary>
-    public class GameObject : IGameObject, IEnumerable<Component>
+    public class GameObject : IGameObject, IEnumerable<Component>, IDisposable
     {
         /// <summary>
         /// The scene were the game object is
@@ -144,6 +144,8 @@ namespace GameEngine
             {
                 component.Finish();
             }
+
+            Dispose();
         }
         // The methods below are required for implementing the IEnumerable<T>
         // interface
@@ -158,6 +160,15 @@ namespace GameEngine
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        // Method to implement IDisposable
+        public virtual void Dispose()
+        {
+            components.Clear();
+            containsRenderableComponent = false;
+            containsPosition = false;
+            containsCollider = false;
         }
     }
 }
