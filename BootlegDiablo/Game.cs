@@ -15,7 +15,7 @@ namespace BootlegDiablo
         private Random _rnd;
 
         // World dimensions
-        private const int _x = 160;
+        private const int _x = 161;
         private const int _y = 41;
 
         // Frame duration in miliseconds
@@ -104,22 +104,52 @@ namespace BootlegDiablo
         {
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
+            GameObject border;
+            GameObject walls;
             GameObject aux = null;          // Get previous gameObject (walls)
             Transform wallTrans;            // Get walls Transform
             Transform auxTrans;             // Previous gameObject transform
             DungeonRoom auxRoom = null;     // Get previous gameObject (room)
             int index = 1;
 
+            ConsolePixel borderPixel;
+
             Dictionary<Vector2, ConsolePixel> wallPixels;
+            Dictionary<Vector2, ConsolePixel> borderPixels;
 
             // Element's sprites
             char[,] doors = { { ' ' } };
             char[,] enemy = { { '☠' } }; // ☠
 
-            // Foreach wall does this
+            // Border of game
+            border = new GameObject("Borders");
+            borderPixel = new ConsolePixel('#');
+            borderPixels = new Dictionary<Vector2, ConsolePixel>();
+
+            for (int x = 0; x < _x; x++)
+            {
+                borderPixels[new Vector2(x, 0)] = borderPixel;
+            }
+            for (int x = 0; x < _x; x++)
+            {
+                borderPixels[new Vector2(x, _y - 1)] = borderPixel;
+            }
+            for (int y = 0; y < _y; y++)
+            {
+                borderPixels[new Vector2(0, y)] = borderPixel;
+            }
+            for (int y = 0; y < _y; y++)
+            {
+                borderPixels[new Vector2(_x - 1, y)] = borderPixel;
+            }
+            border.AddComponent(new ConsoleSprite(borderPixels));
+            border.AddComponent(new Transform(0, 0, 1));
+            scene.AddGameObject(border);
+
+            // Foreach room create wall
             foreach (DungeonRoom room in dungeon.Rooms)
             {
-                GameObject walls = new GameObject("Walls" + index);
+                walls = new GameObject("Walls" + index);
 
                 ConsolePixel wallPixel =
                     new ConsolePixel(' ', ConsoleColor.White,
@@ -148,25 +178,28 @@ namespace BootlegDiablo
                 if (aux == null && auxRoom == null)
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
-                    walls.AddComponent(new Transform(1, _y / 4, 1f));
+                    walls.AddComponent(new Transform(1, _y / 6, 1f));
                     aux = walls;
                     auxRoom = room;
                 }
                 else
                 {
+                    float xdim;
                     auxTrans = aux.GetComponent<Transform>();
+
 
                     // X of room is taken from the previus walls
                     // and room dimensions
-                    float xdim = auxTrans.Pos.X + auxRoom.Dim.X - 1;
+                    xdim = Math.Clamp(
+                            auxTrans.Pos.X + auxRoom.Dim.X - 1, 0, _x - 2);
 
                     // Y of room is taken from the previus walls and doors
                     // In relation with the center of the current room
                     float ydim = auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
-                        - (room.Dim.Y / 2) - 1;
+                        - (room.Dim.Y / 2);
 
                     // Make sure the room doesn't get out of bounds
-                    if (xdim <= _x)
+                    if (auxTrans.Pos.X + auxRoom.Dim.X + room.Dim.X <= _x)
                     {
                         // Add the sprite and transform to assign position
                         walls.AddComponent(new ConsoleSprite(wallPixels));
@@ -175,8 +208,8 @@ namespace BootlegDiablo
                     else
                     {
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(auxTrans.Pos.X,
-                            ydim, 1f));
+                        walls.AddComponent(new Transform(1,
+                           _y / 2, 1f));
                     }
 
                     aux = walls;
@@ -210,7 +243,7 @@ namespace BootlegDiablo
                         // Add transform corresponding to the room it's in - Y
                         room.Doors[i].AddComponent(
                             new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
-                            wallTrans.Pos.Y, 2));
+                            wallTrans.Pos.Y + room.Dim.Y - 1, 2));
                     }
 
                     scene.AddGameObject(room.Doors[i]);
