@@ -19,12 +19,15 @@ namespace GameEngine
         /// </summary>
         private ConsoleSprite sprite;
 
+        private Transform _transform;
+
         /// <summary>
         /// 
         /// </summary>
         public override void Start()
         {
             sprite = ParentGameObject.GetComponent<ConsoleSprite>();
+            _transform = ParentGameObject.GetComponent<Transform>();
             if (sprite == null)
             {
                 throw new InvalidOperationException(

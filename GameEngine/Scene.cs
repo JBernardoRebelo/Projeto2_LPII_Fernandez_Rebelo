@@ -84,6 +84,7 @@ namespace GameEngine
                 foreach (GameObject gameObject in gameObjects.Values)
                 {
                     gameObject.Update();
+
                     //Console.WriteLine(gameObject.Name);
                 }
 
@@ -94,8 +95,9 @@ namespace GameEngine
                 renderer?.Render(gameObjects.Values);
 
                 // Time to wait until next frame
-                timeToWait = (int)(start / 10000 + msFramesPerSecond
-                    - DateTime.Now.Ticks / 10000);
+                timeToWait = (int)(start / TimeSpan.TicksPerMillisecond
+                    + msFramesPerSecond
+                    - DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
 
                 // Handle robustly
                 timeToWait = timeToWait > 0 ? timeToWait : 0;

@@ -9,7 +9,7 @@ namespace GameEngine
     /// <summary>
     /// Generic class to instantiate gameObjects
     /// </summary>
-    public class GameObject : IGameObject, IEnumerable<Component>
+    public class GameObject : IGameObject, IEnumerable<Component>, IDisposable
     {
         /// <summary>
         /// The scene were the game object is
@@ -28,6 +28,10 @@ namespace GameEngine
         // Is the game object collidable?
         public bool IsCollidable => containsPosition && containsCollider;
 
+        // Helper variables for the IsRenderable property
+        private bool
+            containsRenderableComponent, containsPosition, containsCollider;
+
         // Components which a game object can only have one of
         private static readonly Type[] oneOfAKind = new Type[]
         {
@@ -36,10 +40,6 @@ namespace GameEngine
             typeof(RenderableComponent),
             typeof(AbstractCollider)
         };
-
-        // Helper variables for the IsRenderable property
-        private bool
-            containsRenderableComponent, containsPosition, containsCollider;
 
         // The components in this game object
         private readonly ICollection<Component> components;
@@ -102,6 +102,12 @@ namespace GameEngine
 
         // The following methods provide several ways of getting components
         // from this game object
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T GetComponent<T>() where T : Component
         {
             // TODO: Use dictionary for one of a kind game objects
@@ -110,13 +116,42 @@ namespace GameEngine
             return components.FirstOrDefault(component => component is T) as T;
         }
 
-        public Component GetComponent(Type type)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private Component GetComponent(Type type)
         {
             // TODO: Use dictionary for one of a kind game objects
             // to speed up this search
 
             return components.FirstOrDefault(
                 component => type.IsInstanceOfType(component));
+        }
+
+        /// <summary>
+        /// Method to be used in conditions to try get a specific component
+        /// </summary>
+        /// <typeparam name="T">Type of the desired component</typeparam>
+        /// <param name="component"> out component to be used in case of true
+        /// </param>
+        /// <returns> Returns true if desired Component
+        /// from component collection exists, if not, returns false and 
+        /// a null object
+        /// </returns>
+        public bool TryGetComponent<T>(out T component) where T : Component
+        {
+            if (components.Any(aux => aux is T))
+            {
+                component = components.FirstOrDefault(comp => comp is T) as T;
+
+                return true;
+            }
+
+            component = null;
+
+            return false;
         }
 
         // Initialize all components in this game object
@@ -144,7 +179,10 @@ namespace GameEngine
             {
                 component.Finish();
             }
+
+            Dispose();
         }
+
         // The methods below are required for implementing the IEnumerable<T>
         // interface
 
@@ -158,6 +196,15 @@ namespace GameEngine
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        // Method to implement IDisposable
+        public virtual void Dispose()
+        {
+            components.Clear();
+            containsRenderableComponent = false;
+            containsPosition = false;
+            containsCollider = false;
         }
     }
 }

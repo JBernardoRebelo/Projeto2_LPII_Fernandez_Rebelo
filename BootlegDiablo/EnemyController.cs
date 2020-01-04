@@ -22,7 +22,7 @@ namespace BootlegDiablo
 
         public override void Update()
         {
-            int state = _rndm.Next(5);
+            int state = _rndm.Next(40);
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
             Enemy parent = ParentGameObject as Enemy;
