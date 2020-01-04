@@ -84,10 +84,7 @@ namespace GameEngine
                 foreach (GameObject gameObject in gameObjects.Values)
                 {
                     gameObject.Update();
-                    if (gameObject.GetComponent<RenderableComponent>() == null)
-                    {
-                        continue;
-                    }
+
                     //Console.WriteLine(gameObject.Name);
                 }
 
