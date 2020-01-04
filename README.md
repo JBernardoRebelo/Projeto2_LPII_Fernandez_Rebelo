@@ -54,9 +54,10 @@ Composite;
 ## Controlos
 
 - 'WASD' para mover o personagem;
-- 'Space' ou '1' para atacar;
+- 'Space' para atacar;
 - 'C' para mostrar detalhes do personagem;
 - 'P' para aceder ao menu de pausa;
+- 'E' para abrir portas e entrar na respetiva sala;
 - (Por agora) Escrever a opção pretendida dentro de menus;
 
 ## **Notas de dev:**

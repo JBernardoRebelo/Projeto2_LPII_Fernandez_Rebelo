@@ -45,6 +45,7 @@ namespace BootlegDiablo
             // Get player position
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
+
             Player player = ParentGameObject as Player;
 
             // Check what keys were pressed and update position accordingly
@@ -79,8 +80,12 @@ namespace BootlegDiablo
 
                     // Use player attack method
                     case ConsoleKey.Spacebar:
-                        // Implement player attack
                         player.Attack();
+                        break;
+
+                    // Open a door
+                    case ConsoleKey.E:
+                        player.OpenDoor(out x, (int)x, out y, (int)y);
                         break;
                 }
             }

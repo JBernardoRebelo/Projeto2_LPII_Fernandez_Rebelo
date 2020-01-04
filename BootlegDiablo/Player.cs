@@ -10,7 +10,7 @@ namespace BootlegDiablo
         private Enemy _enemy;
         public Transform _transform;
 
-        // Player position for attack
+        // Player position for attack and door open
         private Vector2 _playerLeft;
         private Vector2 _playerRight;
         private Vector2 _playerDown;
@@ -59,9 +59,18 @@ namespace BootlegDiablo
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
         }
 
-        // Attack based on pressed
-        public void Attack()
+        /// <summary>
+        /// Opens a door and enters a room
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void OpenDoor(out float x, int xx, out float y, int yy)
         {
+            Vector2 doorPos;
+
+            x = xx;
+            y = yy;
+
             // Player directions
             _playerLeft = new Vector2((int)_transform.Pos.X - 1,
                 (int)_transform.Pos.Y);
@@ -77,6 +86,50 @@ namespace BootlegDiablo
 
             _playerPos = new Vector2((int)_transform.Pos.X,
                 (int)_transform.Pos.Y);
+            //
+
+            foreach (DungeonRoom room in _dungeon.Rooms)
+            {
+                for (int i = 0; i < room.Doors.Length; i++)
+                {
+                    doorPos = new Vector2(
+                        (int)room.Doors[i].GetComponent<Transform>().Pos.X,
+                        (int)room.Doors[i].GetComponent<Transform>().Pos.Y);
+
+                    System.Console.Write($"{room.Doors[i].Name}{doorPos} | ");
+                    System.Console.WriteLine($"{_playerPos}");
+
+                    if (doorPos == _playerLeft) x -= 2;
+                    if (doorPos == _playerRight) x += 2;
+                    if (doorPos == _playerDown) y += 2;
+                    if (doorPos == _playerUp) y -= 2;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Player attacks enemies in adjacent positions
+        /// </summary>
+        public void Attack()
+        {
+            Vector2 enemyPos;
+
+            // Player directions
+            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
+                (int)_transform.Pos.Y);
+
+            _playerRight = new Vector2((int)_transform.Pos.X + 1,
+                (int)_transform.Pos.Y);
+
+            _playerDown = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y + 1);
+
+            _playerUp = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y - 1);
+
+            _playerPos = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y);
+            //
 
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
@@ -90,8 +143,7 @@ namespace BootlegDiablo
                     if (_enemy.TryGetComponent(
                         out Transform enemyTransform))
                     {
-                        Vector2 enemyPos = new Vector2(
-                            (int)enemyTransform.Pos.X,
+                        enemyPos = new Vector2((int)enemyTransform.Pos.X,
                             (int)enemyTransform.Pos.Y);
 
                         // Check adjacent position of enemy
@@ -130,28 +182,12 @@ namespace BootlegDiablo
                 Strength = 30;
                 Life = 70;
                 Dexterity = 20;
-                /*
-                 * Life: 70 - 316
-                 * Mana: 10 - 98
-                 * Strength: 30 - 250
-                 * Magic: 10 - 50
-                 * Dexterity: 20 - 60
-                 * Vitality: 25 - 100
-                 */
             }
             if (role == Role.Rogue)
             {
                 Life = 45;
                 Strength = 20;
                 Dexterity = 30;
-                /*
-                 * Life: 45 - 201
-                 * Mana: 22 - 173
-                 * Strength: 20 - 55
-                 * Magic: 15 - 70
-                 * Dexterity: 30 - 250
-                 * Vitality: 20 - 80
-                 */
             }
         }
 
@@ -162,7 +198,7 @@ namespace BootlegDiablo
         public void LevelUp(Role role)
         {
             // Levels up to level 2
-            if (Lvl == 1 && Exp >= _lvlUpExp)
+            if (Exp >= _lvlUpExp)
             {
                 if (role == Role.Warrior)
                 {

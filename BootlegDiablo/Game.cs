@@ -82,6 +82,7 @@ namespace BootlegDiablo
                 ConsoleKey.D,
                 ConsoleKey.C,
                 ConsoleKey.P,
+                ConsoleKey.E,
                 ConsoleKey.Spacebar
             });
             _player.AddComponent(playerKeys);
