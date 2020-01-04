@@ -20,11 +20,15 @@ namespace BootlegDiablo
             base.Update();
 
             // Enemy death
-            if(HP <= 0)
+            if (HP <= 0)
             {
                 Finish();
 
+                //DEBUG
+
                 //System.Console.WriteLine("ENEMY DIED");
+
+                //END DEBUG
             }
         }
     }
