@@ -62,10 +62,6 @@ namespace BootlegDiablo
         // Attack based on pressed
         public void Attack()
         {
-            // Enemy transform
-            Transform enemyTransform;
-            Vector2 enemyPos;
-
             // Player directions
             _playerLeft = new Vector2((int)_transform.Pos.X - 1,
                 (int)_transform.Pos.Y);
@@ -79,7 +75,8 @@ namespace BootlegDiablo
             _playerUp = new Vector2((int)_transform.Pos.X,
                 (int)_transform.Pos.Y - 1);
 
-            _playerPos = new Vector2((int)_transform.Pos.X, (int)_transform.Pos.Y);
+            _playerPos = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y);
 
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
@@ -90,25 +87,33 @@ namespace BootlegDiablo
                     _enemy = dr.Enemies[i];
 
                     // Get enemy transform and position
-                    enemyTransform = _enemy.GetComponent<Transform>();
-                    enemyPos = new Vector2((int)enemyTransform.Pos.X,
-                        (int)enemyTransform.Pos.Y);
-
-                    // Check adjacent position of enemy
-                    if (enemyPos == _playerLeft || enemyPos == _playerRight
-                        || enemyPos == _playerDown || enemyPos == _playerUp
-                        || enemyPos == _playerPos)
+                    if (_enemy.TryGetComponent(
+                        out Transform enemyTransform))
                     {
-                        // Damage to recieve
-                        _enemy.HP -= Damage;
+                        Vector2 enemyPos = new Vector2(
+                            (int)enemyTransform.Pos.X,
+                            (int)enemyTransform.Pos.Y);
 
-                        // Enemy death
-                        if (_enemy.HP <= 0)
+                        // Check adjacent position of enemy
+                        if (enemyPos == _playerLeft || enemyPos == _playerRight
+                            || enemyPos == _playerDown || enemyPos == _playerUp
+                            || enemyPos == _playerPos)
                         {
-                            Exp += _enemy.Damage * 10;
-                        }
+                            // Damage to recieve
+                            _enemy.HP -= Damage;
 
-                        System.Console.WriteLine("I HIT SOMETHING");
+                            // Enemy death
+                            if (_enemy.HP <= 0)
+                            {
+                                Exp += _enemy.Damage * 150;
+                            }
+
+                            // DEBUG
+
+                            //System.Console.WriteLine("I HIT SOMETHING");
+
+                            // END DEBUG
+                        }
                     }
                 }
             }
