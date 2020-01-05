@@ -8,7 +8,7 @@ namespace BootlegDiablo
     public class Game
     {
         // Should be gameObject
-        private GameObject _player;
+        private Player _player;
 
         // Render and Random
         private Render _render;
@@ -95,6 +95,16 @@ namespace BootlegDiablo
             _scene.AddGameObject(_player);
 
             _scene.GameLoop(_frameLength);
+
+            if(_player == null)
+            {
+                // LOST
+            }
+            else
+            {
+                // WIN
+                Console.WriteLine("YAHHHHH win WEOOOOOHHHH");
+            }
         }
 
         /// <summary>

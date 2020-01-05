@@ -52,11 +52,32 @@ namespace BootlegDiablo
             Damage = Strength + Weapon.MaxDamage;
         }
 
+        /// <summary>
+        /// Player start with base and getting needed Transform and Objects
+        /// </summary>
         public override void Start()
         {
             base.Start();
             _transform = GetComponent<Transform>();
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
+        }
+
+        /// <summary>
+        /// Player update levels and victory/defeat conditions
+        /// </summary>
+        public override void Update()
+        {
+            base.Update();
+
+            // Level up
+            LevelUp(Role);
+
+            // Check if dead
+            if (Life <= 0)
+            {
+                // End game, You died
+                ParentScene.Terminate();
+            }
         }
 
         /// <summary>

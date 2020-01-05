@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using GameEngine;
 using static System.Console;
 
 namespace BootlegDiablo
@@ -89,13 +87,12 @@ namespace BootlegDiablo
         }
 
         /// <summary>
-        /// Hide area in turn of the player
+        /// Clear console and Victory screen
         /// </summary>
-        /// <param name="player"> Accepts a player and
-        /// uses position to hide whats around </param>
-        public void FogOfWar(Player player)
+        public void Victory()
         {
-
+            Clear();
+            WriteLine("Congrats, you cleared the console!");
         }
 
         /// <summary>
