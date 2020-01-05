@@ -58,7 +58,7 @@ namespace BootlegDiablo
         /// <param name="player"> Accepts a player </param>
         public void CharInformationScreen(Player player)
         {
-            WriteLine($"{player.Name} | {player.Role}");
+            WriteLine($"{player.ChosenName} | {player.Role}");
             WriteLine();
             WriteLine($"Level: {player.Lvl} Exp: {player.Exp}");
 
@@ -73,6 +73,12 @@ namespace BootlegDiablo
             Write($"Life: {player.Life}      |      ");
             WriteLine($"Durability: {player.Weapon.Durability}");
 
+        }
+
+        public void EssencialInfo(Player player)
+        {
+            WriteLine($"{player.ChosenName} | HP: {player.Life} |" +
+                $"Level: {player.Lvl}");
         }
 
         /// <summary>
