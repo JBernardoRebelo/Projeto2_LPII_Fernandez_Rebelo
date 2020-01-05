@@ -69,6 +69,22 @@ namespace BootlegDiablo
         {
             base.Update();
 
+            // Player directions to be used in open door and attack
+            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
+                (int)_transform.Pos.Y);
+
+            _playerRight = new Vector2((int)_transform.Pos.X + 1,
+                (int)_transform.Pos.Y);
+
+            _playerDown = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y + 1);
+
+            _playerUp = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y - 1);
+
+            _playerPos = new Vector2((int)_transform.Pos.X,
+                (int)_transform.Pos.Y);
+
             // Level up
             LevelUp(Role);
 
@@ -91,23 +107,6 @@ namespace BootlegDiablo
 
             x = xx;
             y = yy;
-
-            // Player directions
-            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
-                (int)_transform.Pos.Y);
-
-            _playerRight = new Vector2((int)_transform.Pos.X + 1,
-                (int)_transform.Pos.Y);
-
-            _playerDown = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y + 1);
-
-            _playerUp = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y - 1);
-
-            _playerPos = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y);
-            //
 
             foreach (DungeonRoom room in _dungeon.Rooms)
             {
@@ -135,23 +134,6 @@ namespace BootlegDiablo
         {
             Vector2 enemyPos;
 
-            // Player directions
-            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
-                (int)_transform.Pos.Y);
-
-            _playerRight = new Vector2((int)_transform.Pos.X + 1,
-                (int)_transform.Pos.Y);
-
-            _playerDown = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y + 1);
-
-            _playerUp = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y - 1);
-
-            _playerPos = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y);
-            //
-
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
             {
@@ -173,19 +155,13 @@ namespace BootlegDiablo
                             || enemyPos == _playerPos)
                         {
                             // Damage to recieve
-                            _enemy.HP -= Damage;
+                            _enemy.HP -= Damage + Dexterity;
 
                             // Enemy death
                             if (_enemy.HP <= 0)
                             {
                                 Exp += _enemy.Damage * 150;
                             }
-
-                            // DEBUG
-
-                            //System.Console.WriteLine("I HIT SOMETHING");
-
-                            // END DEBUG
                         }
                     }
                 }
@@ -224,15 +200,14 @@ namespace BootlegDiablo
                 if (role == Role.Warrior)
                 {
                     Life *= 2;
-
-                    //Life: + 2 per Vitality
-
+                    Strength += Life / 2;
+                    Dexterity += 1; 
                 }
                 if (role == Role.Rogue)
                 {
-                    Life *= 2;
-
-                    //Life: + 2
+                    Life += Life / 2;
+                    Dexterity += Life;
+                    Strength += 1;
                 }
 
                 // Level scaller
@@ -240,22 +215,6 @@ namespace BootlegDiablo
 
                 Lvl++;
             }
-        }
-
-        /// <summary>
-        /// Increments level and player stats based on input
-        /// </summary>
-        /// <param name="life"> Accepts points to increment that will
-        /// be multiplied by three</param>
-        /// <param name="strength"> Strength to add </param>
-        /// <param name="dexterity"> Dexterity to add </param>
-        public void LevelUp(int life, int strength, int dexterity)
-        {
-            life *= 3;
-
-            Life += life;
-            Strength += strength;
-            Dexterity += dexterity;
         }
     }
 }
