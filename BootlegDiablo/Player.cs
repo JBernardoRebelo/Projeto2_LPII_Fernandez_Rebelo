@@ -8,7 +8,7 @@ namespace BootlegDiablo
         // Variables
         private Dungeon _dungeon;
         private Enemy _enemy;
-        public Transform _transform;
+        public Transform selfTrans;
 
         // Player position for attack
         private Vector2 _playerLeft;
@@ -26,6 +26,7 @@ namespace BootlegDiablo
         public int Strength { get; set; }
         public int Lvl { get; set; }
         public int Exp { get; set; }
+        public string ChosenName { get; }
         public Role Role { get; set; }
         public Weapon Weapon { get; set; }
 
@@ -38,7 +39,8 @@ namespace BootlegDiablo
         public Player(Role role, string name)
         {
             Role = role;
-            Name = name;
+            Name = "Player";
+            ChosenName = name;
             Lvl = 1;
             Exp = 0;
             _lvlUpExp = 2000;
@@ -55,7 +57,7 @@ namespace BootlegDiablo
         public override void Start()
         {
             base.Start();
-            _transform = GetComponent<Transform>();
+            selfTrans = GetComponent<Transform>();
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
         }
 
@@ -63,20 +65,20 @@ namespace BootlegDiablo
         public void Attack()
         {
             // Player directions
-            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
-                (int)_transform.Pos.Y);
+            _playerLeft = new Vector2((int)selfTrans.Pos.X - 1,
+                (int)selfTrans.Pos.Y);
 
-            _playerRight = new Vector2((int)_transform.Pos.X + 1,
-                (int)_transform.Pos.Y);
+            _playerRight = new Vector2((int)selfTrans.Pos.X + 1,
+                (int)selfTrans.Pos.Y);
 
-            _playerDown = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y + 1);
+            _playerDown = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y + 1);
 
-            _playerUp = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y - 1);
+            _playerUp = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y - 1);
 
-            _playerPos = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y);
+            _playerPos = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y);
 
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
