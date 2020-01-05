@@ -5,8 +5,6 @@ namespace BootlegDiablo
 {
     public class Render
     {
-        //private char _penta = '\26E7';
-
         /// <summary>
         /// Displays Start menu with options
         /// </summary>

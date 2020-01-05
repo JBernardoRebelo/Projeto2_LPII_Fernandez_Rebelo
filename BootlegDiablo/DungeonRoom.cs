@@ -4,6 +4,9 @@ using System.Numerics;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// DungeonRoom, inherits from GameObject, Dungeon has a collection of this
+    /// </summary>
     public class DungeonRoom : GameObject
     {
         /// <summary>
@@ -11,13 +14,22 @@ namespace BootlegDiablo
         /// </summary>
         public Vector2 Dim { get; private set; }
 
-        // Collection of enemies
+        /// <summary>
+        /// Array of Enemy
+        /// </summary>
         public Enemy[] Enemies { get; private set; }
 
-        // Doors in Room
+        /// <summary>
+        /// Array of Doors
+        /// </summary>
         public DungeonDoor[] Doors { get; private set; }
 
-        // Accepts a random seed to generate enemies and dimensions
+        /// <summary>
+        /// DungeonRoom Constructor, instantiates all enemies and doors
+        /// in itself as it's position
+        /// </summary>
+        /// <param name="rnd"> Accepts a Random to use in dimensions,
+        /// enemy and door creation </param>
         public DungeonRoom(Random rnd)
         {
             Dim = new Vector2(rnd.Next(10, 40), rnd.Next(4, 17));

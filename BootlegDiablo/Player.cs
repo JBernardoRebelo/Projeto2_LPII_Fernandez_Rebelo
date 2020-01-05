@@ -3,31 +3,100 @@ using System.Numerics;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// Player class, inherits from GameObject, has stats, and actions
+    /// </summary>
     public class Player : GameObject
     {
+        // Properties
+        /// <summary>
+        /// Life is how much the player can survive before dying
+        /// </summary>
+        public int Life { get; set; }
+
+        /// <summary>
+        /// How much damage it causes to enemies
+        /// </summary>
+        public int Damage { get; set; }
+
+        /// <summary>
+        /// Dexterity, used by a rogue to inflict damage
+        /// </summary>
+        public int Dexterity { get; set; }
+
+        /// <summary>
+        /// Strength, used by a warrior to inflict damage
+        /// </summary>
+        public int Strength { get; set; }
+
+        /// <summary>
+        /// Level, manages how much stronger player gets, based on exp
+        /// </summary>
+        public int Lvl { get; set; }
+
+        /// <summary>
+        /// Experience, gained by killing
+        /// </summary>
+        public int Exp { get; set; }
+
+        /// <summary>
+        /// Role, decides whether player uses strength or dexterity
+        /// for it's advantage
+        /// </summary>
+        public Role Role { get; set; }
+
+        /// <summary>
+        /// Weapon equiped by player
+        /// </summary>
+        public Weapon Weapon { get; set; }
+
         // Variables
+        /// <summary>
+        /// Dungeon instance
+        /// </summary>
         private Dungeon _dungeon;
+
+        /// <summary>
+        /// Enemy instance to use in attack
+        /// </summary>
         private Enemy _enemy;
+
+        /// <summary>
+        /// Transform instance, player position
+        /// </summary>
         public Transform _transform;
 
         // Player position for attack and door open
+
+        /// <summary>
+        /// 1 unit left to player (-1 x)
+        /// </summary>
         private Vector2 _playerLeft;
+
+        /// <summary>
+        /// 1 unit right to player (+1 x)
+        /// </summary>
         private Vector2 _playerRight;
+
+        /// <summary>
+        /// 1 unit down to player (+1 y)
+        /// </summary>
         private Vector2 _playerDown;
+
+        /// <summary>
+        /// 1 unit up to player (+1 y)
+        /// </summary>
         private Vector2 _playerUp;
+
+        /// <summary>
+        /// Current position
+        /// </summary>
         private Vector2 _playerPos;
 
+        /// <summary>
+        /// Exp needed to level up
+        /// </summary>
         private int _lvlUpExp;
-
-        // Properties
-        public int Life { get; set; }
-        public int Damage { get; set; } // = Strength + weapon damage
-        public int Dexterity { get; set; }
-        public int Strength { get; set; }
-        public int Lvl { get; set; }
-        public int Exp { get; set; }
-        public Role Role { get; set; }
-        public Weapon Weapon { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
@@ -48,8 +117,6 @@ namespace BootlegDiablo
 
             // Apply initial stats
             RoleApply(Role);
-
-            Damage = Strength + Weapon.MaxDamage;
         }
 
         /// <summary>
@@ -155,7 +222,7 @@ namespace BootlegDiablo
                             || enemyPos == _playerPos)
                         {
                             // Damage to recieve
-                            _enemy.HP -= Damage + Dexterity;
+                            _enemy.HP -= Damage;
 
                             // Enemy death
                             if (_enemy.HP <= 0)
@@ -179,12 +246,16 @@ namespace BootlegDiablo
                 Strength = 30;
                 Life = 70;
                 Dexterity = 20;
+
+                Damage = Strength + Weapon.MaxDamage;
             }
             if (role == Role.Rogue)
             {
                 Life = 45;
                 Strength = 20;
                 Dexterity = 30;
+
+                Damage = Dexterity + Weapon.MaxDamage;
             }
         }
 
@@ -201,13 +272,17 @@ namespace BootlegDiablo
                 {
                     Life *= 2;
                     Strength += Life / 2;
-                    Dexterity += 1; 
+                    Dexterity += 1;
+
+                    Damage = Strength + Weapon.MaxDamage;
                 }
                 if (role == Role.Rogue)
                 {
                     Life += Life / 2;
                     Dexterity += Life;
                     Strength += 1;
+
+                    Damage = Dexterity + Weapon.MaxDamage;
                 }
 
                 // Level scaller

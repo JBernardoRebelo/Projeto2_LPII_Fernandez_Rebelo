@@ -3,12 +3,22 @@ using GameEngine;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// Dungeon class, inherits from GameObject
+    /// </summary>
     public class Dungeon : GameObject
     {
-        // Collection of rooms in dungeon
+        /// <summary>
+        /// Array of Dungeon room
+        /// </summary>
         public DungeonRoom[] Rooms { get; private set; }
 
-        // Accepts a seed to instantiate rooms
+
+        /// <summary>
+        /// Instantiates rooms
+        /// </summary>
+        /// <param name="nRooms"> Accepts n rooms </param>
+        /// <param name="rnd"> Accepts a Random to be used in rooms </param>
         public Dungeon(int nRooms, Random rnd)
         {
             Rooms = new DungeonRoom[nRooms];

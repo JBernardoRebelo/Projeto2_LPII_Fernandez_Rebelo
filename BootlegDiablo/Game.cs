@@ -5,24 +5,48 @@ using System.Numerics;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// Game, is called by program, starts game, creates the player
+    /// add objects to scene and calls it to start gameloop
+    /// </summary>
     public class Game
     {
-        // Should be gameObject
-        private Player _player;
-
-        // Render and Random
+        /// <summary>
+        /// Render instance to use in this
+        /// </summary>
         private Render _render;
+
+        /// <summary>
+        /// Random instance to use in this 
+        /// and to be passed on to other classes
+        /// </summary>
         private Random _rnd;
 
         // World dimensions
+        /// <summary>
+        /// X dimension of world
+        /// </summary>
         private const int _x = 161;
+
+        /// <summary>
+        /// Y dimension of world
+        /// </summary>
         private const int _y = 41;
 
-        // Frame duration in miliseconds
+        /// <summary>
+        /// Frame duration in miliseconds
+        /// </summary>
         private int _frameLength = 60;
 
-        // The (only) game scene
+        /// <summary>
+        /// The game scene 
+        /// </summary>
         private Scene _scene;
+
+        /// <summary>
+        /// Player instance to create
+        /// </summary>
+        private Player _player;
 
         /// <summary>
         /// Game Constructor, start instance variables
@@ -96,7 +120,7 @@ namespace BootlegDiablo
 
             _scene.GameLoop(_frameLength);
 
-            if(_player == null)
+            if (_player == null)
             {
                 // LOST
             }
@@ -108,14 +132,14 @@ namespace BootlegDiablo
         }
 
         /// <summary>
-        /// Add walls to the scene
+        /// Add components to objets that compose the dungeon
         /// </summary>
-        /// <param name="scene"> Accepts a Scene </param>
+        /// <param name="scene"> Accepts a Scene to add the components to
+        /// </param>
         private void CreateDungeons(Scene scene)
         {
             GameObject go = scene.FindGameObjectByName("Dungeon");
             Dungeon dungeon = go as Dungeon;
-            GameObject border;
             GameObject walls;
             GameObject aux = null;          // Get previous gameObject (walls)
             Transform wallTrans;            // Get walls Transform
@@ -123,39 +147,11 @@ namespace BootlegDiablo
             DungeonRoom auxRoom = null;     // Get previous gameObject (room)
             int index = 1;
 
-            ConsolePixel borderPixel;
-
             Dictionary<Vector2, ConsolePixel> wallPixels;
-            Dictionary<Vector2, ConsolePixel> borderPixels;
 
             // Element's sprites
             char[,] doors = { { ' ' } };
             char[,] enemy = { { '☠' } }; // ☠
-
-            // Border of game
-            border = new GameObject("Borders");
-            borderPixel = new ConsolePixel('#');
-            borderPixels = new Dictionary<Vector2, ConsolePixel>();
-
-            for (int x = 0; x < _x; x++)
-            {
-                borderPixels[new Vector2(x, 0)] = borderPixel;
-            }
-            for (int x = 0; x < _x; x++)
-            {
-                borderPixels[new Vector2(x, _y - 1)] = borderPixel;
-            }
-            for (int y = 0; y < _y; y++)
-            {
-                borderPixels[new Vector2(0, y)] = borderPixel;
-            }
-            for (int y = 0; y < _y; y++)
-            {
-                borderPixels[new Vector2(_x - 1, y)] = borderPixel;
-            }
-            border.AddComponent(new ConsoleSprite(borderPixels));
-            border.AddComponent(new Transform(0, 0, 1));
-            scene.AddGameObject(border);
 
             // Foreach room create wall
             foreach (DungeonRoom room in dungeon.Rooms)
