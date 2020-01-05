@@ -1,8 +1,14 @@
 ﻿namespace BootlegDiablo
 {
+    /// <summary>
+    /// Program class
+    /// </summary>
     public class Program
     {
-        private static void Main(string[] args)
+        /// <summary>
+        /// Main method, instantiates game to call it's start()
+        /// </summary>
+        private static void Main()
         {
             System.Console.OutputEncoding = System.Text.Encoding.Unicode;
 

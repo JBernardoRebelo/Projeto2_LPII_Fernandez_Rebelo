@@ -3,32 +3,100 @@ using System.Numerics;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// Player class, inherits from GameObject, has stats, and actions
+    /// </summary>
     public class Player : GameObject
     {
+        // Properties
+        /// <summary>
+        /// Life is how much the player can survive before dying
+        /// </summary>
+        public int Life { get; set; }
+
+        /// <summary>
+        /// How much damage it causes to enemies
+        /// </summary>
+        public int Damage { get; set; }
+
+        /// <summary>
+        /// Dexterity, used by a rogue to inflict damage
+        /// </summary>
+        public int Dexterity { get; set; }
+
+        /// <summary>
+        /// Strength, used by a warrior to inflict damage
+        /// </summary>
+        public int Strength { get; set; }
+
+        /// <summary>
+        /// Level, manages how much stronger player gets, based on exp
+        /// </summary>
+        public int Lvl { get; set; }
+
+        /// <summary>
+        /// Experience, gained by killing
+        /// </summary>
+        public int Exp { get; set; }
+
+        /// <summary>
+        /// Role, decides whether player uses strength or dexterity
+        /// for it's advantage
+        /// </summary>
+        public Role Role { get; set; }
+
+        /// <summary>
+        /// Weapon equiped by player
+        /// </summary>
+        public Weapon Weapon { get; set; }
+
         // Variables
+        /// <summary>
+        /// Dungeon instance
+        /// </summary>
         private Dungeon _dungeon;
+
+        /// <summary>
+        /// Enemy instance to use in attack
+        /// </summary>
         private Enemy _enemy;
+
+        /// <summary>
+        /// Transform instance, player position
+        /// </summary>
         public Transform selfTrans;
 
-        // Player position for attack
+        // Player position for attack and door open
+
+        /// <summary>
+        /// 1 unit left to player (-1 x)
+        /// </summary>
         private Vector2 _playerLeft;
+
+        /// <summary>
+        /// 1 unit right to player (+1 x)
+        /// </summary>
         private Vector2 _playerRight;
+
+        /// <summary>
+        /// 1 unit down to player (+1 y)
+        /// </summary>
         private Vector2 _playerDown;
+
+        /// <summary>
+        /// 1 unit up to player (+1 y)
+        /// </summary>
         private Vector2 _playerUp;
+
+        /// <summary>
+        /// Current position
+        /// </summary>
         private Vector2 _playerPos;
 
+        /// <summary>
+        /// Exp needed to level up
+        /// </summary>
         private int _lvlUpExp;
-
-        // Properties
-        public int Life { get; set; }
-        public int Damage { get; set; } // = Strength + weapon damage
-        public int Dexterity { get; set; }
-        public int Strength { get; set; }
-        public int Lvl { get; set; }
-        public int Exp { get; set; }
-        public string ChosenName { get; }
-        public Role Role { get; set; }
-        public Weapon Weapon { get; set; }
 
         /// <summary>
         /// Player constructor, assigns properties,
@@ -50,10 +118,11 @@ namespace BootlegDiablo
 
             // Apply initial stats
             RoleApply(Role);
-
-            Damage = Strength + Weapon.MaxDamage;
         }
 
+        /// <summary>
+        /// Player start with base and getting needed Transform and Objects
+        /// </summary>
         public override void Start()
         {
             base.Start();
@@ -61,9 +130,13 @@ namespace BootlegDiablo
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
         }
 
-        // Attack based on pressed
-        public void Attack()
+        /// <summary>
+        /// Player update levels and victory/defeat conditions
+        /// </summary>
+        public override void Update()
         {
+            base.Update();
+            
             // Player directions
             _playerLeft = new Vector2((int)selfTrans.Pos.X - 1,
                 (int)selfTrans.Pos.Y);
@@ -80,6 +153,55 @@ namespace BootlegDiablo
             _playerPos = new Vector2((int)selfTrans.Pos.X,
                 (int)selfTrans.Pos.Y);
 
+            // Level up
+            LevelUp(Role);
+
+            // Check if dead
+            if (Life <= 0)
+            {
+                // End game, You died
+                ParentScene.Terminate();
+            }
+        }
+
+        /// <summary>
+        /// Opens a door and enters a room
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void OpenDoor(out float x, int xx, out float y, int yy)
+        {
+            Vector2 doorPos;
+
+            x = xx;
+            y = yy;
+
+            foreach (DungeonRoom room in _dungeon.Rooms)
+            {
+                for (int i = 0; i < room.Doors.Length; i++)
+                {
+                    doorPos = new Vector2(
+                        (int)room.Doors[i].GetComponent<Transform>().Pos.X,
+                        (int)room.Doors[i].GetComponent<Transform>().Pos.Y);
+
+                    System.Console.Write($"{room.Doors[i].Name}{doorPos} | ");
+                    System.Console.WriteLine($"{_playerPos}");
+
+                    if (doorPos == _playerLeft) x -= 2;
+                    if (doorPos == _playerRight) x += 2;
+                    if (doorPos == _playerDown) y += 2;
+                    if (doorPos == _playerUp) y -= 2;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Player attacks enemies in adjacent positions
+        /// </summary>
+        public void Attack()
+        {
+            Vector2 enemyPos;
+
             // Check rooms in dungeon
             foreach (DungeonRoom dr in _dungeon.Rooms)
             {
@@ -92,8 +214,7 @@ namespace BootlegDiablo
                     if (_enemy.TryGetComponent(
                         out Transform enemyTransform))
                     {
-                        Vector2 enemyPos = new Vector2(
-                            (int)enemyTransform.Pos.X,
+                        enemyPos = new Vector2((int)enemyTransform.Pos.X,
                             (int)enemyTransform.Pos.Y);
 
                         // Check adjacent position of enemy
@@ -109,12 +230,6 @@ namespace BootlegDiablo
                             {
                                 Exp += _enemy.Damage * 150;
                             }
-
-                            // DEBUG
-
-                            //System.Console.WriteLine("I HIT SOMETHING");
-
-                            // END DEBUG
                         }
                     }
                 }
@@ -132,28 +247,16 @@ namespace BootlegDiablo
                 Strength = 30;
                 Life = 70;
                 Dexterity = 20;
-                /*
-                 * Life: 70 - 316
-                 * Mana: 10 - 98
-                 * Strength: 30 - 250
-                 * Magic: 10 - 50
-                 * Dexterity: 20 - 60
-                 * Vitality: 25 - 100
-                 */
+
+                Damage = Strength + Weapon.MaxDamage;
             }
             if (role == Role.Rogue)
             {
                 Life = 45;
                 Strength = 20;
                 Dexterity = 30;
-                /*
-                 * Life: 45 - 201
-                 * Mana: 22 - 173
-                 * Strength: 20 - 55
-                 * Magic: 15 - 70
-                 * Dexterity: 30 - 250
-                 * Vitality: 20 - 80
-                 */
+
+                Damage = Dexterity + Weapon.MaxDamage;
             }
         }
 
@@ -164,20 +267,23 @@ namespace BootlegDiablo
         public void LevelUp(Role role)
         {
             // Levels up to level 2
-            if (Lvl == 1 && Exp >= _lvlUpExp)
+            if (Exp >= _lvlUpExp)
             {
                 if (role == Role.Warrior)
                 {
                     Life *= 2;
+                    Strength += Life / 2;
+                    Dexterity += 1;
 
-                    //Life: + 2 per Vitality
-
+                    Damage = Strength + Weapon.MaxDamage;
                 }
                 if (role == Role.Rogue)
                 {
-                    Life *= 2;
+                    Life += Life / 2;
+                    Dexterity += Life;
+                    Strength += 1;
 
-                    //Life: + 2
+                    Damage = Dexterity + Weapon.MaxDamage;
                 }
 
                 // Level scaller
@@ -185,22 +291,6 @@ namespace BootlegDiablo
 
                 Lvl++;
             }
-        }
-
-        /// <summary>
-        /// Increments level and player stats based on input
-        /// </summary>
-        /// <param name="life"> Accepts points to increment that will
-        /// be multiplied by three</param>
-        /// <param name="strength"> Strength to add </param>
-        /// <param name="dexterity"> Dexterity to add </param>
-        public void LevelUp(int life, int strength, int dexterity)
-        {
-            life *= 3;
-
-            Life += life;
-            Strength += strength;
-            Dexterity += dexterity;
         }
     }
 }
