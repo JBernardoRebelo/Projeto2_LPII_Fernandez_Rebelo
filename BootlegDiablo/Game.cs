@@ -41,13 +41,6 @@ namespace BootlegDiablo
             // Instantiate render and random
             _render = new Render();
             _rnd = new Random();
-
-            // Instantiate dungeon with number of rooms
-            Dungeon _dungeon;
-            _dungeon = new Dungeon(_rnd.Next(2, 10), _rnd);
-            _scene.AddGameObject(_dungeon);
-
-            CreateDungeons(_scene);
         }
 
         /// <summary>
@@ -70,6 +63,13 @@ namespace BootlegDiablo
             // Render Start menu with options
             _render.StartMenu(out role);
             name = _render.AssignName();
+
+            // Instantiate dungeon with number of rooms
+            Dungeon _dungeon;
+            _dungeon = new Dungeon(_rnd.Next(2, 10), _rnd);
+            _scene.AddGameObject(_dungeon);
+
+            CreateDungeons(_scene);
 
             // Instantiate player
             char[,] playerSprite = { { 'O' } };
@@ -258,7 +258,6 @@ namespace BootlegDiablo
                     room.Enemies[i].AddComponent(new ConsoleSprite(
                         enemy, ConsoleColor.White, ConsoleColor.Red));
 
-                    // Debugs
                     room.Enemies[i].AddComponent(
                         new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
                         wallTrans.Pos.Y + (room.Dim.Y / 2), 2f));
