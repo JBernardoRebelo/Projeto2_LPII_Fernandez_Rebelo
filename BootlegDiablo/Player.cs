@@ -64,7 +64,7 @@ namespace BootlegDiablo
         /// <summary>
         /// Transform instance, player position
         /// </summary>
-        public Transform _transform;
+        public Transform selfTrans;
 
         // Player position for attack and door open
 
@@ -107,7 +107,8 @@ namespace BootlegDiablo
         public Player(Role role, string name)
         {
             Role = role;
-            Name = name;
+            Name = "Player";
+            ChosenName = name;
             Lvl = 1;
             Exp = 0;
             _lvlUpExp = 2000;
@@ -125,7 +126,7 @@ namespace BootlegDiablo
         public override void Start()
         {
             base.Start();
-            _transform = GetComponent<Transform>();
+            selfTrans = GetComponent<Transform>();
             _dungeon = ParentScene.FindGameObjectByName("Dungeon") as Dungeon;
         }
 
@@ -135,22 +136,22 @@ namespace BootlegDiablo
         public override void Update()
         {
             base.Update();
+            
+            // Player directions
+            _playerLeft = new Vector2((int)selfTrans.Pos.X - 1,
+                (int)selfTrans.Pos.Y);
 
-            // Player directions to be used in open door and attack
-            _playerLeft = new Vector2((int)_transform.Pos.X - 1,
-                (int)_transform.Pos.Y);
+            _playerRight = new Vector2((int)selfTrans.Pos.X + 1,
+                (int)selfTrans.Pos.Y);
 
-            _playerRight = new Vector2((int)_transform.Pos.X + 1,
-                (int)_transform.Pos.Y);
+            _playerDown = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y + 1);
 
-            _playerDown = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y + 1);
+            _playerUp = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y - 1);
 
-            _playerUp = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y - 1);
-
-            _playerPos = new Vector2((int)_transform.Pos.X,
-                (int)_transform.Pos.Y);
+            _playerPos = new Vector2((int)selfTrans.Pos.X,
+                (int)selfTrans.Pos.Y);
 
             // Level up
             LevelUp(Role);

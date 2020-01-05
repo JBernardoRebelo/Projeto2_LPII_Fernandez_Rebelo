@@ -94,6 +94,9 @@ namespace BootlegDiablo
             x = Math.Clamp(x, 1, ParentScene.xdim - 3);
             y = Math.Clamp(y, 1, ParentScene.ydim - 3);
 
+            // Show essential information
+            _rndr.EssencialInfo(player);
+            
             // Update player position
             _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
         }

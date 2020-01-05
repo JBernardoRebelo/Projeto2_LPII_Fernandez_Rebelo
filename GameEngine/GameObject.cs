@@ -7,7 +7,7 @@ using System.Text;
 namespace GameEngine
 {
     /// <summary>
-    /// Generic class to instantiate gameObjects
+    /// General class to instantiate gameObjects
     /// </summary>
     public class GameObject : IGameObject, IEnumerable<Component>, IDisposable
     {
@@ -21,18 +21,36 @@ namespace GameEngine
         /// </summary>
         public string Name { get; set; }
 
-        //Is this game object renderable?
+        /// <summary>
+        /// Bool to check if a game object is renderable by 
+        /// ConsoleRenderer class
+        /// </summary>
         public bool IsRenderable =>
-            containsRenderableComponent && containsPosition;
+            containsRenderableComponent && containsTransform;
 
-        // Is the game object collidable?
-        public bool IsCollidable => containsPosition && containsCollider;
+        /// <summary>
+        /// Bool to check if a game object can be collided with
+        /// </summary>
+        public bool IsCollidable => containsTransform && containsCollider;
 
-        // Helper variables for the IsRenderable property
-        private bool
-            containsRenderableComponent, containsPosition, containsCollider;
+        // Helper variables for the IsRenderable and IsCollidable properties
 
-        // Components which a game object can only have one of
+        /// <summary>
+        /// Check if game object has a renderable component
+        /// </summary>
+        private bool containsRenderableComponent;
+        /// <summary>
+        /// Check if game object has a transform component
+        /// </summary>
+        private bool containsTransform;
+        /// <summary>
+        /// Check if game object has a sprite collider component
+        /// </summary>
+        private bool containsCollider;
+
+        /// <summary>
+        /// Components which a game object can only have one of
+        /// </summary>
         private static readonly Type[] oneOfAKind = new Type[]
         {
             typeof(Transform),
@@ -41,7 +59,9 @@ namespace GameEngine
             typeof(AbstractCollider)
         };
 
-        // The components in this game object
+        /// <summary>
+        /// Collection of components in this game object
+        /// </summary>
         private readonly ICollection<Component> components;
 
         /// <summary>
@@ -51,7 +71,7 @@ namespace GameEngine
         {
             components = new List<Component>();
             containsRenderableComponent = false;
-            containsPosition = false;
+            containsTransform = false;
             containsCollider = false;
         }
 
@@ -63,13 +83,16 @@ namespace GameEngine
         {
             components = new List<Component>();
             containsRenderableComponent = false;
-            containsPosition = false;
+            containsTransform = false;
             containsCollider = false;
             Name = name;
         }
 
 
-        // Add a component to this game object
+        /// <summary>
+        /// Add a component to this game object
+        /// </summary>
+        /// <param name="component"> The component to be added </param>
         public void AddComponent(Component component)
         {
 
@@ -87,7 +110,7 @@ namespace GameEngine
 
             // Is this component a position component or a renderable component?
             if (component is Transform)
-                containsPosition = true;
+                containsTransform = true;
             else if (component is RenderableComponent)
                 containsRenderableComponent = true;
             else if (component is AbstractCollider)
@@ -104,28 +127,24 @@ namespace GameEngine
         // from this game object
 
         /// <summary>
-        /// 
+        /// Generic method to get a component of desired type
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T"> Type of component </typeparam>
+        /// <returns> Chosen component </returns>
         public T GetComponent<T>() where T : Component
         {
-            // TODO: Use dictionary for one of a kind game objects
-            // to speed up this search
-
             return components.FirstOrDefault(component => component is T) as T;
         }
 
         /// <summary>
-        /// 
+        /// Method used within GameObject class 
+        /// to check if a component already exists in the
+        /// component collection
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type"> Type of component </param>
+        /// <returns> The chosen component of said type </returns>
         private Component GetComponent(Type type)
         {
-            // TODO: Use dictionary for one of a kind game objects
-            // to speed up this search
-
             return components.FirstOrDefault(
                 component => type.IsInstanceOfType(component));
         }
@@ -154,7 +173,9 @@ namespace GameEngine
             return false;
         }
 
-        // Initialize all components in this game object
+        /// <summary>
+        /// Initialize all components in this game object
+        /// </summary>
         public virtual void Start()
         {
             foreach (Component component in components)
@@ -163,7 +184,9 @@ namespace GameEngine
             }
         }
 
-        // Update all components in this game object
+        /// <summary>
+        /// Update all components in this game object
+        /// </summary>
         public virtual void Update()
         {
             foreach (Component component in components)
@@ -172,7 +195,9 @@ namespace GameEngine
             }
         }
 
-        // Tear down all components in this game object
+        /// <summary>
+        /// Tear down all components in this game object
+        /// </summary>
         public void Finish()
         {
             foreach (Component component in components)
@@ -186,24 +211,36 @@ namespace GameEngine
         // The methods below are required for implementing the IEnumerable<T>
         // interface
 
-        // Go through all components in this game object
+        /// <summary>
+        /// Go through all components in this game object
+        /// </summary>
+        /// <returns> The enumerator for each component </returns>
         public IEnumerator<Component> GetEnumerator()
         {
             return components.GetEnumerator();
         }
 
-        // Required for IEnumerable<T> implementation
+        /// <summary>
+        /// Required method for IEnumerable<T> implementation
+        /// </summary>
+        /// <returns> Enumerator </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         // Method to implement IDisposable
+
+        /// <summary>
+        /// Required method for IDisposable implementation. 
+        /// Clears collection of the game object's components and 
+        /// set bools to false so the ConsoleRenderer wont crash
+        /// </summary>
         public virtual void Dispose()
         {
             components.Clear();
             containsRenderableComponent = false;
-            containsPosition = false;
+            containsTransform = false;
             containsCollider = false;
         }
     }
