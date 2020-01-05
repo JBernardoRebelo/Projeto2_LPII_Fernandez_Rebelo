@@ -6,7 +6,7 @@ namespace BootlegDiablo
     public class Render
     {
         //private char _penta = '\26E7';
-        
+
         /// <summary>
         /// Displays Start menu with options
         /// </summary>
@@ -25,17 +25,23 @@ namespace BootlegDiablo
                 WriteLine();
                 WriteLine($"⛧ SINGLE PLAYER ⛧");
                 WriteLine("⛧ SHOW CREDITS ⛧");
+                WriteLine("⛧ INSTRUCTIONS ⛧");
                 WriteLine("⛧ EXIT ⛧");
 
                 Write("-> ");
                 option = ReadLine().ToLower();
 
-                if (option == "credits")
+                if (option == "credits" || option == "c")
                 {
                     Credits();
                     Clear();
                 }
-                else if (option == "exit")
+                else if (option == "instructions" || option == "i")
+                {
+                    Instructions();
+                    Clear();
+                }
+                else if (option == "exit" || option == "e")
                 {
                     WriteLine("Goodbye");
                     Environment.Exit(0);
@@ -143,9 +149,33 @@ namespace BootlegDiablo
             DisplayLogo();
 
             WriteLine();
-            WriteLine("Game Design by:\n - Blizzard North\n");
             WriteLine("Code by:\n - Joao Rebelo\n - Miguel Fernandez\n");
             WriteLine("Based on Engine Library by:\n - Nuno Fachada\n");
+            ReadLine();
+        }
+
+        /// <summary>
+        /// Output instructions
+        /// </summary>
+        private void Instructions()
+        {
+            Clear();
+            DisplayLogo();
+
+            WriteLine("\nHOW TO PLAY:");
+            WriteLine("\n -> In the menus, type the wanted option to go");
+            WriteLine(" -> In game...");
+            WriteLine("    -> Attack enemies to win XP and level up");
+            WriteLine("        - (Attacks reach enemies in your position," +
+                " up," + " down, left and right)");
+            WriteLine("    -> By killing every enemy you win, if you die," +
+                " you lose");
+            WriteLine("\nCONTROLS:");
+            WriteLine("\n- 'WASD' to move");
+            WriteLine("- 'Space' to attack");
+            WriteLine("- 'C' show character details");
+            WriteLine("- 'E' to go through doors");
+
             ReadLine();
         }
 

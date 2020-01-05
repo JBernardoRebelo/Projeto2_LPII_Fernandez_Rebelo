@@ -43,20 +43,20 @@ Composite;
 
 ## **Instruções:**
 
-- Escrever "credits" para os creditos;
-- Escrever "Exit Game" para sair; 
+- Escrever "credits" ou 'c' para os creditos;
+- Escrever "exit" ou 'e' para sair; 
 - Pressionar qualquer tecla no menu inicial para começar:
   - Escrever o nome da classe desejada;
   - De seguida o nome do jogador;
 - No jogo:
   - Atacar inimigos para ganhar XP e subir de nível;
+  - Eliminar todos os inimigos causa vitória e morrer causa derrota;
 
 ## Controlos
 
 - 'WASD' para mover o personagem;
 - 'Space' para atacar;
 - 'C' para mostrar detalhes do personagem;
-- 'P' para aceder ao menu de pausa;
 - 'E' para abrir portas e entrar na respetiva sala;
 - (Por agora) Escrever a opção pretendida dentro de menus;
 
