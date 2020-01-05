@@ -114,7 +114,7 @@ namespace BootlegDiablo
             _player.AddComponent(new Transform(5f, _y / 4 + 1, 2f));
             _player.AddComponent(new ConsoleSprite(
                 playerSprite, ConsoleColor.White, ConsoleColor.Blue));
-            //_player.AddComponent(new SpriteCollider());
+            _player.AddComponent(new ObjectCollider());
 
             _scene.AddGameObject(_player);
 
@@ -161,24 +161,31 @@ namespace BootlegDiablo
                 ConsolePixel wallPixel =
                     new ConsolePixel(' ', ConsoleColor.White,
                     ConsoleColor.DarkYellow);
+
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
                 // WALLS
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
+                    walls.AddComponent(new ObjectCollider(new Vector2(x, 0)));
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, room.Dim.Y - 1)] = wallPixel;
+                    walls.AddComponent(new ObjectCollider(
+                        new Vector2(x, room.Dim.Y - 1)));
                 }
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
                     wallPixels[new Vector2(0, y)] = wallPixel;
+                    walls.AddComponent(new ObjectCollider(new Vector2(0, y)));
                 }
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
                     wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
+                    walls.AddComponent(new ObjectCollider(
+                        new Vector2(room.Dim.X - 1, y)));
                 }
 
                 // First room walls
@@ -186,6 +193,7 @@ namespace BootlegDiablo
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(new Transform(1, _y / 6, 1f));
+                    //walls.AddComponent(new ObjectCollider());
                     aux = walls;
                     auxRoom = room;
                 }
@@ -236,7 +244,7 @@ namespace BootlegDiablo
 
                     // Add sprite to door
                     room.Doors[i].AddComponent(new ConsoleSprite(
-                        doors, ConsoleColor.White, ConsoleColor.Black));
+                        doors, ConsoleColor.White, ConsoleColor.Yellow));
 
                     if (i % 2 == 0)
                     {
@@ -266,8 +274,10 @@ namespace BootlegDiablo
                         enemy, ConsoleColor.White, ConsoleColor.Red));
 
                     room.Enemies[i].AddComponent(
-                        new Transform(wallTrans.Pos.X + (room.Dim.X / 2),
-                        wallTrans.Pos.Y + (room.Dim.Y / 2), 2f));
+                        new Transform(wallTrans.Pos.X + (room.Dim.X / 2) + i,
+                        wallTrans.Pos.Y + (room.Dim.Y / 2)+i, 2f));
+
+                    room.Enemies[i].AddComponent(new ObjectCollider());
 
                     room.Enemies[i].AddComponent(new EnemyController(_rnd));
 

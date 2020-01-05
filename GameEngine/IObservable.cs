@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace GameEngine
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IObservable<T>
     {
         void RegisterObserver(

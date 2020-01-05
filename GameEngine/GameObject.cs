@@ -56,7 +56,7 @@ namespace GameEngine
             typeof(Transform),
             typeof(KeyObserver),
             typeof(RenderableComponent),
-            typeof(AbstractCollider)
+            //typeof(AbstractCollider)
         };
 
         /// <summary>
