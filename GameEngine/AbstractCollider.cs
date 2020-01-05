@@ -8,9 +8,6 @@ namespace GameEngine
     /// </summary>
     public abstract class AbstractCollider : Component
     {
-        /// <summary>
-        /// IEnumerable of occupied positions
-        /// </summary>
-        public abstract IEnumerable<Vector2> Occupied { get; }
+        public abstract Vector2 ColPos { get; set; }
     }
 }

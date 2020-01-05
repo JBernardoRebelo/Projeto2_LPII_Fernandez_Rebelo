@@ -14,7 +14,8 @@ namespace BootlegDiablo
         /// </param>
         public EnemySkeleton(Random rndm)
         {
-            HP = rndm.Next(1, 3); // 10, 30
+            Name = "Skeleton";
+            HP = rndm.Next(75, 120);
             Damage = rndm.Next(5, 10);
         }
     }

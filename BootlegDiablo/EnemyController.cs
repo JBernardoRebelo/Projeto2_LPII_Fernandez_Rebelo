@@ -54,6 +54,7 @@ namespace BootlegDiablo
 
             switch (state)
             {
+                // Enemy goes up
                 case 0:
                     y -= 1f;
                     break;

@@ -52,6 +52,11 @@ namespace BootlegDiablo
         /// </summary>
         public Weapon Weapon { get; set; }
 
+        /// <summary>
+        /// User inputed name
+        /// </summary>
+        public string ChosenName { get; }
+
         // Variables
         /// <summary>
         /// Dungeon instance
@@ -67,8 +72,6 @@ namespace BootlegDiablo
         /// Transform instance, player position
         /// </summary>
         public Transform selfTrans;
-
-        // Player position for attack and door open
 
         /// <summary>
         /// 1 unit left to player (-1 x)
@@ -166,11 +169,14 @@ namespace BootlegDiablo
             }
         }
 
+
         /// <summary>
         /// Opens a door and enters a room
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x"> Player x position </param>
+        /// <param name="xx"> Player x postion after using door </param>
+        /// <param name="y"> Player y position </param>
+        /// <param name="yy"> Player y postion after using door </param>
         public void OpenDoor(out float x, int xx, out float y, int yy)
         {
             Vector2 doorPos;
