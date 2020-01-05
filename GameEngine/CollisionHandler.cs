@@ -27,7 +27,7 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
-        private readonly GameObject[,] prevCollisionMap;
+        private GameObject[,] prevCollisionMap;
 
         /// <summary>
         /// 
@@ -49,13 +49,15 @@ namespace GameEngine
         public void Update(IEnumerable<GameObject> gameObjects)
         {
 
-            for (int y = 0; y < collisionMap.Length; y++)
-            {
-                for (int x = 0; x < collisionMap.Length; x++)
-                {
-                    prevCollisionMap[x, y] = collisionMap[x, y];
-                }
-            }
+            //for (int y = 0; y < collisionMap.Length; y++)
+            //{
+            //    for (int x = 0; x < collisionMap.Length; x++)
+            //    {
+            //        prevCollisionMap[x, y] = collisionMap[x, y];
+            //    }
+            //}
+
+            prevCollisionMap = (GameObject[,])collisionMap.Clone();
 
             Array.Clear(collisionMap, 0, collisionMap.Length);
 
@@ -83,8 +85,8 @@ namespace GameEngine
                     // contains a game object
                     if (collisionMap[x, y] != null)
                     {
-                        prevCollisionMap.GetValue(collisionMap[x, y].GetHashCode());
-                        throw new InvalidOperationException(
+                        //prevCollisionMap.GetValue(collisionMap[x, y].GetHashCode());
+                        Console.WriteLine(
                             "Unable to specify coordinate as occupied by "
                             + $"'{gObj.Name}' since it is previously "
                             + $"occupied by '{collisionMap[x, y].Name}'");
