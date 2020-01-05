@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace BootlegDiablo
 {
     public class EnemySkeleton : Enemy

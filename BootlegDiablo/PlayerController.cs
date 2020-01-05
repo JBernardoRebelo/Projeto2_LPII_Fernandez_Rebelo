@@ -79,7 +79,6 @@ namespace BootlegDiablo
 
                     // Use player attack method
                     case ConsoleKey.Spacebar:
-                        // Implement player attack
                         player.Attack();
                         break;
                 }
@@ -88,6 +87,9 @@ namespace BootlegDiablo
             // Make sure player doesn't get outside of dungeon area
             x = Math.Clamp(x, 1, ParentScene.xdim - 3);
             y = Math.Clamp(y, 1, ParentScene.ydim - 3);
+
+            // Show essential information
+            _rndr.EssencialInfo(player);
 
             // Simple level up
             player.LevelUp(player.Role);

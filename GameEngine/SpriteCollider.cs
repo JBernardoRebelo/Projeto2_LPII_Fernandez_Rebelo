@@ -19,6 +19,9 @@ namespace GameEngine
         /// </summary>
         private ConsoleSprite sprite;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Transform _transform;
 
         /// <summary>
