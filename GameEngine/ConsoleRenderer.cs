@@ -6,21 +6,51 @@ using System.Numerics;
 
 namespace GameEngine
 {
+    /// <summary>
+    /// Class that is responsible to render each frame of the game
+    /// </summary>
     public class ConsoleRenderer
     {
-        // Was the cursor visible before game rendering started?
-        // For now we assume it was
+        /// <summary>
+        /// Bool to check if cursor was visible before the game started
+        /// </summary>
         private bool cursorVisibleBefore = true;
 
-        private ConsolePixel[,] _framePrev, _frameNext;
+        /// <summary>
+        /// Array of Console Pixel which composes the frame that was rendered
+        /// </summary>
+        private ConsolePixel[,] _framePrev;
 
-        // This struct is used internally for managing renderable components
+        /// <summary>
+        /// Array of Console Pixel which composes the frame that is to be
+        /// rendered
+        /// </summary>
+        private ConsolePixel[,] _frameNext;
+
+        /// <summary>
+        /// Struct to be used internally for managing renderable components
+        /// </summary>
         private struct Renderable
         {
+            /// <summary>
+            /// Name of the game object
+            /// </summary>
             public string Name { get; }
+            /// <summary>
+            /// Position of the game object sprite
+            /// </summary>
             public Vector3 Pos { get; }
+            /// <summary>
+            /// Game object RenderableComponent
+            /// </summary>
             public RenderableComponent Sprite { get; }
 
+            /// <summary>
+            /// Constructor to the struct
+            /// </summary>
+            /// <param name="name"> Game Object name </param>
+            /// <param name="pos"> Game Object position </param>
+            /// <param name="sprite"> Game Object sprite </param>
             public Renderable(
                 string name, Vector3 pos, RenderableComponent sprite)
             {
@@ -30,13 +60,27 @@ namespace GameEngine
             }
         }
 
-        // Scene dimensions
-        private int xdim, ydim;
+        /// <summary>
+        /// Scene collum dimensions
+        /// </summary>
+        private int xdim;
 
-        // Default background pixel
+        /// <summary>
+        /// Scene row dimensions
+        /// </summary>
+        private int ydim;
+
+        /// <summary>
+        /// Default background pixel
+        /// </summary>
         private ConsolePixel bgPix;
 
-        // Constructor
+        /// <summary>
+        /// Console Renderer constructor
+        /// </summary>
+        /// <param name="xdim"> Scene x dimension </param>
+        /// <param name="ydim"> Scene y dimension </param>
+        /// <param name="bgPix"> Background pixel </param>
         public ConsoleRenderer(int xdim, int ydim, ConsolePixel bgPix)
         {
             this.xdim = xdim;
@@ -54,7 +98,9 @@ namespace GameEngine
             }
         }
 
-        // Pre-rendering setup
+        /// <summary>
+        /// Pre-rendering setup method
+        /// </summary>
         public void Start()
         {
             // Clean console
@@ -75,13 +121,17 @@ namespace GameEngine
             RenderFrame();
         }
 
-        // Post-rendering teardown
+        /// <summary>
+        /// Post-rendering teardown
+        /// </summary>
         public void Finish()
         {
             Console.CursorVisible = cursorVisibleBefore;
         }
 
-        // Renders the actual frame
+        /// <summary>
+        /// Renders the actual frame
+        /// </summary>
         private void RenderFrame()
         {
             // Background and foreground colors of each pixel
@@ -145,7 +195,12 @@ namespace GameEngine
             _framePrev = frameAux;
         }
 
-        // Creates the next frame for rendering and then renders it
+        /// <summary>
+        /// Creates the next frame for rendering and then renders it
+        /// </summary>
+        /// <param name="gameObjects"> Collection of game objects
+        /// present in the scene
+        /// </param>
         public void Render(IEnumerable<GameObject> gameObjects)
         {
             // Filter game objects with sprite and position, get renderable
