@@ -45,6 +45,8 @@ namespace BootlegDiablo
         /// </summary>
         public Role Role { get; set; }
 
+        public string ChosenName { get; }
+
         /// <summary>
         /// Weapon equiped by player
         /// </summary>
@@ -183,9 +185,6 @@ namespace BootlegDiablo
                     doorPos = new Vector2(
                         (int)room.Doors[i].GetComponent<Transform>().Pos.X,
                         (int)room.Doors[i].GetComponent<Transform>().Pos.Y);
-
-                    System.Console.Write($"{room.Doors[i].Name}{doorPos} | ");
-                    System.Console.WriteLine($"{_playerPos}");
 
                     if (doorPos == _playerLeft) x -= 2;
                     if (doorPos == _playerRight) x += 2;
