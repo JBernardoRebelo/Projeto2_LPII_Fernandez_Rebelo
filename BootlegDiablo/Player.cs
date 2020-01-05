@@ -45,8 +45,6 @@ namespace BootlegDiablo
         /// </summary>
         public Role Role { get; set; }
 
-        public string ChosenName { get; }
-
         /// <summary>
         /// Weapon equiped by player
         /// </summary>
