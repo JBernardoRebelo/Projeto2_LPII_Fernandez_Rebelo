@@ -21,6 +21,8 @@ namespace BootlegDiablo
         /// </summary>
         private Transform _transform;
 
+        private Vector2 _prevPos;
+
         /// <summary>
         /// Class variable of Render to use said class methods.
         /// </summary>
@@ -37,8 +39,8 @@ namespace BootlegDiablo
         {
             _keyObserver = ParentGameObject.GetComponent<KeyObserver>();
             _transform = ParentGameObject.GetComponent<Transform>();
-            _player = ParentGameObject as Player;
             _collider = ParentGameObject.GetComponent<ObjectCollider>();
+            _player = ParentGameObject as Player;
             _rndr = new Render();
         }
 
@@ -52,10 +54,10 @@ namespace BootlegDiablo
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
 
-            Console.WriteLine(_collider.Colliding);
-
             if (!_collider.Colliding)
             {
+                _prevPos = new Vector2(x, y);
+
                 // Check what keys were pressed and update position accordingly
                 foreach (ConsoleKey key in _keyObserver.GetCurrentKeys())
                 {
@@ -107,6 +109,15 @@ namespace BootlegDiablo
 
                 // Update player position
                 _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
+
+
+            }
+
+            else if (_collider.Colliding)
+            {
+                _collider.ColPos = new Vector2(_prevPos.X, _prevPos.Y);
+                _transform.Pos = new Vector3(_prevPos, _transform.Pos.Z);
+                _collider.Colliding = false;
             }
         }
     }

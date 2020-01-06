@@ -64,7 +64,7 @@ namespace BootlegDiablo
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random();
+            _rnd = new Random(1);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace BootlegDiablo
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1)));
+                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1), true));
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {

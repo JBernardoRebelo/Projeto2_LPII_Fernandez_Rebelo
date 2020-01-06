@@ -16,11 +16,6 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
-        public abstract Transform PrevPos { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public bool Colliding { get; set; }
     }
 }
