@@ -84,19 +84,6 @@ namespace BootlegDiablo
         }
 
         /// <summary>
-        /// Displays pause menu on 'Esc'
-        /// </summary>
-        public void PauseMenu()
-        {
-            DisplayLogo();
-
-            // Show menu options
-            WriteLine();
-            WriteLine("⛧ RESUME GAME ⛧");
-            WriteLine("⛧ EXIT ⛧");
-        }
-
-        /// <summary>
         /// Clear console and Victory screen
         /// </summary>
         public void Victory()

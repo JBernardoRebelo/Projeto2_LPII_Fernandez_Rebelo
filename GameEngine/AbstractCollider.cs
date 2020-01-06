@@ -8,6 +8,9 @@ namespace GameEngine
     /// </summary>
     public abstract class AbstractCollider : Component
     {
+        /// <summary>
+        /// Collider position
+        /// </summary>
         public abstract Vector2 ColPos { get; set; }
     }
 }

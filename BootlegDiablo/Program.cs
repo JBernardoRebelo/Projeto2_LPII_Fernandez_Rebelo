@@ -10,8 +10,10 @@
         /// </summary>
         private static void Main()
         {
+            // Setup output encoding
             System.Console.OutputEncoding = System.Text.Encoding.Unicode;
 
+            // Create instance of game
             Game _gameLoop = new Game();
 
             // Call gameloop
