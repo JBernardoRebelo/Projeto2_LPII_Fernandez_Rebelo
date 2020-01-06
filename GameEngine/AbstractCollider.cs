@@ -12,5 +12,7 @@ namespace GameEngine
         /// Collider position
         /// </summary>
         public abstract Vector2 ColPos { get; set; }
+
+        public bool Colliding { get; set; }
     }
 }
