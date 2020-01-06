@@ -60,8 +60,6 @@ Composite;
 - 'E' para abrir portas e entrar na respetiva sala;
 - (Por agora) Escrever a opção pretendida dentro de menus;
 
-## **Notas de dev:**
-
 ### **De Essencial implementação:**
 
 - Implementação o Game Loop e o Update Method. **X**
@@ -70,21 +68,18 @@ Composite;
   - Movimento ´WASD´; **X**
   - 1 Ataque skill; **X**
   - 1 Inimigo atacável; **X**
-  - 1 coletável a definir;
-  - 1 dungeon explorável; **X**
+  - 1 dungeon explorável gerada procedimentalmente; **X**
 - Ser jogável e ter algum tipo de pontuação:
   - XP que se ganha ao matar inimigo; **X**
   - Ter algum tipo de ecrã inicial ou opção no menu onde sejam explicadas 
-  as regras e indicados os controlos do jogo;
+  as regras e indicados os controlos do jogo; **X**
   - Menu de escolha de classes com 2 classes,  warrior e rogue; **X**
-  - Regras e controlos;
 
 ### **Mecânicas omitidas de desenvolvimento que poderiam ser implementados**
 
 - Sistema de inventário e Lojas/Transações de Gold
   - De momento só existe 1 item possível e é a _Short Sword_ usada para atacar;
-  - Ver detalhes de personagem mostra também a arma e os seus detalhes
 - Classe _Sorcerer_;
-- Várias _stats_ de classe;
+- Restantes _stats_ de classe;
 - Interações e existência de NPC's;
 - Controlo e ataque de jogador com rato (utilizar o teclado pareceu mais prático de implementar);
