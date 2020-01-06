@@ -166,11 +166,17 @@ namespace BootlegDiablo
 
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
+                AbstractCollider colliderUp;
+                AbstractCollider colliderLeft;
+                AbstractCollider colliderRight;
+                AbstractCollider colliderDown;
+
                 // WALLS
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1)));
+                    colliderUp = new ObjectCollider(new Vector2(x, 1));
+                    walls.AddComponent(colliderUp);
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {
@@ -195,6 +201,7 @@ namespace BootlegDiablo
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(new Transform(1, _y / 6, 1f));
+
                     aux = walls;
                     auxRoom = room;
                 }
