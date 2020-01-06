@@ -56,41 +56,47 @@ namespace GameEngine
                     transform = gObj.GetComponent<Transform>();
 
                     // Array de colliders e percorrê-los
-                    foreach (AbstractCollider collider in gObj)
+                    foreach (Component component in gObj)
                     {
-                        collider.Colliding = false;
-
-                        x = (int)collider.ColPos.X;
-                        y = (int)collider.ColPos.Y;
-
-                        if (x == 0 && y == 0)
+                        if (component is AbstractCollider)
                         {
-                            Console.WriteLine(gObj.Name);
-                            //break;
-                        }
+                            AbstractCollider collider = 
+                                component as AbstractCollider;
 
-                        // Throw exception if any of these is out of bounds
-                        if (x < 0 || x >= xdim || y < 0 || y >= ydim)
-                        {
-                            throw new InvalidOperationException(
-                                $"Out of bounds pixel at ({x},{y}) in game"
-                                + $" object '{gObj.Name}'");
-                        }
+                            collider.Colliding = false;
 
-                        if (collisionMap[x, y] != null)
-                        {
-                            collider.Colliding = true;
+                            x = (int)collider.ColPos.X;
+                            y = (int)collider.ColPos.Y;
 
-                            // Warn collider that it is colliding
-                            Console.WriteLine(
-                                "Unable to specify coordinate as occupied by "
-                                + $"'{gObj.Name}' since it is previously "
-                                + $"occupied by '{collisionMap[x, y].Name}'");
-                        }
-                        else
-                        {
-                            // Set coordinate as occupied by the current game object
-                            collisionMap[x, y] = gObj;
+                            if (x == 0 && y == 0)
+                            {
+                                Console.WriteLine(gObj.Name);
+                                //break;
+                            }
+
+                            // Throw exception if any of these is out of bounds
+                            if (x < 0 || x >= xdim || y < 0 || y >= ydim)
+                            {
+                                throw new InvalidOperationException(
+                                    $"Out of bounds pixel at ({x},{y}) in game"
+                                    + $" object '{gObj.Name}'");
+                            }
+
+                            if (collisionMap[x, y] != null)
+                            {
+                                collider.Colliding = true;
+
+                                // Warn collider that it is colliding
+                                //Console.WriteLine(
+                                //    "Unable to specify coordinate as occupied by "
+                                //    + $"'{gObj.Name}' since it is previously "
+                                //    + $"occupied by '{collisionMap[x, y].Name}'");
+                            }
+                            else
+                            {
+                                // Set coordinate as occupied by the current game object
+                                collisionMap[x, y] = gObj;
+                            }
                         }
                     }
 

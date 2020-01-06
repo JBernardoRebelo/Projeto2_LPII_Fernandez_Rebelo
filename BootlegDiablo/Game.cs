@@ -181,7 +181,7 @@ namespace BootlegDiablo
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
                     wallPixels[new Vector2(0, y)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(0, y)));
+                    walls.AddComponent(new ObjectCollider(new Vector2(1, y)));
                 }
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
