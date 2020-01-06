@@ -102,8 +102,6 @@ namespace BootlegDiablo
                 x = Math.Clamp(x, 1, ParentScene.xdim - 3);
                 y = Math.Clamp(y, 1, ParentScene.ydim - 3);
 
-                Console.WriteLine(_parent.Name +_parent.IsCollidable);
-
                 // Update enemy position
                 _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }

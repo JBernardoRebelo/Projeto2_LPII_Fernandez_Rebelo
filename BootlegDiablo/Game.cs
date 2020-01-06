@@ -111,7 +111,7 @@ namespace BootlegDiablo
             });
             _player.AddComponent(playerKeys);
             _player.AddComponent(new PlayerController());
-            _player.AddComponent(new Transform(5f, _y / 4 + 1, 2f));
+            _player.AddComponent(new Transform(5f, _y / 6 + 1, 2f));
             _player.AddComponent(new ConsoleSprite(
                 playerSprite, ConsoleColor.White, ConsoleColor.Blue));
             _player.AddComponent(new ObjectCollider());
@@ -283,7 +283,7 @@ namespace BootlegDiablo
                         new Transform(enemyX, enemyY, 2f));
 
                     room.Enemies[i].AddComponent(
-                        new ObjectCollider(new Vector2(enemyX, enemyY)));
+                        new ObjectCollider());
 
                     room.Enemies[i].AddComponent(new EnemyController(_rnd));
 

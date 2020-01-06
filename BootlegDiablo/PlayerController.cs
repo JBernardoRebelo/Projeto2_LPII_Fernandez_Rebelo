@@ -37,10 +37,10 @@ namespace BootlegDiablo
         /// </summary>
         public override void Start()
         {
-            _keyObserver = ParentGameObject.GetComponent<KeyObserver>();
-            _transform = ParentGameObject.GetComponent<Transform>();
-            _collider = ParentGameObject.GetComponent<ObjectCollider>();
             _player = ParentGameObject as Player;
+            _keyObserver = _player.GetComponent<KeyObserver>();
+            _transform = _player.GetComponent<Transform>();
+            _collider = _player.GetComponent<ObjectCollider>();
             _rndr = new Render();
         }
 
@@ -109,8 +109,6 @@ namespace BootlegDiablo
 
                 // Update player position
                 _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
-
-
             }
 
             else if (_collider.Colliding)
