@@ -17,6 +17,8 @@ namespace GameEngine
         /// </summary>
         private Transform _transform;
 
+        private readonly bool _update;
+
         /// <summary>
         /// 
         /// </summary>
@@ -26,9 +28,10 @@ namespace GameEngine
         /// 
         /// </summary>
         /// <param name="pos"></param>
-        public ObjectCollider(Vector2 pos)
+        public ObjectCollider(Vector2 pos, bool update = false)
         {
             ColPos = pos;
+            _update = update;
         }
 
         /// <summary>
@@ -51,9 +54,12 @@ namespace GameEngine
         /// </summary>
         public override void Update()
         {
-            ColPos = new Vector2(
-                (int) _transform.Pos.X,
-                (int) _transform.Pos.Y);
+            if (_update)
+            {
+                ColPos = new Vector2(
+                (int)_transform.Pos.X,
+                (int)_transform.Pos.Y);
+            }
         }
     }
 }

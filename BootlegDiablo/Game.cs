@@ -120,13 +120,15 @@ namespace BootlegDiablo
 
             _scene.GameLoop(_frameLength);
 
-            if (_player == null)
+            if (_player.Life <= 0)
             {
                 // LOST
             }
             else
             {
                 // WIN
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("YAHHHHH win WEOOOOOHHHH");
             }
         }
