@@ -170,7 +170,7 @@ namespace BootlegDiablo
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(x, 0)));
+                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1)));
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {
@@ -195,7 +195,6 @@ namespace BootlegDiablo
                 {
                     walls.AddComponent(new ConsoleSprite(wallPixels));
                     walls.AddComponent(new Transform(1, _y / 6, 1f));
-                    //walls.AddComponent(new ObjectCollider());
                     aux = walls;
                     auxRoom = room;
                 }
@@ -269,6 +268,11 @@ namespace BootlegDiablo
                 // ENEMIES IN ROOM
                 for (int i = 0; i < room.Enemies.Length; i++)
                 {
+                    int enemyX = Convert.ToInt32
+                        (wallTrans.Pos.X + (room.Dim.X / 2) + i);
+                    int enemyY = Convert.ToInt32
+                        (wallTrans.Pos.Y + (room.Dim.Y / 2) + i);
+
                     room.Enemies[i].Name += i;
                     room.Enemies[i].Name += index;
 
@@ -276,10 +280,10 @@ namespace BootlegDiablo
                         enemy, ConsoleColor.White, ConsoleColor.Red));
 
                     room.Enemies[i].AddComponent(
-                        new Transform(wallTrans.Pos.X + (room.Dim.X / 2) + i,
-                        wallTrans.Pos.Y + (room.Dim.Y / 2)+i, 2f));
+                        new Transform(enemyX, enemyY, 2f));
 
-                    room.Enemies[i].AddComponent(new ObjectCollider());
+                    room.Enemies[i].AddComponent(
+                        new ObjectCollider(new Vector2(enemyX, enemyY)));
 
                     room.Enemies[i].AddComponent(new EnemyController(_rnd));
 

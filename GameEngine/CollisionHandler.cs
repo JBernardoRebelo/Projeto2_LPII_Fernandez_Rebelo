@@ -27,11 +27,6 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
-        private GameObject[,] prevCollisionMap;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="xdim"></param>
         /// <param name="ydim"></param>
         public CollisionHandler(int xdim, int ydim)
@@ -39,7 +34,6 @@ namespace GameEngine
             this.xdim = xdim;
             this.ydim = ydim;
             collisionMap = new GameObject[xdim, ydim];
-            prevCollisionMap = new GameObject[xdim, ydim];
         }
 
         /// <summary>
@@ -48,16 +42,11 @@ namespace GameEngine
         /// <param name="gameObjects"></param>
         public void Update(IEnumerable<GameObject> gameObjects)
         {
+            int x;
+            int y;
 
-            //for (int y = 0; y < collisionMap.Length; y++)
-            //{
-            //    for (int x = 0; x < collisionMap.Length; x++)
-            //    {
-            //        prevCollisionMap[x, y] = collisionMap[x, y];
-            //    }
-            //}
-
-            prevCollisionMap = (GameObject[,])collisionMap.Clone();
+            AbstractCollider collider;
+            Transform transform;
 
             Array.Clear(collisionMap, 0, collisionMap.Length);
 
@@ -65,13 +54,26 @@ namespace GameEngine
             {
                 if (gObj.IsCollidable)
                 {
-                    AbstractCollider collider = gObj.GetComponent<
-                        AbstractCollider>();
+                    collider = gObj.GetComponent<AbstractCollider>();
+                    transform = gObj.GetComponent<Transform>();
 
-                    Transform transform = gObj.GetComponent<Transform>();
+                    // Array de colliders e percorrê-los
 
-                    int x = (int)(collider.ColPos.X);
-                    int y = (int)(collider.ColPos.Y);
+                    collider.Colliding = false;
+
+                    x = (int)collider.ColPos.X;
+                    y = (int)collider.ColPos.Y;
+
+                    Vector2 gObjLeft = new Vector2(x - 1, y);
+                    Vector2 gObjRight = new Vector2(x + 1, y);
+                    Vector2 gObjDown = new Vector2(x, y + 1);
+                    Vector2 gObjUp = new Vector2(x, y - 1);
+
+                    if (x == 0 && y == 0)
+                    {
+                        Console.WriteLine(gObj.Name);
+                        //break;
+                    }
 
                     // Throw exception if any of these is out of bounds
                     if (x < 0 || x >= xdim || y < 0 || y >= ydim)
@@ -81,11 +83,11 @@ namespace GameEngine
                             + $" object '{gObj.Name}'");
                     }
 
-                    // Throw exception if position in collision map already
-                    // contains a game object
-                    if (collisionMap[x, y] != null)
+                    if(collisionMap[x,y] != null)
                     {
-                        //prevCollisionMap.GetValue(collisionMap[x, y].GetHashCode());
+                        collider.Colliding = true;
+
+                        // Warn collider that it is colliding
                         Console.WriteLine(
                             "Unable to specify coordinate as occupied by "
                             + $"'{gObj.Name}' since it is previously "
@@ -96,12 +98,8 @@ namespace GameEngine
                         // Set coordinate as occupied by the current game object
                         collisionMap[x, y] = gObj;
                     }
-
                 }
             }
-
-            Array.Clear(prevCollisionMap, 0, prevCollisionMap.Length);
-
         }
     }
 }

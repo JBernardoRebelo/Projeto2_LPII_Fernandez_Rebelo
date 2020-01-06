@@ -9,5 +9,7 @@ namespace GameEngine
     public abstract class AbstractCollider : Component
     {
         public abstract Vector2 ColPos { get; set; }
+
+        public bool Colliding { get; set; }
     }
 }

@@ -25,6 +25,8 @@ namespace BootlegDiablo
         /// </summary>
         private Random _rndm;
 
+        private ObjectCollider _collider;
+
         /// <summary>
         /// Constructor for the EnemyController
         /// </summary>
@@ -40,6 +42,7 @@ namespace BootlegDiablo
         public override void Start()
         {
             _transform = ParentGameObject.GetComponent<Transform>();
+            _collider = ParentGameObject.GetComponent<ObjectCollider>();
             _parent = ParentGameObject as Enemy;
         }
 
@@ -52,49 +55,52 @@ namespace BootlegDiablo
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
 
-            switch (state)
+            if (!_collider.Colliding)
             {
-                // Enemy goes up
-                case 0:
-                    y -= 1f;
-                    break;
+                switch (state)
+                {
+                    // Enemy goes up
+                    case 0:
+                        y -= 1f;
+                        break;
 
-                // Enemy goes down
-                case 1:
-                    y += 1f;
-                    break;
+                    // Enemy goes down
+                    case 1:
+                        y += 1f;
+                        break;
 
-                // Enemy goes right
-                case 2:
-                    x += 1f;
-                    break;
+                    // Enemy goes right
+                    case 2:
+                        x += 1f;
+                        break;
 
-                // Enemy goes left
-                case 3:
-                    x -= 1f;
-                    break;
+                    // Enemy goes left
+                    case 3:
+                        x -= 1f;
+                        break;
 
-                // Use Enemy attack method
-                case 4:
-                    _parent.Attack();
-                    break;
+                    // Use Enemy attack method
+                    case 4:
+                        _parent.Attack();
+                        break;
 
-                case 5:
-                    _parent.Attack();
-                    break;
+                    case 5:
+                        _parent.Attack();
+                        break;
 
-                case 6:
-                    _parent.Attack();
-                    break;
+                    case 6:
+                        _parent.Attack();
+                        break;
+                }
+
+                // Make sure enemy doesn't get outside of dungeon area
+                x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+                y = Math.Clamp(y, 1, ParentScene.ydim - 3);
+
+
+                // Update enemy position
+                _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }
-
-            // Make sure enemy doesn't get outside of dungeon area
-            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
-            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
-
-
-            // Update enemy position
-            _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
         }
     }
 }

@@ -22,7 +22,11 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
-        public ObjectCollider() { }
+        public ObjectCollider()
+        {
+            ColPos = new Vector2(0, 1);
+            _update = true;
+        }
 
         /// <summary>
         /// 
