@@ -64,7 +64,7 @@ namespace BootlegDiablo
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random();
+            _rnd = new Random(1);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace BootlegDiablo
             });
             _player.AddComponent(playerKeys);
             _player.AddComponent(new PlayerController());
-            _player.AddComponent(new Transform(5f, _y / 4 + 1, 2f));
+            _player.AddComponent(new Transform(5f, _y / 6 + 1, 2f));
             _player.AddComponent(new ConsoleSprite(
                 playerSprite, ConsoleColor.White, ConsoleColor.Blue));
             _player.AddComponent(new ObjectCollider());
@@ -175,8 +175,7 @@ namespace BootlegDiablo
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                    colliderUp = new ObjectCollider(new Vector2(x, 1));
-                    walls.AddComponent(colliderUp);
+                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1), true));
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {
@@ -290,7 +289,7 @@ namespace BootlegDiablo
                         new Transform(enemyX, enemyY, 2f));
 
                     room.Enemies[i].AddComponent(
-                        new ObjectCollider(new Vector2(enemyX, enemyY)));
+                        new ObjectCollider());
 
                     room.Enemies[i].AddComponent(new EnemyController(_rnd));
 

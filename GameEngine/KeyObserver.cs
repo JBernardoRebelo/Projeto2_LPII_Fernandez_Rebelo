@@ -12,7 +12,7 @@ namespace GameEngine
         public KeyObserver(IEnumerable<ConsoleKey> keysToObserve)
         {
             this.keysToObserve = keysToObserve;
-            observedKeys = new Queue<ConsoleKey>();
+            observedKeys = new Queue<ConsoleKey>(2);
             queueLock = new object();
         }
 

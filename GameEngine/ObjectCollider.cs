@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
 
 namespace GameEngine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ObjectCollider : AbstractCollider
     {
         /// <summary>
@@ -12,10 +13,6 @@ namespace GameEngine
         /// </summary>
         public override Vector2 ColPos { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public override Transform PrevPos { get; set; }
 
         /// <summary>
         /// 
@@ -29,7 +26,6 @@ namespace GameEngine
         /// </summary>
         public ObjectCollider()
         {
-            ColPos = new Vector2(0, 1);
             _update = true;
         }
 
@@ -63,21 +59,12 @@ namespace GameEngine
         /// </summary>
         public override void Update()
         {
-            PrevPos = new Transform(ColPos.X, ColPos.Y, _transform.Pos.Z);
-
             if (_update)
             {
                 ColPos = new Vector2(
                 (int)_transform.Pos.X,
                 (int)_transform.Pos.Y);
             }
-
-            if (Colliding)
-            {
-                _transform = PrevPos;
-                Colliding = false;
-            }
-
         }
     }
 }

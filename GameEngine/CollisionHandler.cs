@@ -42,19 +42,12 @@ namespace GameEngine
         /// <param name="gameObjects"></param>
         public void Update(IEnumerable<GameObject> gameObjects)
         {
-            int x;
-            int y;
-
-            Transform transform;
-
             Array.Clear(collisionMap, 0, collisionMap.Length);
 
             foreach (GameObject gObj in gameObjects)
             {
                 if (gObj.IsCollidable)
                 {
-                    transform = gObj.GetComponent<Transform>();
-
                     // Array de colliders e percorrê-los
                     foreach (Component component in gObj)
                     {
@@ -63,15 +56,13 @@ namespace GameEngine
                             AbstractCollider collider = 
                                 component as AbstractCollider;
 
-                            collider.Colliding = false;
-
-                            x = (int)collider.ColPos.X;
-                            y = (int)collider.ColPos.Y;
+                            int x = (int)collider.ColPos.X;
+                            int y = (int)collider.ColPos.Y;
 
                             if (x == 0 && y == 0)
                             {
                                 Console.WriteLine(gObj.Name);
-                                //break;
+                                continue;
                             }
 
                             // Throw exception if any of these is out of bounds
@@ -94,7 +85,8 @@ namespace GameEngine
                             }
                             else
                             {
-                                // Set coordinate as occupied by the current game object
+                                // Set coordinate as occupied by the current 
+                                // game object
                                 collisionMap[x, y] = gObj;
                             }
                         }
