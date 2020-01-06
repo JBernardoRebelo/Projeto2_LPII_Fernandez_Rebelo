@@ -15,6 +15,11 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
+        public override Transform PrevPos { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Transform _transform;
 
         private readonly bool _update;
@@ -58,12 +63,21 @@ namespace GameEngine
         /// </summary>
         public override void Update()
         {
+            PrevPos = new Transform(ColPos.X, ColPos.Y, _transform.Pos.Z);
+
             if (_update)
             {
                 ColPos = new Vector2(
                 (int)_transform.Pos.X,
                 (int)_transform.Pos.Y);
             }
+
+            if (Colliding)
+            {
+                _transform = PrevPos;
+                Colliding = false;
+            }
+
         }
     }
 }
