@@ -10,7 +10,7 @@
 - Geração procedimental da *dungeon* e colocação de respetivos
 componentes na mesma tal como a sua renderização.
 - Criação de classes que compõem o jogo.
-- Ficheiro README e UML.
+- Ficheiro README, UML e Fluxograma.
 - XML das classes do jogo.
 
 ### *[Miguel Fernández - a21803644](https://github.com/MizuRyujin)*
@@ -56,6 +56,10 @@ complementam os `GameObject` pai controlando o *input* (no caso do *player*)
 ### Diagrama UML
 
 ![](DiabloUml.png)
+
+### Fluxograma
+
+![](DiabloFlux.png)
 
 ## **Implementado:**
 
