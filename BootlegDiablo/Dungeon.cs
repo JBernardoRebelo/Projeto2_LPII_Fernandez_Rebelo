@@ -51,7 +51,7 @@ namespace BootlegDiablo
         /// Go through all rooms in dungeon to check if everyone is dead
         /// </summary>
         /// <returns> Returns true if everyone is dead </returns>
-        private bool CheckAliveDead()
+        public bool CheckAliveDead()
         {
             int deadCount = 0;
             int totalEnemies = 0;

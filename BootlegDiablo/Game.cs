@@ -63,7 +63,7 @@ namespace BootlegDiablo
 
             // Instantiate render and random
             _render = new Render();
-            _rnd = new Random(1);
+            _rnd = new Random();
         }
 
         /// <summary>
@@ -121,13 +121,16 @@ namespace BootlegDiablo
             if (_player.Life <= 0)
             {
                 // LOST
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.Black;
+                _render.Loser(_player); 
             }
-            else
+            if (_dungeon.CheckAliveDead())
             {
                 // WIN
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine("YAHHHHH win WEOOOOOHHHH");
+                _render.Victory(_player);
             }
         }
 

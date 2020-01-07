@@ -91,12 +91,33 @@ namespace BootlegDiablo
         }
 
         /// <summary>
-        /// Clear console and Victory screen
+        /// Clear console and show Victory screen
         /// </summary>
-        public void Victory()
+        public void Victory(Player player)
         {
             Clear();
-            WriteLine("Congrats, you cleared the console!");
+            BackgroundColor = ConsoleColor.Black;
+            DisplayLogo();
+            WriteLine("\nCongrats, you cleared the console!");
+            WriteLine();
+            CharInformationScreen(player);
+            WriteLine();
+            WriteLine("Press Escape to exit");
+        }
+
+        /// <summary>
+        /// Clear console and show Losing screen
+        /// </summary>
+        public void Loser(Player player)
+        {
+            Clear();
+            BackgroundColor = ConsoleColor.Black;
+            DisplayLogo();
+            WriteLine("\nYou were defeated by the devil spawns!!!");
+            WriteLine();
+            CharInformationScreen(player);
+            WriteLine();
+            WriteLine("Press Escape to exit");
         }
 
         /// <summary>
@@ -159,6 +180,10 @@ namespace BootlegDiablo
         {
             Clear();
             DisplayLogo();
+
+            WriteLine();
+            WriteLine("PLEASE PUT TERMINAL/CONSOLE WINDOW IN" +
+                " FULLSCREEN BEFORE PLAY");
 
             WriteLine("\nHOW TO PLAY:");
             WriteLine("\n -> In the menus, type the wanted option to go");

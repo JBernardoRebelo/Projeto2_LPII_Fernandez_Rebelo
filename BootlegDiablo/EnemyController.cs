@@ -72,22 +72,44 @@ namespace BootlegDiablo
                 {
                     // Enemy goes up
                     case 0:
-                        y -= 1f;
+                        _collider.ColPos = new Vector2(x, y - 1);
+
+                        if (_collider.Colliding == false)
+                        {
+                            y -= 1;
+                        }
+
                         break;
 
                     // Enemy goes down
                     case 1:
-                        y += 1f;
+                        _collider.ColPos = new Vector2(x, y + 1);
+
+                        if (_collider.Colliding == false)
+                        {
+                            y += 1f;
+                        }
+
                         break;
 
                     // Enemy goes right
                     case 2:
-                        x += 1f;
+                        _collider.ColPos = new Vector2(x + 1, y);
+
+                        if (_collider.Colliding == false)
+                        {
+                            x += 1f;
+                        }
                         break;
 
                     // Enemy goes left
                     case 3:
-                        x -= 1f;
+                        _collider.ColPos = new Vector2(x - 1, y);
+
+                        if (_collider.Colliding == false)
+                        {
+                            x -= 1f;
+                        }
                         break;
 
                     // Use Enemy attack method
@@ -103,14 +125,13 @@ namespace BootlegDiablo
                         _parent.Attack();
                         break;
                 }
+                // Make sure enemy doesn't get outside of dungeon area
+                x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+                y = Math.Clamp(y, 1, ParentScene.ydim - 3);
+
+                // Update enemy position
+                _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }
-
-            // Make sure enemy doesn't get outside of dungeon area
-            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
-            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
-
-            // Update enemy position
-            _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
 
             if (_collider.Colliding)
             {
@@ -118,6 +139,7 @@ namespace BootlegDiablo
                 _transform.Pos = new Vector3(_prevPos, _transform.Pos.Z);
                 _collider.Colliding = false;
             }
+
         }
     }
 }
