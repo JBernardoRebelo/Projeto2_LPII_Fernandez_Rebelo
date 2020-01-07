@@ -21,6 +21,9 @@ namespace BootlegDiablo
         /// </summary>
         private Transform _transform;
 
+        /// <summary>
+        /// Variable to store player previous position in case of collision
+        /// </summary>
         private Vector2 _prevPos;
 
         /// <summary>
@@ -28,8 +31,14 @@ namespace BootlegDiablo
         /// </summary>
         private Render _rndr;
 
+        /// <summary>
+        /// Instance of player to access Attack()
+        /// </summary>
         private Player _player;
 
+        /// <summary>
+        /// Parent gameObject collider
+        /// </summary>
         private ObjectCollider _collider;
 
         /// <summary>
@@ -54,6 +63,7 @@ namespace BootlegDiablo
             float x = _transform.Pos.X;
             float y = _transform.Pos.Y;
 
+            // Check if player hasn't collided
             if (!_collider.Colliding)
             {
                 _prevPos = new Vector2(x, y);
@@ -111,6 +121,7 @@ namespace BootlegDiablo
                 _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }
 
+            // If it has collided
             else if (_collider.Colliding)
             {
                 _collider.ColPos = new Vector2(_prevPos.X, _prevPos.Y);
