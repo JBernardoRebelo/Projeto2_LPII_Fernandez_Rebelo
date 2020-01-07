@@ -4,30 +4,30 @@ using System.Collections.Generic;
 namespace GameEngine
 {
     /// <summary>
-    /// Class 
+    /// Class responsible to check for collisions between game objects
     /// </summary>
     public class CollisionHandler
     {
         /// <summary>
-        /// 
+        /// Scene x dimension where CollisionHandler exists
         /// </summary>
         private int xdim;
 
         /// <summary>
-        /// 
+        /// Scene y dimension where CollisionHandler exists
         /// </summary>
         private int ydim;
 
         /// <summary>
-        /// 
+        /// Internal bi-dimensional array to store game objects positions
         /// </summary>
         private readonly GameObject[,] collisionMap;
 
         /// <summary>
-        /// 
+        /// Class constructor
         /// </summary>
-        /// <param name="xdim"> Game Scene</param>
-        /// <param name="ydim"></param>
+        /// <param name="xdim"> Game Scene x dimension </param>
+        /// <param name="ydim"> Game Scene y dimension </param>
         public CollisionHandler(int xdim, int ydim)
         {
             this.xdim = xdim;
@@ -36,9 +36,9 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// 
+        /// Update method to handle colisions between objects in a scene
         /// </summary>
-        /// <param name="gameObjects"></param>
+        /// <param name="gameObjects"> Collection of game objects </param>
         public void Update(IEnumerable<GameObject> gameObjects)
         {
             Array.Clear(collisionMap, 0, collisionMap.Length);
@@ -87,7 +87,6 @@ namespace GameEngine
                             }
                         }
                     }
-
                 }
             }
         }

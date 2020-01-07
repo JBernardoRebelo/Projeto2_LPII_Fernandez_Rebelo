@@ -36,7 +36,7 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// 
+        /// Method to be used in the beginning of the scene creation
         /// </summary>
         public override void Start()
         {
@@ -48,7 +48,8 @@ namespace GameEngine
         /// This method will be called by the subject when an observed key is
         /// pressed
         /// </summary>
-        /// <param name="notification"></param>
+        /// <param name="notification"> ConsoleKey to inform observers of
+        /// </param>
         public void Notify(ConsoleKey notification)
         {
             lock (queueLock)
@@ -60,7 +61,7 @@ namespace GameEngine
         /// <summary>
         /// Return the currently observed keys
         /// </summary>
-        /// <returns> IEnumerable of </returns>
+        /// <returns> IEnumerable of ConsoleKey that were inputed </returns>
         public IEnumerable<ConsoleKey> GetCurrentKeys()
         {
             IEnumerable<ConsoleKey> currentKeys;
@@ -70,7 +71,6 @@ namespace GameEngine
                 observedKeys.Clear();
             }
             return currentKeys;
-
         }
     }
 }

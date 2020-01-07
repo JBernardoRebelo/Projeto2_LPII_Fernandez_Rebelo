@@ -61,7 +61,6 @@ namespace BootlegDiablo
                 new ConsoleRenderer(_x, _y, new ConsolePixel(' ')),
                 new CollisionHandler(_x, _y));
 
-
             // Instantiate render and random
             _render = new Render();
             _rnd = new Random(1);
@@ -105,7 +104,6 @@ namespace BootlegDiablo
                 ConsoleKey.S,
                 ConsoleKey.D,
                 ConsoleKey.C,
-                ConsoleKey.P,
                 ConsoleKey.E,
                 ConsoleKey.Spacebar
             });

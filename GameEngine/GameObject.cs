@@ -39,10 +39,12 @@ namespace GameEngine
         /// Check if game object has a renderable component
         /// </summary>
         private bool containsRenderableComponent;
+
         /// <summary>
         /// Check if game object has a transform component
         /// </summary>
         private bool containsTransform;
+
         /// <summary>
         /// Check if game object has a sprite collider component
         /// </summary>

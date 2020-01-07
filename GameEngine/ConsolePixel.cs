@@ -12,17 +12,19 @@ namespace GameEngine
         /// Char to be used has a pixel for the object sprite
         /// </summary>
         public readonly char shape;
+
         /// <summary>
-        /// 
+        /// Foreground color for the pixel in question
         /// </summary>
         public readonly ConsoleColor foregroundColor;
+
         /// <summary>
-        /// 
+        /// Background color for the pixel in question
         /// </summary>
         public readonly ConsoleColor backgroundColor;
 
         /// <summary>
-        /// Checks if  this pixel renderable?
+        /// Checks if  this pixel renderable
         /// </summary>
         public bool IsRenderable
         {
@@ -39,11 +41,11 @@ namespace GameEngine
         // Below there are several constructors for building a console pixel
 
         /// <summary>
-        /// 
+        /// Constructor to be used if pixel has foreground and background color
         /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="foregroundColor"></param>
-        /// <param name="backgroundColor"></param>
+        /// <param name="shape"> Shape of the pixel </param>
+        /// <param name="foregroundColor"> Desired foreground color </param>
+        /// <param name="backgroundColor"> Desired background color </param>
         public ConsolePixel(char shape,
             ConsoleColor foregroundColor, ConsoleColor backgroundColor)
         {
@@ -53,9 +55,9 @@ namespace GameEngine
         }
 
         /// <summary>
-        /// 
+        /// Constructor to be used if pixel uses default Console colors
         /// </summary>
-        /// <param name="shape"></param>
+        /// <param name="shape"> The shape of the pixel </param>
         public ConsolePixel(char shape)
         {
             this.shape = shape;

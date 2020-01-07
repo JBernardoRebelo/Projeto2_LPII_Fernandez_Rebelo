@@ -19,22 +19,32 @@ namespace GameEngine
         private Dictionary<ConsoleKey, ICollection<IObserver<ConsoleKey>>>
             observers;
 
-        // The input thread
+        /// <summary>
+        /// The input thread
+        /// </summary>
         private Thread inputThread;
 
-        // A list of keys which cause the input handler to terminate
-        private IEnumerable<ConsoleKey> quitKeys;
+        /// <summary>
+        /// A list of keys which cause the input handler to terminate
+        /// </summary>
+        private IEnumerable<ConsoleKey> _keysToObserver;
 
-        // Create a new input handler
-        public InputHandler(IEnumerable<ConsoleKey> quitKeys)
+        /// <summary>
+        /// Create a new input handler
+        /// </summary>
+        /// <param name="keysToObserve"> IEnumerable of keys to observe 
+        /// </param>
+        public InputHandler(IEnumerable<ConsoleKey> keysToObserve)
         {
-            this.quitKeys = quitKeys;
+            _keysToObserver = keysToObserve;
             observers = new
                 Dictionary<ConsoleKey, ICollection<IObserver<ConsoleKey>>>();
             inputThread = new Thread(ReadInput);
         }
 
-        // Method which will run in a thread reading keys
+        /// <summary>
+        /// Method which will run in a thread reading keys
+        /// </summary>
         private void ReadInput()
         {
             ConsoleKey key;
@@ -53,24 +63,31 @@ namespace GameEngine
                         observer.Notify(key);
                     }
                 }
-            } while (!quitKeys.Contains(key));
+            } while (!_keysToObserver.Contains(key));
         }
 
-        // Start thread which will read the input
+        /// <summary>
+        /// Start thread which will read the input
+        /// </summary>
         public void StartReadingInput()
         {
             inputThread.Start();
         }
 
-        // Wait for thread reading the input to terminate
+        /// <summary>
+        /// Wait for thread reading the input to terminate
+        /// </summary>
         public void StopReadingInput()
         {
             inputThread.Join();
         }
 
-        // Below are methods for registering and removing observers for this
-        // subject
-
+        /// <summary>
+        /// Method to register an observer of ConsoleKey
+        /// </summary>
+        /// <param name="whatToObserve"> IEnumerable of ConsoleKey </param>
+        /// <param name="observer"> An observer that implements IObserver
+        /// of ConsoleKey </param>
         public void RegisterObserver(
             IEnumerable<ConsoleKey> whatToObserve,
             IObserver<ConsoleKey> observer)
@@ -84,6 +101,15 @@ namespace GameEngine
                 observers[key].Add(observer);
             }
         }
+
+        /// <summary>
+        /// Method to stop obsrvation of a T from an observer
+        /// </summary>
+        /// <param name="whatToObserve"> ConsoleKey that was being observed
+        /// </param>
+        /// <param name="observer"> An observer that implements IObserver
+        /// of ConsoleKey
+        /// </param>
         public void RemoveObserver(
             ConsoleKey whatToObserve, IObserver<ConsoleKey> observer)
         {
@@ -93,6 +119,10 @@ namespace GameEngine
             }
         }
 
+        /// <summary>
+        /// Method to remove an observer of ConsoleKey
+        /// </summary>
+        /// <param name="observer"> Observer of ConsoleKey </param>
         public void RemoveObserver(IObserver<ConsoleKey> observer)
         {
             foreach (ICollection<IObserver<ConsoleKey>> theseObservers
