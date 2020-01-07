@@ -76,12 +76,6 @@ namespace GameEngine
                             if (collisionMap[x, y] != null)
                             {
                                 collider.Colliding = true;
-
-                                // Warn collider that it is colliding
-                                //Console.WriteLine(
-                                //    "Unable to specify coordinate as occupied by "
-                                //    + $"'{gObj.Name}' since it is previously "
-                                //    + $"occupied by '{collisionMap[x, y].Name}'");
                             }
                             else
                             {

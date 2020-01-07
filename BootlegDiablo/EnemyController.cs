@@ -43,9 +43,9 @@ namespace BootlegDiablo
         /// </summary>
         public override void Start()
         {
-            _transform = ParentGameObject.GetComponent<Transform>();
-            _collider = ParentGameObject.GetComponent<ObjectCollider>();
             _parent = ParentGameObject as Enemy;
+            _transform = _parent.GetComponent<Transform>();
+            _collider = _parent.GetComponent<ObjectCollider>();
         }
 
         /// <summary>
@@ -97,16 +97,18 @@ namespace BootlegDiablo
                         _parent.Attack();
                         break;
                 }
-
-                // Make sure enemy doesn't get outside of dungeon area
-                x = Math.Clamp(x, 1, ParentScene.xdim - 3);
-                y = Math.Clamp(y, 1, ParentScene.ydim - 3);
-
-                // Update enemy position
-                _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }
 
-            else if (_collider.Colliding)
+            // Make sure enemy doesn't get outside of dungeon area
+            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
+
+            // Update enemy position
+            _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
+
+            Console.Write($"{_parent.Name}: {_prevPos}, {_transform.Pos} ");
+
+            if (_collider.Colliding)
             {
                 _collider.ColPos = new Vector2(_prevPos.X, _prevPos.Y);
                 _transform.Pos = new Vector3(_prevPos, _transform.Pos.Z);

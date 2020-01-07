@@ -208,18 +208,21 @@ namespace BootlegDiablo
                     // COLLIDERS
                     for (int x = 0; x < room.Dim.X; x++)
                     {
-                        walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                        walls.AddComponent(new ObjectCollider(
+                            new Vector2(xpos, ydim)));
                         xpos++;
                         //Console.Write($"Col {x}: {xpos}, {ydim}");
                     }
                     for (int x = 0; x < room.Dim.X; x++)
                     {
-                        walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                        walls.AddComponent(new ObjectCollider(
+                            new Vector2(xpos2, ydim + room.Dim.Y - 1)));
                         xpos2++;
                     }
                     for (int y = 0; y < room.Dim.Y; y++)
                     {
-                        walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                        walls.AddComponent(new ObjectCollider(
+                            new Vector2(xdim, ypos)));
                         ypos++;
                     }
                     for (int y = 0; y < room.Dim.Y; y++)
@@ -261,18 +264,20 @@ namespace BootlegDiablo
                         // COLLIDERS
                         for (int x = 0; x < room.Dim.X; x++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xpos, ydim)));
                             xpos++;
-                            //Console.Write($"Col {x}: {xpos}, {ydim}");
                         }
                         for (int x = 0; x < room.Dim.X; x++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xpos2, ydim + room.Dim.Y - 1)));
                             xpos2++;
                         }
                         for (int y = 0; y < room.Dim.Y; y++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xdim, ypos)));
                             ypos++;
                         }
                         for (int y = 0; y < room.Dim.Y; y++)
@@ -298,18 +303,20 @@ namespace BootlegDiablo
                         // COLLIDERS
                         for (int x = 0; x < room.Dim.X; x++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xpos, ydim)));
                             xpos++;
-                            //Console.Write($"Col {x}: {xpos}, {ydim}");
                         }
                         for (int x = 0; x < room.Dim.X; x++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xpos2, ydim + room.Dim.Y - 1)));
                             xpos2++;
                         }
                         for (int y = 0; y < room.Dim.Y; y++)
                         {
-                            walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xdim, ypos)));
                             ypos++;
                         }
                         for (int y = 0; y < room.Dim.Y; y++)
@@ -363,7 +370,7 @@ namespace BootlegDiablo
                     int enemyX = Convert.ToInt32
                         (wallTrans.Pos.X + (room.Dim.X / 2) + i);
                     int enemyY = Convert.ToInt32
-                        (wallTrans.Pos.Y + (room.Dim.Y / 2) + i);
+                        (wallTrans.Pos.Y + (room.Dim.Y / 2));
 
                     room.Enemies[i].Name += i;
                     room.Enemies[i].Name += index;
