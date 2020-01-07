@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace GameEngine
 {
     /// <summary>
-    /// 
+    /// Class 
     /// </summary>
     public class CollisionHandler
     {
@@ -27,7 +26,7 @@ namespace GameEngine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="xdim"></param>
+        /// <param name="xdim"> Game Scene</param>
         /// <param name="ydim"></param>
         public CollisionHandler(int xdim, int ydim)
         {
@@ -59,6 +58,8 @@ namespace GameEngine
                             int x = (int)collider.ColPos.X;
                             int y = (int)collider.ColPos.Y;
 
+                            // Check if object hasn't even got positioned
+                            // correctly
                             if (x == 0 && y == 0)
                             {
                                 Console.WriteLine(gObj.Name);
@@ -73,6 +74,7 @@ namespace GameEngine
                                     + $" object '{gObj.Name}'");
                             }
 
+                            // If position is occupied by another game object
                             if (collisionMap[x, y] != null)
                             {
                                 collider.Colliding = true;

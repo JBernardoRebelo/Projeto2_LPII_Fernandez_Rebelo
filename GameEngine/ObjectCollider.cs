@@ -19,6 +19,9 @@ namespace GameEngine
         /// </summary>
         private Transform _transform;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly bool _update;
 
         /// <summary>

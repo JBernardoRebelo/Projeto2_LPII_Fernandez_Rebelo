@@ -3,12 +3,31 @@ using System.Collections.Generic;
 
 namespace GameEngine
 {
+    /// <summary>
+    /// Class responsible to observe user input
+    /// </summary>
     public class KeyObserver : Component, IObserver<ConsoleKey>
     {
+        /// <summary>
+        /// IEnumerble of keys to be observed for input
+        /// </summary>
         private IEnumerable<ConsoleKey> keysToObserve;
+
+        /// <summary>
+        /// Collection of inputed keys
+        /// </summary>
         private Queue<ConsoleKey> observedKeys;
+
+        /// <summary>
+        /// Lock used for the thread
+        /// </summary>
         private object queueLock;
 
+        /// <summary>
+        /// Constructor for KeyObserver class
+        /// </summary>
+        /// <param name="keysToObserve"> IEnumerable of keys to be observed
+        /// </param>
         public KeyObserver(IEnumerable<ConsoleKey> keysToObserve)
         {
             this.keysToObserve = keysToObserve;
@@ -16,13 +35,20 @@ namespace GameEngine
             queueLock = new object();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Start()
         {
             ParentScene.inputHandler.RegisterObserver(keysToObserve, this);
         }
 
-        // This method will be called by the subject when an observed key is
-        // pressed
+
+        /// <summary>
+        /// This method will be called by the subject when an observed key is
+        /// pressed
+        /// </summary>
+        /// <param name="notification"></param>
         public void Notify(ConsoleKey notification)
         {
             lock (queueLock)
@@ -31,7 +57,10 @@ namespace GameEngine
             }
         }
 
-        // Return the currently observed keys
+        /// <summary>
+        /// Return the currently observed keys
+        /// </summary>
+        /// <returns> IEnumerable of </returns>
         public IEnumerable<ConsoleKey> GetCurrentKeys()
         {
             IEnumerable<ConsoleKey> currentKeys;
