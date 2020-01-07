@@ -3,6 +3,9 @@ using static System.Console;
 
 namespace BootlegDiablo
 {
+    /// <summary>
+    /// Used to print Text on screen and manage menus
+    /// </summary>
     public class Render
     {
         /// <summary>
@@ -77,6 +80,10 @@ namespace BootlegDiablo
 
         }
 
+        /// <summary>
+        /// Displays essential info in real time
+        /// </summary>
+        /// <param name="player"> Accepts a player to access details </param>
         public void EssencialInfo(Player player)
         {
             WriteLine($"{player.ChosenName} | HP: {player.Life} |" +
@@ -176,9 +183,9 @@ namespace BootlegDiablo
         private void DisplayLogo()
         {
             ForegroundColor = ConsoleColor.Red;
-            Console.Write(
+            Write(
                 " ______	 _________ _______  ______   _	      _______\n" +
-                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n" +
+                "(  __  \\ \\__   __/(  ___  )(  ___ \\ ( \\      (  ___  )\n"+
                 "| (  \\  )   ) (   | (   ) || (   ) )| (      | (   ) |\n" +
                 "| |   ) |   | |   | (___) || (__/ / | |      | |   | |\n" +
                 "| |   | |   | |   |  ___  ||  __ (  | |      | |   | |\n" +
