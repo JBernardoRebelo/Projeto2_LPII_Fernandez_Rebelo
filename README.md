@@ -107,7 +107,7 @@ incrementam;
 
 ## Referências
 
-- Conversas com os alunos André Vitorino e Rodrigo Pinheiro sobre problemas 
+- Conversas com os alunos André Vitorino, Rodrigo Pinheiro e Guilherme Saturno sobre problemas 
 relacionados com *colliders*.
 
 - Game Engine baseado no que o professor Nuno Fachada disponibilizou. 
