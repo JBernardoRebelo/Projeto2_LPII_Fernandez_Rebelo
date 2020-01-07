@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface that all gameObjects must implement
     /// </summary>
-    interface IGameObject
+    public interface IGameObject
     {
         /// <summary>
         /// Method to be used at the beginning of the gameLoop

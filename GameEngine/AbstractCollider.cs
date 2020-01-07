@@ -9,8 +9,13 @@ namespace GameEngine
     public abstract class AbstractCollider : Component
     {
         /// <summary>
-        /// IEnumerable of occupied positions
+        /// Collider position
         /// </summary>
-        public abstract IEnumerable<Vector2> Occupied { get; }
+        public abstract Vector2 ColPos { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Colliding { get; set; }
     }
 }
