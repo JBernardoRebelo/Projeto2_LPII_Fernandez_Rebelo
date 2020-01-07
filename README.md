@@ -1,6 +1,6 @@
-# 2º Projeto de Linguagens de Programação II 2019/2020
+# Diabo - 2º Projeto de Linguagens de Programação II 2019/2020
 
-## [Repo Git - Projeto](https://github.com/JBernardoRebelo/Projeto2_LPII_Fernandez_Rebelo)
+O código fonte situa-se [neste](https://github.com/JBernardoRebelo/Projeto2_LPII_Fernandez_Rebelo) repositório público.
 
 ## Autores
 
