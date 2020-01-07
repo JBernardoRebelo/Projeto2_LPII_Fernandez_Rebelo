@@ -166,49 +166,75 @@ namespace BootlegDiablo
 
                 wallPixels = new Dictionary<Vector2, ConsolePixel>();
 
-                AbstractCollider colliderUp;
-                AbstractCollider colliderLeft;
-                AbstractCollider colliderRight;
-                AbstractCollider colliderDown;
-
                 // WALLS
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, 0)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(x, 1), true));
                 }
                 for (int x = 0; x < room.Dim.X; x++)
                 {
                     wallPixels[new Vector2(x, room.Dim.Y - 1)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(
-                        new Vector2(x, room.Dim.Y - 1)));
                 }
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
                     wallPixels[new Vector2(0, y)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(new Vector2(1, y)));
                 }
                 for (int y = 0; y < room.Dim.Y; y++)
                 {
                     wallPixels[new Vector2(room.Dim.X - 1, y)] = wallPixel;
-                    walls.AddComponent(new ObjectCollider(
-                        new Vector2(room.Dim.X - 1, y)));
                 }
+
+                float xdim;
+                float ydim;
+                int xpos;
+                int xpos2;
+                int ypos;
+                int ypos2;
 
                 // First room walls
                 if (aux == null && auxRoom == null)
                 {
+                    xdim = 1;
+                    ydim = _y / 6;
+
                     walls.AddComponent(new ConsoleSprite(wallPixels));
-                    walls.AddComponent(new Transform(1, _y / 6, 1f));
+                    walls.AddComponent(new Transform(xdim, ydim, 1f));
+
+                    xpos = (int)xdim;
+                    xpos2 = (int)xdim;
+                    ypos = (int)ydim;
+                    ypos2 = (int)ydim;
+
+                    // COLLIDERS
+                    for (int x = 0; x < room.Dim.X; x++)
+                    {
+                        walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                        xpos++;
+                        //Console.Write($"Col {x}: {xpos}, {ydim}");
+                    }
+                    for (int x = 0; x < room.Dim.X; x++)
+                    {
+                        walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                        xpos2++;
+                    }
+                    for (int y = 0; y < room.Dim.Y; y++)
+                    {
+                        walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                        ypos++;
+                    }
+                    for (int y = 0; y < room.Dim.Y; y++)
+                    {
+                        walls.AddComponent(new ObjectCollider(
+                            new Vector2(xdim + room.Dim.X -1, ypos2)));
+                        ypos2++;
+                    }
 
                     aux = walls;
                     auxRoom = room;
                 }
                 else
                 {
-                    float xdim;
                     auxTrans = aux.GetComponent<Transform>();
-
 
                     // X of room is taken from the previus walls
                     // and room dimensions
@@ -217,7 +243,7 @@ namespace BootlegDiablo
 
                     // Y of room is taken from the previus walls and doors
                     // In relation with the center of the current room
-                    float ydim = auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
+                    ydim = auxTrans.Pos.Y + (auxRoom.Dim.Y / 2)
                         - (room.Dim.Y / 2);
 
                     // Make sure the room doesn't get out of bounds
@@ -226,12 +252,72 @@ namespace BootlegDiablo
                         // Add the sprite and transform to assign position
                         walls.AddComponent(new ConsoleSprite(wallPixels));
                         walls.AddComponent(new Transform(xdim, ydim, 1f));
+
+                        xpos = (int)xdim;
+                        xpos2 = (int)xdim;
+                        ypos = (int)ydim;
+                        ypos2 = (int)ydim;
+
+                        // COLLIDERS
+                        for (int x = 0; x < room.Dim.X; x++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                            xpos++;
+                            //Console.Write($"Col {x}: {xpos}, {ydim}");
+                        }
+                        for (int x = 0; x < room.Dim.X; x++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                            xpos2++;
+                        }
+                        for (int y = 0; y < room.Dim.Y; y++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                            ypos++;
+                        }
+                        for (int y = 0; y < room.Dim.Y; y++)
+                        {
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xdim + room.Dim.X - 1, ypos2)));
+                            ypos2++;
+                        }
                     }
                     else
                     {
+                        xdim = 1;
+                        ydim = _y / 2;
+
                         walls.AddComponent(new ConsoleSprite(wallPixels));
-                        walls.AddComponent(new Transform(1,
-                           _y / 2, 1f));
+                        walls.AddComponent(new Transform(xdim, ydim, 1f));
+
+                        xpos = (int)xdim;
+                        xpos2 = (int)xdim;
+                        ypos = (int)ydim;
+                        ypos2 = (int)ydim;
+
+                        // COLLIDERS
+                        for (int x = 0; x < room.Dim.X; x++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xpos, ydim)));
+                            xpos++;
+                            //Console.Write($"Col {x}: {xpos}, {ydim}");
+                        }
+                        for (int x = 0; x < room.Dim.X; x++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xpos2, ydim + room.Dim.Y - 1)));
+                            xpos2++;
+                        }
+                        for (int y = 0; y < room.Dim.Y; y++)
+                        {
+                            walls.AddComponent(new ObjectCollider(new Vector2(xdim, ypos)));
+                            ypos++;
+                        }
+                        for (int y = 0; y < room.Dim.Y; y++)
+                        {
+                            walls.AddComponent(new ObjectCollider(
+                                new Vector2(xdim + room.Dim.X - 1, ypos2)));
+                            ypos2++;
+                        }
                     }
 
                     aux = walls;

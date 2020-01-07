@@ -99,19 +99,18 @@ namespace BootlegDiablo
                             break;
                     }
                 }
-
-                // Make sure player doesn't get outside of dungeon area
-                x = Math.Clamp(x, 1, ParentScene.xdim - 3);
-                y = Math.Clamp(y, 1, ParentScene.ydim - 3);
-
-                // Show essential information
-                _rndr.EssencialInfo(_player);
-
-                // Update player position
-                _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
             }
+            // Make sure player doesn't get outside of dungeon area
+            x = Math.Clamp(x, 1, ParentScene.xdim - 3);
+            y = Math.Clamp(y, 1, ParentScene.ydim - 3);
 
-            else if (_collider.Colliding)
+            // Show essential information
+            _rndr.EssencialInfo(_player);
+
+            // Update player position
+            _transform.Pos = new Vector3(x, y, _transform.Pos.Z);
+
+            if (_collider.Colliding)
             {
                 _collider.ColPos = new Vector2(_prevPos.X, _prevPos.Y);
                 _transform.Pos = new Vector3(_prevPos, _transform.Pos.Z);
